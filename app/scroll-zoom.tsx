@@ -76,7 +76,9 @@ export function FullHeroSection() {
         {/* ── Warm scrims ── */}
         <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "rgba(10,18,6,0.30)" }} />
         <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "linear-gradient(to bottom, rgba(10,18,6,0.72) 0%, rgba(10,18,6,0.34) 22%, transparent 46%, transparent 60%, rgba(10,18,6,0.78) 100%)" }} />
-        <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "radial-gradient(ellipse 60% 50% at 50% 60%, rgba(216,150,40,0.16) 0%, transparent 70%)" }} />
+        <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "radial-gradient(ellipse 60% 50% at 50% 60%, rgba(216,150,40,0.18) 0%, transparent 70%)" }} />
+        {/* Amber color-wash — unifies + lifts the warmth across the whole scene */}
+        <div style={{ position: "absolute", inset: 0, zIndex: 2, background: "rgba(196,118,34,0.14)", mixBlendMode: "soft-light", pointerEvents: "none" }} />
         {/* Cinematic film grain */}
         <div className="film-grain" style={{ zIndex: 2 }} />
 
