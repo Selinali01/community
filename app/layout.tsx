@@ -27,6 +27,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+      <head>
+        {/* Preload hero background so it's ready before first paint */}
+        <link
+          rel="preload"
+          as="image"
+          href="https://images.unsplash.com/photo-1567853042143-8d8480f022ad?auto=format&fit=crop&w=1920&q=85"
+        />
+      </head>
       <body>{children}</body>
     </html>
   );

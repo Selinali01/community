@@ -116,7 +116,7 @@ function AnimatedCard({
   return (
     <div style={{ position: "absolute", left: `${member.x}%`, top: `${member.y}%`, transform: "translate(-50%,-50%)", zIndex: 10 }}>
       <motion.div style={{ opacity, scale }}>
-        {/* Gentle independent float on each card — makes scene feel alive */}
+        {/* Float + hover — float is time-driven, hover is interaction-driven */}
         <motion.div
           animate={{ y: [0, -6, 0] }}
           transition={{
@@ -126,6 +126,10 @@ function AnimatedCard({
             delay: idx * 0.58,
           }}
         >
+          <motion.div
+            whileHover={{ scale: 1.06, transition: { duration: 0.18, ease: "easeOut" } }}
+            style={{ cursor: "default" }}
+          >
           <div style={{
             background: "rgba(252,248,240,0.90)",
             backdropFilter: "blur(22px)",
@@ -157,6 +161,7 @@ function AnimatedCard({
               </div>
             </div>
           </div>
+          </motion.div>
         </motion.div>
       </motion.div>
     </div>

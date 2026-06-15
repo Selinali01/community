@@ -1,4 +1,9 @@
 import { FullHeroSection } from "./scroll-zoom";
+import {
+  AnimatedFeatureCard,
+  AnimatedStep,
+  AnimatedSectionLabel,
+} from "./animated-section";
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 
@@ -141,14 +146,15 @@ function Features() {
             gap: 16,
           }}
         >
-          {FEATURES.map((f) => (
+          {FEATURES.map((f, i) => (
+            <AnimatedFeatureCard key={f.num} index={i}>
             <div
-              key={f.num}
               style={{
                 background: "#fbfdf6",
                 border: "1px solid #e0e5d5",
                 borderRadius: 8,
                 padding: "28px",
+                height: "100%",
               }}
             >
               <div
@@ -189,6 +195,7 @@ function Features() {
                 {f.body}
               </div>
             </div>
+            </AnimatedFeatureCard>
           ))}
         </div>
       </div>
@@ -222,7 +229,8 @@ function HowItWorks() {
           }}
         >
           {STEPS.map((step, i) => (
-            <div key={step.num} style={{ position: "relative" }}>
+            <AnimatedStep key={step.num} index={i}>
+            <div style={{ position: "relative" }}>
               <div
                 style={{
                   fontFamily: "var(--font-fragment-mono)",
@@ -274,6 +282,7 @@ function HowItWorks() {
                 />
               )}
             </div>
+            </AnimatedStep>
           ))}
         </div>
       </div>
