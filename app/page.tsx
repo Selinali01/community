@@ -296,6 +296,138 @@ function HowItWorks() {
   );
 }
 
+// ── Real testimonial from OGC member (from the actual bubblelab-community-platform codebase) ──
+
+function Testimonial() {
+  return (
+    <section style={{ padding: "80px 32px", background: "#fbfdf6", textAlign: "center" }}>
+      <div style={{ maxWidth: 620, margin: "0 auto" }}>
+        <div style={{
+          fontFamily: "var(--font-fragment-mono)", fontSize: 10,
+          letterSpacing: "0.08em", textTransform: "uppercase",
+          color: "#4a3212", marginBottom: 28, opacity: 0.6,
+        }}>
+          From the community
+        </div>
+        <blockquote style={{
+          fontSize: 22, fontWeight: 400, lineHeight: 1.55,
+          letterSpacing: "-0.88px", color: "#0a1d08",
+          fontFamily: "var(--font-akkurat)", fontStyle: "italic",
+          margin: "0 0 24px",
+        }}>
+          &ldquo;OGC has become a part of my daily life. I didn&rsquo;t think a Slack community
+          could make such a big impact on me, but I can&rsquo;t go without it now.
+          It&rsquo;s a place where I feel zero judgement.&rdquo;
+        </blockquote>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
+          <img
+            src="https://randomuser.me/api/portraits/women/44.jpg"
+            alt="Lindsay Rios"
+            style={{ width: 32, height: 32, borderRadius: "50%", objectFit: "cover", border: "1.5px solid #d7e8b5" }}
+          />
+          <div style={{ fontSize: 12, color: "#4a3212", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.02em" }}>
+            — Lindsay Rios, <span style={{ color: "#7a3954", fontWeight: 700 }}>OGC</span> Member
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── Product UI preview — what the dashboard actually looks like ──────────────
+
+const PREVIEW_MEMBERS = [
+  { name: "Sarah M.", role: "Head of Growth", co: "Figma",  brand: "#7B61FF", photo: "https://randomuser.me/api/portraits/women/44.jpg" },
+  { name: "Alex K.",  role: "VP Engineering", co: "Linear", brand: "#5D64CF", photo: "https://randomuser.me/api/portraits/men/32.jpg" },
+  { name: "Jordan L.",role: "Chief of Staff",  co: "Stripe", brand: "#635BFF", photo: "https://randomuser.me/api/portraits/women/68.jpg" },
+  { name: "Maya P.",  role: "Head of Product", co: "Notion", brand: "#37352F", photo: "https://randomuser.me/api/portraits/women/22.jpg" },
+];
+
+function ProductPreview() {
+  return (
+    <section style={{ padding: "80px 32px", background: "#eff2e8" }}>
+      <div style={{ maxWidth: 960, margin: "0 auto" }}>
+        <div style={{ textAlign: "center", marginBottom: 48 }}>
+          <div style={{
+            fontFamily: "var(--font-fragment-mono)", fontSize: 11,
+            letterSpacing: "0.06em", textTransform: "uppercase",
+            color: "#0a1d08", marginBottom: 12,
+          }}>
+            The platform
+          </div>
+          <h2 style={{
+            fontSize: "clamp(28px, 4vw, 42px)", fontWeight: 400,
+            letterSpacing: "-1.68px", color: "#0a1d08",
+            fontFamily: "var(--font-akkurat)", margin: 0, lineHeight: 1.1,
+          }}>
+            Your whole community, in one place.
+          </h2>
+        </div>
+
+        {/* Product window mockup */}
+        <div style={{
+          background: "#fbfdf6", border: "1px solid #0a1d08",
+          borderRadius: 20, overflow: "hidden",
+          boxShadow: "0 32px 80px -16px rgba(10,29,8,0.16), rgba(99,143,61,0.1) 0px 0px 0px 1px",
+        }}>
+          {/* Chrome bar */}
+          <div style={{
+            height: 44, borderBottom: "1px solid #e0e5d5",
+            display: "flex", alignItems: "center", justifyContent: "space-between",
+            padding: "0 20px", background: "#fbfdf6",
+          }}>
+            <div style={{ display: "flex", gap: 6 }}>
+              {(["#c5ccb6", "#e0e5d5", "#d7e8b5"] as const).map((c, i) => (
+                <div key={i} style={{ width: 10, height: 10, borderRadius: "50%", background: c, border: "1px solid rgba(10,29,8,0.10)" }} />
+              ))}
+            </div>
+            <div style={{ fontSize: 12, fontWeight: 700, color: "#0a1d08", letterSpacing: "-0.48px", fontFamily: "var(--font-akkurat)" }}>
+              BubbleLab Community
+            </div>
+            <div style={{ display: "flex", gap: 4 }}>
+              {(["Directory", "Matchmaking", "Events"] as const).map((label) => (
+                <div key={label} style={{
+                  padding: "3px 10px", borderRadius: 9999, fontSize: 11,
+                  letterSpacing: "-0.44px", fontFamily: "var(--font-akkurat)",
+                  fontWeight: label === "Directory" ? 700 : 400,
+                  color: label === "Directory" ? "#fbfdf6" : "#4a3212",
+                  background: label === "Directory" ? "#0a1d08" : "transparent",
+                }}>
+                  {label}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Member directory grid */}
+          <div style={{ padding: "20px 20px 24px", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
+            {PREVIEW_MEMBERS.map((m, i) => (
+              <div key={i} style={{
+                background: "#fbfdf6", border: "1px solid #e0e5d5", borderRadius: 12,
+                padding: "16px 12px", display: "flex", flexDirection: "column",
+                alignItems: "center", gap: 8, textAlign: "center",
+              }}>
+                <img src={m.photo} alt={m.name} style={{
+                  width: 52, height: 52, borderRadius: "50%", objectFit: "cover",
+                  border: "2px solid #d7e8b5",
+                }} />
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: "#0a1d08", letterSpacing: "-0.48px", fontFamily: "var(--font-akkurat)" }}>{m.name}</div>
+                  <div style={{ fontSize: 10, color: "#4a3212", letterSpacing: "-0.40px", marginTop: 2, fontFamily: "var(--font-akkurat)" }}>{m.role}</div>
+                  <div style={{ marginTop: 5, display: "inline-flex", alignItems: "center", gap: 3 }}>
+                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: m.brand }} />
+                    <span style={{ fontSize: 9, color: "#4a3212", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.02em" }}>{m.co}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function CtaSection() {
   return (
     <section
@@ -450,7 +582,9 @@ export default function Home() {
     >
       <Nav />
       <FullHeroSection />
+      <Testimonial />
       <Features />
+      <ProductPreview />
       <HowItWorks />
       <CtaSection />
       <Footer />
