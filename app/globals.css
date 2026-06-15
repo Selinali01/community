@@ -81,3 +81,8 @@ body {
 .fade-rise-1 { animation: fade-rise 0.9s cubic-bezier(0.16,1,0.3,1) 0.15s both; }
 .fade-rise-2 { animation: fade-rise 0.9s cubic-bezier(0.16,1,0.3,1) 0.30s both; }
 .fade-rise-3 { animation: fade-rise 0.9s cubic-bezier(0.16,1,0.3,1) 0.45s both; }
+
+/* Hide hero nav links on small screens (!important beats the inline flex) */
+@media (max-width: 720px) {
+  .hero-nav-links { display: none !important; }
+}

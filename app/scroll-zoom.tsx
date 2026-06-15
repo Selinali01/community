@@ -86,7 +86,7 @@ export function FullHeroSection() {
           <sup style={{ fontSize: 9, fontWeight: 400, opacity: 0.7, fontFamily: "var(--font-fragment-mono)" }}>®</sup>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: 30 }} className="hero-nav-links">
+        <div className="hero-nav-links" style={{ display: "flex", alignItems: "center", gap: 30 }}>
           {NAV_LINKS.map((l, i) => (
             <a key={l} href="#" style={{
               fontSize: 13.5, letterSpacing: "-0.3px", textDecoration: "none",
