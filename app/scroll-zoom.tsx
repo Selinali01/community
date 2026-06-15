@@ -15,15 +15,31 @@ export function FullHeroSection() {
   const ref = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Force-play for browsers that block muted autoplay (iOS Safari, some Chrome).
-  // Without this the hero can freeze on the poster frame.
+  // Force-play for browsers that block muted autoplay (iOS Safari, some Chrome)
+  // and pause the video once the hero scrolls out of view to save CPU/battery.
   useEffect(() => {
     const v = videoRef.current;
+    const section = ref.current;
     if (!v) return;
     const tryPlay = () => v.play().catch(() => {});
     tryPlay();
     v.addEventListener("canplay", tryPlay, { once: true });
-    return () => v.removeEventListener("canplay", tryPlay);
+
+    let io: IntersectionObserver | undefined;
+    if (section && "IntersectionObserver" in window) {
+      io = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) tryPlay();
+          else v.pause();
+        },
+        { threshold: 0.01 }
+      );
+      io.observe(section);
+    }
+    return () => {
+      v.removeEventListener("canplay", tryPlay);
+      io?.disconnect();
+    };
   }, []);
 
   // Window scroll in pixels — reliable (target+sticky useScroll miscalculates).
