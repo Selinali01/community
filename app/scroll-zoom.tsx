@@ -6,6 +6,7 @@ import {
   useScroll,
   useTransform,
   useMotionValue,
+  useMotionTemplate,
   useSpring,
   type MotionValue,
 } from "framer-motion";
@@ -80,7 +81,7 @@ function Avatar({ member }: { member: Member }) {
     return (
       <div
         style={{
-          width: 44, height: 44, borderRadius: "50%",
+          width: 52, height: 52, borderRadius: "50%",
           background: member.avatarBg,
           display: "flex", alignItems: "center", justifyContent: "center",
           fontSize: 13, fontWeight: 700, color: "#fbfdf6",
@@ -98,9 +99,10 @@ function Avatar({ member }: { member: Member }) {
       alt={member.name}
       onError={() => setFailed(true)}
       style={{
-        width: 44, height: 44, borderRadius: "50%",
+        width: 52, height: 52, borderRadius: "50%",
         objectFit: "cover", flexShrink: 0,
-        border: "2.5px solid rgba(215,232,181,0.75)",
+        border: "2.5px solid rgba(215,232,181,0.80)",
+        boxShadow: "0 0 0 1px rgba(215,232,181,0.25)",
       }}
     />
   );
@@ -500,6 +502,11 @@ export function FullHeroSection() {
   const bgParallaxX = useTransform(smoothMX, [-0.5, 0.5], [14, -14]);
   const bgParallaxY = useTransform(smoothMY, [-0.5, 0.5], [8,  -8]);
 
+  // Golden spotlight — follows cursor through the warm field, feels like sunlight
+  const spotX = useTransform(smoothMX, [-0.5, 0.5], [12, 88]);
+  const spotY = useTransform(smoothMY, [-0.5, 0.5], [12, 88]);
+  const spotBg = useMotionTemplate`radial-gradient(circle 340px at ${spotX}% ${spotY}%, rgba(255,210,55,0.08) 0%, transparent 100%)`;
+
   // Collect the first scroll-start per member for node dot timing
   const memberFirstStart = MEMBERS.map((_, mi) => {
     const conn = CONNECTIONS.find(([a, b]) => a === mi || b === mi);
@@ -622,12 +629,18 @@ export function FullHeroSection() {
         </motion.div>
         {/* ── END SCENE ── */}
 
+        {/* ── Golden spotlight — follows cursor, feels like warm sunlight ── */}
+        <motion.div style={{
+          position: "absolute", inset: 0, zIndex: 6, pointerEvents: "none",
+          background: spotBg,
+        }} />
+
         {/* ── Hero text — outside scene scale, always full-size ── */}
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-          style={{ position: "absolute", top: 0, left: 0, right: 0, zIndex: 20, pointerEvents: "none" }}
+          style={{ position: "absolute", top: 0, left: 0, right: 0, zIndex: 21, pointerEvents: "none" }}
         >
         <motion.div
           style={{
