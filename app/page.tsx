@@ -367,6 +367,38 @@ const PREVIEW_MEMBERS = [
   { name: "Maya P.",  role: "Head of Product", co: "Notion", brand: "#37352F", photo: "/avatars/maya.jpg" },
 ];
 
+const INTEGRATIONS = ["Slack", "Stripe", "Luma", "Gmail", "Clerk"];
+
+function Integrations() {
+  return (
+    <section style={{ padding: "56px 32px", background: "#fbfdf6", borderTop: "1px solid #f0ede3" }}>
+      <Reveal>
+        <div style={{ maxWidth: 1000, margin: "0 auto", textAlign: "center" }}>
+          <div style={{
+            fontFamily: "var(--font-fragment-mono)", fontSize: 10, letterSpacing: "0.1em",
+            textTransform: "uppercase", color: "rgba(10,29,8,0.45)", marginBottom: 26,
+          }}>
+            Works with the tools you already use
+          </div>
+          <div style={{
+            display: "flex", flexWrap: "wrap", justifyContent: "center", alignItems: "center",
+            gap: "20px 40px",
+          }}>
+            {INTEGRATIONS.map((name) => (
+              <span key={name} style={{
+                fontSize: 22, fontWeight: 700, letterSpacing: "-0.9px",
+                color: "#0a1d08", fontFamily: "var(--font-akkurat)", opacity: 0.7,
+              }}>
+                {name}
+              </span>
+            ))}
+          </div>
+        </div>
+      </Reveal>
+    </section>
+  );
+}
+
 function ProductPreview() {
   return (
     <section id="product" style={{ padding: "80px 32px", background: "#eff2e8", scrollMarginTop: 80 }}>
@@ -789,6 +821,7 @@ export default function Home() {
       <Testimonial />
       <Communities />
       <Features />
+      <Integrations />
       <ProductPreview />
       <HowItWorks />
       <FAQ />
