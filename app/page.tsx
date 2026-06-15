@@ -252,7 +252,7 @@ function Communities() {
             fontFamily: "var(--font-fragment-mono)", fontSize: 11, letterSpacing: "0.08em",
             textTransform: "uppercase", color: "#4a3212", marginBottom: 16, opacity: 0.7,
           }}>
-            From the community
+            Highlighted customer testimonial
           </div>
           <h2 style={{
             fontSize: "clamp(28px, 4vw, 42px)", fontWeight: 400, letterSpacing: "-1.68px",
@@ -290,7 +290,7 @@ function Communities() {
                   Mallory Contois
                 </div>
                 <div style={{ fontSize: 11, color: "#7a3954", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.04em", marginTop: 3 }}>
-                  OGC Founder
+                  Old Girls Club Founder
                 </div>
               </div>
             </figcaption>
