@@ -216,6 +216,18 @@ function AnimatedLine({
 
   return (
     <g>
+      {/* Featured only: always-visible ghost arc that breathes — hints at the connection before it draws */}
+      {isFeatured && (
+        <motion.path
+          d={d}
+          stroke="rgba(190,240,110,0.28)"
+          strokeWidth="3.5"
+          fill="none" strokeLinecap="round"
+          filter="url(#area-glow)"
+          animate={{ opacity: [0.3, 0.65, 0.3] }}
+          transition={{ duration: 3.8, repeat: Infinity, ease: "easeInOut" }}
+        />
+      )}
       {/* Outer halo — featured is much wider */}
       <motion.path d={d} stroke="rgba(215,232,181,0.18)" strokeWidth={isFeatured ? 2.8 : 1.2}
         fill="none" strokeLinecap="round" style={{ pathLength: pathLen }} />
@@ -630,6 +642,19 @@ export function FullHeroSection() {
               letterSpacing: "-0.56px", textDecoration: "none",
               fontFamily: "var(--font-akkurat)", backdropFilter: "blur(8px)",
             }}>See how it works</a>
+          </div>
+
+          {/* Social proof micro-line */}
+          <div style={{
+            marginTop: 16,
+            fontFamily: "var(--font-fragment-mono)",
+            fontSize: 10,
+            letterSpacing: "0.06em",
+            color: "rgba(10,29,8,0.52)",
+            textTransform: "uppercase",
+            textShadow: "0 1px 10px rgba(255,244,210,0.90)",
+          }}>
+            2 communities · 847 members · 24 matches / week
           </div>
 
         </motion.div>
