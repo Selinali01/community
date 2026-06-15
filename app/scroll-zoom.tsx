@@ -519,9 +519,9 @@ export function FullHeroSection() {
   });
 
   // Scene scale — zooms background + cards + connections together
-  // 1.5x→1.0: Sarah/Alex prominent + Sam/Taylor/Casey/Maya/Chris as faint presences at edges
-  // More people immediately visible vs 2x, while still having a real zoom-out reveal
-  const sceneScale = useTransform(scrollYProgress, [0, 0.85], [1.5, 1.0]);
+  // 1.5x→1.0: completes at 70% (was 85%) — full network at ~882px scroll with 240vh container
+  // 240vh = 1260px scroll range; 70% = 882px; much more immediate feel
+  const sceneScale = useTransform(scrollYProgress, [0, 0.70], [1.5, 1.0]);
   const heroOp     = useTransform(scrollYProgress, [0, 0.13], [1,   0]);
   const heroY      = useTransform(scrollYProgress, [0, 0.15], [0,  -36]);
   const frameOp    = useTransform(scrollYProgress, [0.80, 1], [0,   1]);
@@ -547,7 +547,7 @@ export function FullHeroSection() {
   });
 
   return (
-    <div ref={containerRef} style={{ height: "300vh", position: "relative" }}>
+    <div ref={containerRef} style={{ height: "240vh", position: "relative" }}>
       <div
         style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden" }}
         onMouseMove={(e) => {
