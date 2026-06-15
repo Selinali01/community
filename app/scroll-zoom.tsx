@@ -223,7 +223,7 @@ function AnimatedCard({
           }}>
             <Avatar member={member} />
             <div style={{ width: "100%" }}>
-              <div style={{ fontSize: 12, fontWeight: 700, color: "#0a1d08", letterSpacing: "-0.48px", lineHeight: 1.2 }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: "#0a1d08", letterSpacing: "-0.52px", lineHeight: 1.2 }}>
                 {member.name}
               </div>
               <div style={{ fontSize: 10, color: "#31200b", letterSpacing: "-0.40px", marginTop: 2, lineHeight: 1.3 }}>
@@ -251,7 +251,8 @@ function AnimatedCard({
             <motion.div whileHover={{ scale: 1.06, transition: { duration: 0.18, ease: "easeOut" } }} style={{ cursor: "default" }}>
               <div style={{
                 width: 116,
-                background: "rgba(252,248,240,0.91)",
+                // Warm gradient on ALL cards — cohesive with featured pair
+                background: "linear-gradient(180deg, rgba(253,251,245,0.92) 0%, rgba(252,248,240,0.90) 100%)",
                 backdropFilter: "blur(22px)", WebkitBackdropFilter: "blur(22px)",
                 border: "1px solid rgba(10,29,8,0.08)",
                 borderRadius: 18, padding: "14px 12px 12px",
@@ -260,11 +261,11 @@ function AnimatedCard({
               }}>
                 <Avatar member={member} />
                 <div style={{ width: "100%" }}>
-                  <div style={{ fontSize: 12, fontWeight: 700, color: "#0a1d08", letterSpacing: "-0.48px", lineHeight: 1.2 }}>{member.name}</div>
-                  <div style={{ fontSize: 10, color: "#31200b", letterSpacing: "-0.40px", marginTop: 2, lineHeight: 1.3 }}>{member.role}</div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: "#0a1d08", letterSpacing: "-0.52px", lineHeight: 1.2 }}>{member.name}</div>
+                  <div style={{ fontSize: 11, color: "#31200b", letterSpacing: "-0.44px", marginTop: 2, lineHeight: 1.3 }}>{member.role}</div>
                   <div style={{ marginTop: 5, display: "inline-flex", alignItems: "center", gap: 3 }}>
                     <div style={{ width: 5, height: 5, borderRadius: "50%", background: BRAND[member.company] ?? "#d7e8b5", opacity: 0.85, flexShrink: 0 }} />
-                    <span style={{ fontSize: 10, color: "#4a3212", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.02em" }}>{member.company}</span>
+                    <span style={{ fontSize: 11, color: "#4a3212", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.02em" }}>{member.company}</span>
                   </div>
                 </div>
               </div>
