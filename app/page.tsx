@@ -300,7 +300,8 @@ function HowItWorks() {
 
 function Testimonial() {
   return (
-    <section style={{ padding: "80px 32px", background: "#fbfdf6", textAlign: "center" }}>
+    // Subtle warm gradient at top — visual bridge from the golden hero to cream sections
+    <section style={{ padding: "80px 32px", background: "linear-gradient(to bottom, rgba(245,220,160,0.10) 0%, #fbfdf6 28%)", textAlign: "center" }}>
       <div style={{ maxWidth: 620, margin: "0 auto" }}>
         <div style={{
           fontFamily: "var(--font-fragment-mono)", fontSize: 10,
@@ -399,18 +400,46 @@ function ProductPreview() {
             </div>
           </div>
 
+          {/* Search bar + filter chips — makes it feel like a real product */}
+          <div style={{
+            padding: "10px 20px", borderBottom: "1px solid #e0e5d5",
+            display: "flex", alignItems: "center", gap: 8,
+          }}>
+            <div style={{
+              flex: 1, height: 32, borderRadius: 8, border: "1px solid #e0e5d5",
+              background: "#f8faf3", display: "flex", alignItems: "center",
+              padding: "0 10px", gap: 6,
+            }}>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#c5ccb6" strokeWidth="2.5" strokeLinecap="round">
+                <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+              </svg>
+              <span style={{ fontSize: 11, color: "#c5ccb6", fontFamily: "var(--font-akkurat)" }}>
+                Search 847 members…
+              </span>
+            </div>
+            {(["Engineering", "Design", "Growth", "Operations"] as const).map((tag) => (
+              <div key={tag} style={{
+                padding: "3px 10px", borderRadius: 9999,
+                border: "1px solid #e0e5d5", fontSize: 10,
+                color: "#4a3212", fontFamily: "var(--font-fragment-mono)",
+                letterSpacing: "0.02em", background: "#fbfdf6",
+              }}>
+                {tag}
+              </div>
+            ))}
+          </div>
+
           {/* Member directory grid */}
-          <div style={{ padding: "20px 20px 24px", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
+          <div style={{ padding: "16px 20px 20px", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10 }}>
             {PREVIEW_MEMBERS.map((m, i) => (
               <div key={i} style={{
                 background: "#fbfdf6", border: "1px solid #e0e5d5", borderRadius: 12,
                 padding: "16px 12px", display: "flex", flexDirection: "column",
                 alignItems: "center", gap: 8, textAlign: "center",
               }}>
-                <img src={m.photo} alt={m.name} style={{
-                  width: 52, height: 52, borderRadius: "50%", objectFit: "cover",
-                  border: "2px solid #d7e8b5",
-                }} />
+                <img src={m.photo} alt={m.name}
+                  style={{ width: 52, height: 52, borderRadius: "50%", objectFit: "cover", border: "2px solid #d7e8b5" }}
+                />
                 <div>
                   <div style={{ fontSize: 12, fontWeight: 700, color: "#0a1d08", letterSpacing: "-0.48px", fontFamily: "var(--font-akkurat)" }}>{m.name}</div>
                   <div style={{ fontSize: 10, color: "#4a3212", letterSpacing: "-0.40px", marginTop: 2, fontFamily: "var(--font-akkurat)" }}>{m.role}</div>
@@ -419,6 +448,19 @@ function ProductPreview() {
                     <span style={{ fontSize: 9, color: "#4a3212", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.02em" }}>{m.co}</span>
                   </div>
                 </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom stats bar */}
+          <div style={{
+            padding: "10px 20px", borderTop: "1px solid #e0e5d5",
+            display: "flex", gap: 20, alignItems: "center",
+          }}>
+            {[["847", "members"], ["24", "matches / week"], ["12", "events"]].map(([v, l]) => (
+              <div key={l} style={{ display: "flex", alignItems: "baseline", gap: 5 }}>
+                <span style={{ fontSize: 13, fontWeight: 700, color: "#0a1d08", letterSpacing: "-0.52px", fontFamily: "var(--font-fragment-mono)" }}>{v}</span>
+                <span style={{ fontSize: 10, color: "#4a3212", letterSpacing: "0.02em", fontFamily: "var(--font-fragment-mono)", opacity: 0.65 }}>{l}</span>
               </div>
             ))}
           </div>
