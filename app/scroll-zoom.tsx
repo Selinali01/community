@@ -107,15 +107,9 @@ export function FullHeroSection() {
   const heroY = useTransform(scrollY, [0, 360], [0, -80]);
   const heroOp = useTransform(scrollY, [0, 300], [1, 0]);
 
-  // "Connected through us" — settles by ~540px, then holds until the unpin
+  // Reveal copy + stats — settle by ~540px, then hold until the unpin
   const revealOp = useTransform(scrollY, [330, 540], [0, 1]);
   const revealY = useTransform(scrollY, [330, 540], [40, 0]);
-
-  // Connection network — warm light-threads draw between the people and
-  // converge on a central hub ("us") as the camera pulls back. The literal
-  // "all connected through us." Draws in over the same window as the reveal.
-  const threadDraw = useTransform(scrollY, [330, 560], r ? [0, 1] : [1, 1]);
-  const threadOp = useTransform(scrollY, [330, 470], r ? [0, 0.62] : [0.62, 0.62]);
 
   // Scroll cue — visible at rest, fades the moment you start scrolling
 
@@ -197,54 +191,6 @@ export function FullHeroSection() {
 
         {/* Cinematic film grain */}
         <div className="film-grain" aria-hidden="true" style={{ zIndex: 2 }} />
-
-        {/* ── Connection network — people linked through a central hub ("us") ── */}
-        <motion.div aria-hidden="true" style={{ x: pX, y: pY, position: "absolute", inset: -16, zIndex: 3, pointerEvents: "none", opacity: threadOp }}>
-          <svg viewBox="0 0 100 60" preserveAspectRatio="xMidYMid slice" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}>
-            <defs>
-              <filter id="threadGlow" x="-40%" y="-40%" width="180%" height="180%">
-                <feGaussianBlur stdDeviation="0.5" result="b" />
-                <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
-              </filter>
-              <radialGradient id="hubGrad">
-                <stop offset="0%" stopColor="#fbf0d2" stopOpacity="0.95" />
-                <stop offset="60%" stopColor="#e9b563" stopOpacity="0.55" />
-                <stop offset="100%" stopColor="#e9b563" stopOpacity="0" />
-              </radialGradient>
-            </defs>
-            {/* people positions in the wide shot → curved threads to the hub (50,40) */}
-            {([[10, 24], [20, 27], [42, 22], [63, 25], [83, 24]] as const).map(([px, py], i) => {
-              const hx = 50, hy = 40;
-              const cx = (px + hx) / 2, cy = (py + hy) / 2 - 7; // bow the line upward
-              return (
-                <g key={i} filter="url(#threadGlow)">
-                  <motion.path
-                    d={`M ${px} ${py} Q ${cx} ${cy} ${hx} ${hy}`}
-                    fill="none" stroke="#f3d9a0" strokeWidth={0.16} strokeLinecap="round"
-                    style={{ pathLength: threadDraw }}
-                  />
-                  <motion.circle cx={px} cy={py} r={0.62} fill="#fbf0d2" style={{ opacity: threadDraw }} />
-                </g>
-              );
-            })}
-            {/* central hub — "us": a living point the whole network flows into */}
-            <circle cx={50} cy={40} r={5} fill="url(#hubGrad)" />
-            {/* slow radar-pulse rippling outward — energy moving through us */}
-            <motion.circle
-              cx={50} cy={40} fill="none" stroke="#f3d9a0" strokeWidth={0.1}
-              initial={{ r: 1.4, opacity: 0 }}
-              animate={r ? { r: [1.4, 7], opacity: [0.55, 0] } : { r: 1.4, opacity: 0 }}
-              transition={{ duration: 3.4, repeat: Infinity, ease: "easeOut" }}
-            />
-            {/* breathing core */}
-            <motion.circle
-              cx={50} cy={40} fill="#fbf4df" filter="url(#threadGlow)"
-              initial={{ r: 1.15 }}
-              animate={r ? { r: [1.1, 1.42, 1.1] } : { r: 1.15 }}
-              transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </svg>
-        </motion.div>
 
         {/* ── Glass nav ── */}
         <nav
