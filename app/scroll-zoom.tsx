@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 // Mixkit: diverse group in genuine conversation around warm light in a garden at night.
@@ -13,6 +13,19 @@ const NAV_LINKS = ["Platform", "Communities", "Pricing", "About"];
 
 export function FullHeroSection() {
   const ref = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Force-play for browsers that block muted autoplay (iOS Safari, some Chrome).
+  // Without this the hero can freeze on the poster frame.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    const tryPlay = () => v.play().catch(() => {});
+    tryPlay();
+    v.addEventListener("canplay", tryPlay, { once: true });
+    return () => v.removeEventListener("canplay", tryPlay);
+  }, []);
+
   // Window scroll in pixels — reliable (target+sticky useScroll miscalculates).
   // The hero sits at the top of the page, so scrollY 0 == hero start.
   const { scrollY } = useScroll();
@@ -36,10 +49,12 @@ export function FullHeroSection() {
       <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", display: "flex", flexDirection: "column" }}>
         {/* ── Fullscreen looping video — the people, the scene ── */}
         <motion.video
+          ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
+          preload="auto"
           poster={POSTER}
           style={{
             scale: videoScale,
