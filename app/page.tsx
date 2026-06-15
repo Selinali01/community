@@ -62,64 +62,6 @@ const STEPS = [
 
 // ── Components ────────────────────────────────────────────────────────────────
 
-function Nav() {
-  return (
-    <div
-      style={{
-        position: "fixed",
-        top: 0, left: 0, right: 0,
-        zIndex: 50,
-        // Frosted glass — always readable against the animated hero background
-        background: "rgba(251,253,246,0.72)",
-        backdropFilter: "blur(14px)",
-        WebkitBackdropFilter: "blur(14px)",
-        borderBottom: "1px solid rgba(224,229,213,0.35)",
-      }}
-    >
-      <nav
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          height: 60,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "0 32px",
-        }}
-      >
-        <div
-          style={{
-            fontWeight: 700,
-            fontSize: 14,
-            letterSpacing: "-0.56px",
-            color: "#0a1d08",
-            fontFamily: "var(--font-akkurat)",
-          }}
-        >
-          BubbleLab
-        </div>
-        <a
-          href="#"
-          style={{
-            background: "#4a3212",
-            color: "#fbfdf6",
-            borderRadius: 20,
-            padding: "8px 20px",
-            fontSize: 14,
-            fontWeight: 700,
-            letterSpacing: "-0.56px",
-            textDecoration: "none",
-            fontFamily: "var(--font-akkurat)",
-          }}
-        >
-          Get started
-        </a>
-      </nav>
-    </div>
-  );
-}
-
-
 function Features() {
   return (
     <section
