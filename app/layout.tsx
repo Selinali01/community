@@ -20,12 +20,12 @@ const DESCRIPTION =
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://community.bubblelab.ai"),
-  title: "BubbleLab Community — Run the community. Not the ops.",
+  title: "Bubble Lab Communities — Run the community. Not the ops.",
   description: DESCRIPTION,
   openGraph: {
     title: "Run the community. Not the ops.",
     description: DESCRIPTION,
-    siteName: "BubbleLab Community",
+    siteName: "Bubble Lab Communities",
     type: "website",
     images: [{ url: OG_IMAGE, width: 1600, height: 900, alt: "A community gathered around a warm fire at night" }],
   },
@@ -46,7 +46,7 @@ export const viewport = {
 const JSON_LD = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  name: "BubbleLab Community",
+  name: "Bubble Lab Communities",
   applicationCategory: "BusinessApplication",
   description: DESCRIPTION,
   url: "https://community.bubblelab.ai",

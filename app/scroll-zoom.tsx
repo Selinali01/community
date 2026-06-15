@@ -164,10 +164,10 @@ export function FullHeroSection() {
           <div style={{
             fontFamily: "var(--font-akkurat)", fontWeight: 700, fontSize: 19,
             letterSpacing: "-0.7px", color: "#fbfdf6",
-            display: "flex", alignItems: "baseline", gap: 1,
+            display: "flex", alignItems: "baseline", gap: 7,
           }}>
-            BubbleLab
-            <sup style={{ fontSize: 9, fontWeight: 400, opacity: 0.7, fontFamily: "var(--font-fragment-mono)" }}>®</sup>
+            Bubble Lab
+            <span style={{ fontWeight: 400, color: "rgba(251,253,246,0.6)" }}>Communities</span>
           </div>
 
           <div className="hero-nav-links" style={{ display: "flex", alignItems: "center", gap: 30 }}>

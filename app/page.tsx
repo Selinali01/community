@@ -382,7 +382,7 @@ function ProductPreview() {
               ))}
             </div>
             <div style={{ fontSize: 12, fontWeight: 700, color: "#0a1d08", letterSpacing: "-0.48px", fontFamily: "var(--font-akkurat)" }}>
-              BubbleLab Community
+              Bubble Lab Communities
             </div>
             <div className="preview-tabs" style={{ display: "flex", gap: 4 }}>
               {(["Directory", "Matchmaking", "Events"] as const).map((label) => (
@@ -512,7 +512,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Do members stay in my brand?",
-    a: "Entirely. BubbleLab is white-label — your name, your colors, your domain. Members experience your community, not ours. We're the infrastructure underneath; you're the brand on top.",
+    a: "Entirely. Bubble Lab is white-label — your name, your colors, your domain. Members experience your community, not ours. We're the infrastructure underneath; you're the brand on top.",
   },
   {
     q: "What about my existing Slack?",
@@ -683,9 +683,9 @@ function Footer() {
         <div style={{ display: "flex", flexWrap: "wrap", gap: 48, justifyContent: "space-between" }}>
           {/* Brand block */}
           <div style={{ maxWidth: 300 }}>
-            <div style={{ display: "flex", alignItems: "baseline", gap: 1, fontWeight: 700, fontSize: 19, letterSpacing: "-0.7px", color: "#fbfdf6", fontFamily: "var(--font-akkurat)" }}>
-              BubbleLab
-              <sup style={{ fontSize: 9, fontWeight: 400, opacity: 0.7, fontFamily: "var(--font-fragment-mono)" }}>®</sup>
+            <div style={{ display: "flex", alignItems: "baseline", gap: 7, fontWeight: 700, fontSize: 19, letterSpacing: "-0.7px", color: "#fbfdf6", fontFamily: "var(--font-akkurat)" }}>
+              Bubble Lab
+              <span style={{ fontWeight: 400, color: "rgba(251,253,246,0.55)" }}>Communities</span>
             </div>
             <p style={{ marginTop: 14, fontSize: 14, lineHeight: 1.6, letterSpacing: "-0.3px", color: "rgba(251,253,246,0.55)", fontFamily: "var(--font-akkurat)" }}>
               The infrastructure behind private professional communities. Run the community — we run the ops.
@@ -720,7 +720,7 @@ function Footer() {
         {/* Bottom bar */}
         <div style={{ marginTop: 56, padding: "22px 0 28px", borderTop: "1px solid rgba(251,253,246,0.08)", display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center", justifyContent: "space-between" }}>
           <span style={{ fontFamily: "var(--font-fragment-mono)", fontSize: 10, letterSpacing: "0.04em", color: "rgba(251,253,246,0.4)" }}>
-            © 2026 BubbleLab · Run the community. Not the ops.
+            © 2026 Bubble Lab · Run the community. Not the ops.
           </span>
           <div style={{ display: "flex", gap: 20 }}>
             {["Privacy", "Terms", "Status"].map((l) => (
