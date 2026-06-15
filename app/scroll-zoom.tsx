@@ -418,12 +418,12 @@ function BackgroundPhoto() {
           objectFit: "cover", objectPosition: "center 38%",
           // Adaline-adjacent treatment: more sepia warmth, desaturated for cream/sage palette,
           // brighter for soft morning light, reduced contrast for atmospheric misty quality
-          filter: "sepia(0.16) saturate(0.84) brightness(1.16) contrast(0.97)",
+          filter: "sepia(0.26) saturate(0.92) brightness(1.14) contrast(0.98) hue-rotate(-6deg)",
         }}
       />
       {/* Warm cream tint overlay */}
-      {/* Warm cream tint — botanical journal warmth (more cream, less amber than sunset) */}
-      <div style={{ position: "absolute", inset: 0, background: "rgba(245,237,210,0.18)" }} />
+      {/* Warm golden-cream tint — pushes the zen garden toward warm morning light */}
+      <div style={{ position: "absolute", inset: 0, background: "rgba(248,228,178,0.22)" }} />
       {/* Sun warmth pulse — slow breathing glow makes the scene feel alive */}
       <motion.div
         style={{ position: "absolute", inset: 0 }}
@@ -772,6 +772,13 @@ export function FullHeroSection() {
           position: "absolute", inset: 0, zIndex: 6, pointerEvents: "none",
           background: spotBg,
         }} />
+
+        {/* ── Soft cream scrim behind hero text — legibility without a hard box ── */}
+        <motion.div
+          style={{ opacity: heroOp, position: "absolute", inset: 0, zIndex: 20, pointerEvents: "none",
+            background: "radial-gradient(ellipse 56% 46% at 50% 30%, rgba(251,248,238,0.62) 0%, rgba(251,248,238,0.30) 45%, transparent 72%)",
+          }}
+        />
 
         {/* ── Hero text — outside scene scale, always full-size ── */}
         <motion.div
