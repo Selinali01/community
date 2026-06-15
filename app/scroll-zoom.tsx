@@ -206,9 +206,9 @@ export function FullHeroSection() {
           <p className="fade-rise-2" style={{
             fontFamily: "var(--font-akkurat)", fontWeight: 400,
             fontSize: "clamp(15px, 1.5vw, 19px)", lineHeight: 1.6,
-            letterSpacing: "-0.3px", color: "rgba(251,253,246,0.78)",
+            letterSpacing: "-0.3px", color: "rgba(251,253,246,0.82)",
             maxWidth: 500, margin: "24px auto 0",
-            textShadow: "0 1px 20px rgba(10,18,6,0.6)",
+            textShadow: "0 1px 22px rgba(10,18,6,0.75), 0 1px 4px rgba(10,18,6,0.5)",
           }}>
             Applications, directories, matchmaking, events, automations —
             we run the ops so you can focus on your people.
