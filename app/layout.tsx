@@ -19,6 +19,7 @@ const DESCRIPTION =
   "The infrastructure platform for private professional communities. Applications, directories, matchmaking, events, and automations — all handled, so you can focus on your people.";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://community.bubblelab.ai"),
   title: "BubbleLab Community — Run the community. Not the ops.",
   description: DESCRIPTION,
   openGraph: {
@@ -34,6 +35,11 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     images: [OG_IMAGE],
   },
+};
+
+// Tint mobile browser chrome to the brand (matches the dark hero)
+export const viewport = {
+  themeColor: "#0a1d08",
 };
 
 export default function RootLayout({
