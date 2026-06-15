@@ -194,19 +194,21 @@ export function FullHeroSection() {
             y: heroY, opacity: heroOp,
             position: "relative", zIndex: 10,
             flex: 1,
-            display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-start",
-            textAlign: "center", padding: "clamp(20px, 5vh, 60px) 24px 0",
+            display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
+            textAlign: "center", padding: "0 24px",
+            // nudge up slightly to optically center against the top nav
+            marginTop: "-3vh",
           }}
         >
-          {/* Eyebrow — backed by Y Combinator */}
-          <div className="fade-rise liquid-glass" style={{
-            borderRadius: 9999, padding: "5px 16px 5px 7px", marginBottom: 28,
-            display: "inline-flex", alignItems: "center", gap: 9,
+          {/* Eyebrow — backed by Y Combinator (no pill, just mark + text) */}
+          <div className="fade-rise" style={{
+            marginBottom: 26, display: "inline-flex", alignItems: "center", gap: 9,
           }}>
-            <img src="/yc-logo.svg" alt="Y Combinator" width={16} height={16} style={{ borderRadius: 3, display: "block" }} />
+            <img src="/yc-logo.svg" alt="Y Combinator" width={16} height={16} style={{ borderRadius: 3, display: "block", boxShadow: "0 1px 8px rgba(0,0,0,0.35)" }} />
             <span style={{
               fontFamily: "var(--font-fragment-mono)", fontSize: 11,
-              letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(251,253,246,0.85)",
+              letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(251,253,246,0.9)",
+              textShadow: "0 1px 12px rgba(10,18,6,0.7)",
             }}>Backed by Y Combinator</span>
           </div>
 
@@ -225,13 +227,15 @@ export function FullHeroSection() {
             </span>
           </h1>
 
-          {/* Single CTA — Book Demo */}
-          <div className="fade-rise-3" style={{ display: "flex", gap: 12, marginTop: 34, justifyContent: "center" }}>
-            <a href={BOOK_DEMO} target="_blank" rel="noopener noreferrer" className="cta-hover cta-solid" style={{
-              background: "#fbfdf6", color: "#0a1d08", borderRadius: 9999,
-              padding: "15px 36px", fontSize: 15, fontWeight: 700, letterSpacing: "-0.4px",
-              textDecoration: "none", fontFamily: "var(--font-akkurat)",
-              boxShadow: "0 8px 32px -8px rgba(0,0,0,0.5)",
+          {/* Single CTA — glass pill (matches nav), dialed up to stand out */}
+          <div className="fade-rise-3" style={{ display: "flex", gap: 12, marginTop: 36, justifyContent: "center" }}>
+            <a href={BOOK_DEMO} target="_blank" rel="noopener noreferrer" className="liquid-glass cta-hover" style={{
+              borderRadius: 9999, padding: "15px 34px", fontSize: 15, fontWeight: 700,
+              letterSpacing: "-0.4px", color: "#fbfdf6", textDecoration: "none",
+              fontFamily: "var(--font-akkurat)",
+              // stronger than the nav glass: more fill + a soft warm glow
+              background: "rgba(251,253,246,0.13)",
+              boxShadow: "0 10px 36px -10px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.06)",
             }}>Book a demo →</a>
           </div>
         </motion.div>
