@@ -73,6 +73,20 @@ const CONNECTIONS: [number, number, number, number][] = [
   [9, 7, 0.40, 0.60],  // Casey → Maya
 ];
 
+// Company brand colors — make each profile feel like a real professional identity
+const BRAND: Record<string, string> = {
+  "Figma":   "#7B61FF",
+  "Linear":  "#5D64CF",
+  "Vercel":  "#1a1a1a",
+  "Loom":    "#625DF5",
+  "Arc":     "#FF4C00",
+  "Pitch":   "#1A1A1A",
+  "Stripe":  "#635BFF",
+  "Notion":  "#37352F",
+  "Spotify": "#1DB954",
+  "Own Co.": "#4a3212",
+};
+
 // ── Avatar (with photo fallback) ──────────────────────────────────────────────
 
 function Avatar({ member }: { member: Member }) {
@@ -168,8 +182,14 @@ function AnimatedCard({
                 {member.role}
               </div>
               <div style={{ marginTop: 5, display: "inline-flex", alignItems: "center", gap: 4 }}>
-                <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#d7e8b5", boxShadow: "0 0 0 2.5px rgba(215,232,181,0.35)" }} />
-                <span style={{ fontSize: 10, color: "#4a3212", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.02em" }}>
+                {/* Brand color dot — makes each card feel like a real professional profile */}
+                <div style={{
+                  width: 6, height: 6, borderRadius: "50%",
+                  background: BRAND[member.company] ?? "#d7e8b5",
+                  opacity: 0.85,
+                  flexShrink: 0,
+                }} />
+                <span style={{ fontSize: 11, color: "#4a3212", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.02em" }}>
                   {member.company}
                 </span>
               </div>
