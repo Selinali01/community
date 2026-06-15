@@ -378,7 +378,7 @@ function ProductPreview() {
             <div style={{ fontSize: 12, fontWeight: 700, color: "#0a1d08", letterSpacing: "-0.48px", fontFamily: "var(--font-akkurat)" }}>
               BubbleLab Community
             </div>
-            <div style={{ display: "flex", gap: 4 }}>
+            <div className="preview-tabs" style={{ display: "flex", gap: 4 }}>
               {(["Directory", "Matchmaking", "Events"] as const).map((label) => (
                 <div key={label} style={{
                   padding: "3px 10px", borderRadius: 9999, fontSize: 11,
@@ -397,6 +397,7 @@ function ProductPreview() {
           <div style={{
             padding: "10px 20px", borderBottom: "1px solid #e0e5d5",
             display: "flex", alignItems: "center", gap: 8,
+            flexWrap: "wrap", rowGap: 8,
           }}>
             <div style={{
               flex: 1, height: 32, borderRadius: 8, border: "1px solid #e0e5d5",
@@ -423,7 +424,7 @@ function ProductPreview() {
           </div>
 
           {/* Member directory grid */}
-          <div style={{ padding: "16px 20px 20px", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10 }}>
+          <div className="preview-grid" style={{ padding: "16px 20px 20px", display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10 }}>
             {PREVIEW_MEMBERS.map((m, i) => (
               <div key={i} style={{
                 background: "#fbfdf6", border: "1px solid #e0e5d5", borderRadius: 12,

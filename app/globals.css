@@ -119,6 +119,13 @@ body {
   .hero-nav-links { display: none !important; }
 }
 
+/* Product-preview mockup — keep it clean on mobile instead of clipping:
+   member grid 4→2 cols, hide the chrome tabs (logo + count remain). */
+@media (max-width: 600px) {
+  .preview-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .preview-tabs { display: none !important; }
+}
+
 /* Respect reduced-motion: disable entrance + ambient animations */
 @media (prefers-reduced-motion: reduce) {
   .fade-rise, .fade-rise-1, .fade-rise-2, .fade-rise-3 { animation: none !important; }
