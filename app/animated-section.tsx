@@ -44,6 +44,20 @@ export function Reveal({
   );
 }
 
+// Draws a horizontal line left→right when scrolled into view — used for the
+// product preview's match connector ("connected through us", in the UI mockup).
+export function DrawLine() {
+  return (
+    <motion.div
+      style={{ flex: 1, borderTop: "1.5px dashed #c5ccb6", transformOrigin: "left center" }}
+      initial={{ scaleX: 0, opacity: 0 }}
+      whileInView={{ scaleX: 1, opacity: 1 }}
+      transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: true, margin: "-40px" }}
+    />
+  );
+}
+
 // Staggered fade-up for the features grid cards
 export function AnimatedFeatureCard({
   children,

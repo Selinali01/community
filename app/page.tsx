@@ -5,6 +5,7 @@ import {
   AnimatedSectionLabel,
   Reveal,
   CountUp,
+  DrawLine,
 } from "./animated-section";
 
 // ── Data ─────────────────────────────────────────────────────────────────────
@@ -532,7 +533,7 @@ function ProductPreview() {
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <img src={PREVIEW_MEMBERS[0].photo} alt="" style={{ width: 26, height: 26, borderRadius: "50%", objectFit: "cover", border: "1.5px solid #d7e8b5" }} />
-              <div style={{ flex: 1, borderTop: "1.5px dashed #c5ccb6" }} />
+              <DrawLine />
               <img src={PREVIEW_MEMBERS[1].photo} alt="" style={{ width: 26, height: 26, borderRadius: "50%", objectFit: "cover", border: "1.5px solid #d7e8b5" }} />
               <span style={{ fontSize: 11, color: "#0a1d08", fontFamily: "var(--font-akkurat)", letterSpacing: "-0.44px", fontWeight: 600 }}>
                 Sarah M. × Alex K.
