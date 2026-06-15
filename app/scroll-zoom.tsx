@@ -421,12 +421,13 @@ export function FullHeroSection() {
     offset: ["start start", "end end"],
   });
 
-  // Scroll-driven transforms
-  const bgScale = useTransform(scrollYProgress, [0, 1],    [1.75, 1.0]);
-  const bgY     = useTransform(scrollYProgress, [0, 1],    ["0%", "7%"]);
-  const heroOp  = useTransform(scrollYProgress, [0, 0.13], [1,    0]);
-  const heroY   = useTransform(scrollYProgress, [0, 0.15], [0,   -36]);
-  const frameOp = useTransform(scrollYProgress, [0.80, 1], [0,    1]);
+  // Scene scale — zooms background + cards + connections together
+  // At 2x: only Sarah & Alex visible (large portrait cards, glowing arc between them)
+  // At 1x: full network revealed — all 10 people connected
+  const sceneScale = useTransform(scrollYProgress, [0, 0.85], [2.0, 1.0]);
+  const heroOp     = useTransform(scrollYProgress, [0, 0.13], [1,   0]);
+  const heroY      = useTransform(scrollYProgress, [0, 0.15], [0,  -36]);
+  const frameOp    = useTransform(scrollYProgress, [0.80, 1], [0,   1]);
 
   // Mouse-driven 3D parallax — background subtly shifts opposite to cursor
   // No React state re-renders — all through MotionValues
@@ -454,26 +455,34 @@ export function FullHeroSection() {
         }}
       >
 
-        {/* ── Background photo — scale + scroll parallax + mouse parallax ── */}
+        {/* ── SCENE — background + connections + cards all scale together ── */}
+        {/* transformOrigin at Sarah(33%,60%)↔Alex(59%,60%) midpoint = 46%,60%           */}
+        {/* At 2x: Sarah and Alex are large portrait cards filling the center screen      */}
+        {/* At 1x: full network revealed — all 10 people zoomed out and connected         */}
         <motion.div
           style={{
-            scale: bgScale,
-            y: bgY,
-            x: bgParallaxX,     // mouse: shifts left/right
-            translateY: bgParallaxY,  // mouse: shifts up/down
-            transformOrigin: "50% 55%",
-            position: "absolute", inset: "-8%",  // extra bleed so parallax doesn't show edges
+            scale: sceneScale,
+            transformOrigin: "46% 60%",
+            position: "absolute", inset: 0,
             willChange: "transform",
           }}
         >
-          <BackgroundPhoto />
-        </motion.div>
+          {/* Background — mouse parallax only (scene scale handles the zoom) */}
+          <motion.div
+            style={{
+              x: bgParallaxX,
+              translateY: bgParallaxY,
+              position: "absolute", inset: "-8%",
+            }}
+          >
+            <BackgroundPhoto />
+          </motion.div>
 
-        {/* ── Bokeh ambient particles — warm golden atmosphere ── */}
-        <BokehLayer />
+          {/* Bokeh */}
+          <BokehLayer />
 
-        {/* ── Connection lines SVG ── */}
-        <svg
+          {/* ── Connection lines SVG ── */}
+          <svg
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%", zIndex: 5, overflow: "visible" }}
@@ -530,14 +539,17 @@ export function FullHeroSection() {
           ))}
         </svg>
 
-        {/* ── Member cards ── */}
-        <div style={{ position: "absolute", inset: 0, zIndex: 10 }}>
-          {MEMBERS.map((m, i) => (
-            <AnimatedCard key={i} member={m} progress={scrollYProgress} idx={i} />
-          ))}
-        </div>
+          {/* ── Member cards ── */}
+          <div style={{ position: "absolute", inset: 0, zIndex: 10 }}>
+            {MEMBERS.map((m, i) => (
+              <AnimatedCard key={i} member={m} progress={scrollYProgress} idx={i} />
+            ))}
+          </div>
 
-        {/* ── Hero text — entrance on load, then fades out as you scroll ── */}
+        </motion.div>
+        {/* ── END SCENE ── */}
+
+        {/* ── Hero text — outside scene scale, always full-size ── */}
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
