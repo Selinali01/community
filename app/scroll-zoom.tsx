@@ -129,6 +129,7 @@ export function FullHeroSection() {
 
         {/* ── Glass nav ── */}
         <nav
+          className="fade-rise"
           style={{
             position: "relative", zIndex: 10,
             maxWidth: 1240, margin: "0 auto", width: "100%",
