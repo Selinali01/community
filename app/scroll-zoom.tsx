@@ -325,6 +325,43 @@ function BackgroundPhoto() {
   );
 }
 
+// ── Distant people silhouettes in the garden field ───────────────────────────
+// Tiny gatherings visible in the warm wildflower field — reinforces "tons of people"
+// even before the community cards materialize.
+
+const FIELD_PEOPLE = [
+  // [cx, cy, scale, opacity] in SVG 0-100 coordinate space
+  // Left cluster
+  [14, 71, 0.34, 0.13], [17, 70, 0.30, 0.11], [20, 72, 0.28, 0.12],
+  // Center-left cluster
+  [37, 73, 0.31, 0.12], [40, 72, 0.29, 0.11],
+  // Center single
+  [49, 75, 0.27, 0.09],
+  // Center-right cluster
+  [57, 72, 0.32, 0.12], [60, 71, 0.29, 0.10],
+  // Right cluster
+  [78, 71, 0.33, 0.13], [82, 70, 0.30, 0.11], [85, 72, 0.28, 0.12],
+  // Scattered individuals
+  [27, 73, 0.28, 0.09], [68, 73, 0.30, 0.09], [45, 74, 0.26, 0.08],
+] as const;
+
+function PeopleBackground() {
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      preserveAspectRatio="none"
+      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", zIndex: 3, pointerEvents: "none" }}
+    >
+      {FIELD_PEOPLE.map(([cx, cy, s, op], i) => (
+        <g key={i} transform={`translate(${cx},${cy})`} opacity={op}>
+          <circle cy={-5 * s} r={2.4 * s} fill="#1a2a0a" />
+          <ellipse cy={0.8 * s} rx={1.8 * s} ry={5 * s} fill="#1a2a0a" />
+        </g>
+      ))}
+    </svg>
+  );
+}
+
 // ── Bokeh ambient particles — warm golden circles floating in background ──────
 // Deterministic positions (no Math.random) so SSR and client match.
 
@@ -505,6 +542,9 @@ export function FullHeroSection() {
 
           {/* Bokeh */}
           <BokehLayer />
+
+          {/* Distant people in the field — tiny silhouette gatherings */}
+          <PeopleBackground />
 
           {/* Bottom garden tint — reinforces green grass / garden feel */}
           <div style={{
