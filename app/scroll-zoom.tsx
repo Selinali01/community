@@ -130,11 +130,15 @@ function AnimatedCard({
             background: "rgba(252,248,240,0.90)",
             backdropFilter: "blur(22px)",
             WebkitBackdropFilter: "blur(22px)",
-            border: "1px solid rgba(10,29,8,0.08)",
+            border: idx < 2
+              ? "1px solid rgba(180,230,120,0.45)"  // featured pair: subtle green border
+              : "1px solid rgba(10,29,8,0.08)",
             borderRadius: 18,
             padding: "11px 16px 11px 11px",
             display: "flex", alignItems: "center", gap: 12,
-            boxShadow: "0 18px 52px -8px rgba(74,50,18,0.22), 0 2px 12px rgba(74,50,18,0.10), inset 0 1px 0 rgba(255,255,255,0.70)",
+            boxShadow: idx < 2
+              ? "0 18px 52px -8px rgba(74,50,18,0.22), 0 0 22px rgba(180,230,120,0.14), 0 2px 12px rgba(74,50,18,0.10), inset 0 1px 0 rgba(255,255,255,0.70)"
+              : "0 18px 52px -8px rgba(74,50,18,0.22), 0 2px 12px rgba(74,50,18,0.10), inset 0 1px 0 rgba(255,255,255,0.70)",
             minWidth: 190, whiteSpace: "nowrap",
           }}>
             <Avatar member={member} />
@@ -276,7 +280,8 @@ function BackgroundPhoto() {
           width: "100%", height: "100%",
           objectFit: "cover", objectPosition: "center 52%",
           // Warm sepia + mild desaturation → botanical journal feel matching Adaline
-          filter: "sepia(0.08) saturate(0.92) brightness(1.06) contrast(0.98)",
+          // Richer golden hour — increase saturation & warm hue shift, not desaturate
+          filter: "sepia(0.12) saturate(1.10) brightness(1.00) contrast(1.04) hue-rotate(-8deg)",
         }}
       />
       {/* Warm cream tint overlay */}
@@ -328,7 +333,7 @@ function BokehLayer() {
             width: p.s,
             height: p.s,
             borderRadius: "50%",
-            background: `rgba(255,200,70,${0.10 + (i % 3) * 0.04})`,
+            background: `rgba(255,200,70,${0.16 + (i % 3) * 0.06})`,
             filter: `blur(${p.s * 1.2}px)`,
             transform: "translate(-50%,-50%)",
           }}
@@ -386,6 +391,22 @@ function ProductFrame({ opacity }: { opacity: MotionValue<number> }) {
 
 // ── Full hero section ─────────────────────────────────────────────────────────
 
+// ── Featured area glow — soft pulse between the two central matched members ───
+
+function AnimatedConnectionGlow({ progress }: { progress: MotionValue<number> }) {
+  // Glows on as Sarah↔Alex connection completes (scrollEnd 0.42), lingers softly
+  const opacity = useTransform(progress, [0.38, 0.44, 0.58, 0.78], [0, 0.42, 0.28, 0.10]);
+  // Center between Sarah (33,60) and Alex (59,60)
+  return (
+    <motion.ellipse
+      cx={46} cy={60} rx={22} ry={9}
+      fill="rgba(190,240,130,0.45)"
+      filter="url(#area-glow)"
+      style={{ opacity }}
+    />
+  );
+}
+
 export function FullHeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -435,6 +456,13 @@ export function FullHeroSection() {
         >
           {/* Gradient defs — each line glows brightest at its midpoint */}
           <defs>
+            {/* Area glow filter for the featured pair pulse */}
+            <filter id="area-glow" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="2.8" result="blur" />
+              <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+            </filter>
+          </defs>
+          <defs>
             {CONNECTIONS.map(([fi, ti], idx) => (
               <linearGradient
                 key={idx}
@@ -449,6 +477,9 @@ export function FullHeroSection() {
               </linearGradient>
             ))}
           </defs>
+
+          {/* Soft glow between the central matched pair */}
+          <AnimatedConnectionGlow progress={scrollYProgress} />
 
           {/* Lines */}
           {CONNECTIONS.map(([fi, ti, s, e], idx) => (
