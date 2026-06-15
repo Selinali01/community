@@ -255,18 +255,14 @@ export function FullHeroSection() {
             <span style={{ display: "block" }}>Applications, directories, matchmaking, events, automations</span>
             <span style={{ display: "block", color: "rgba(251,253,246,0.66)" }}>We run the ops so you can focus on your people.</span>
           </p>
-          {/* Live community stats — the "through us" proof */}
+          {/* Live community proof — single scroll-driven count-up */}
           <div className="liquid-glass" style={{
             borderRadius: 9999, padding: "11px 26px",
-            display: "flex", alignItems: "center", gap: 26,
+            display: "flex", alignItems: "baseline", gap: 8,
           }}>
-            {[["847", "members"], ["24", "matches / wk"], ["12", "events"]].map(([v, l], i, a) => (
-              <div key={l} style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
-                <span style={{ fontFamily: "var(--font-fragment-mono)", fontSize: 17, fontWeight: 700, color: "#fbfdf6", letterSpacing: "-0.6px" }}><ScrollStat scrollY={scrollY} to={Number(v)} /></span>
-                <span style={{ fontFamily: "var(--font-fragment-mono)", fontSize: 10, color: "rgba(251,253,246,0.6)", letterSpacing: "0.04em" }}>{l}</span>
-                {i < a.length - 1 && <span style={{ marginLeft: 20, width: 1, height: 13, background: "rgba(251,253,246,0.22)", display: "inline-block" }} />}
-              </div>
-            ))}
+            <span style={{ fontFamily: "var(--font-fragment-mono)", fontSize: 11, color: "rgba(251,253,246,0.6)", letterSpacing: "0.04em" }}>Supporting</span>
+            <span style={{ fontFamily: "var(--font-fragment-mono)", fontSize: 17, fontWeight: 700, color: "#fbfdf6", letterSpacing: "-0.6px" }}><ScrollStat scrollY={scrollY} to={4200} />+</span>
+            <span style={{ fontFamily: "var(--font-fragment-mono)", fontSize: 11, color: "rgba(251,253,246,0.6)", letterSpacing: "0.04em" }}>members</span>
           </div>
         </motion.div>
 
