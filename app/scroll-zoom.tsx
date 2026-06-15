@@ -221,7 +221,7 @@ export function FullHeroSection() {
             <span className="fade-rise-1" style={{ display: "block" }}>
               Run the <span style={{ fontStyle: "italic", color: "#f0e3b8" }}>community</span>.
             </span>
-            <span className="fade-rise-2" style={{ display: "block", color: "rgba(251,253,246,0.82)" }}>
+            <span className="fade-rise-2" style={{ display: "block", color: "rgba(251,253,246,0.93)" }}>
               Not the ops.
             </span>
           </h1>

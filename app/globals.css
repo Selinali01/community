@@ -128,17 +128,20 @@ body {
   font-family: var(--font-akkurat);
   text-decoration: none;
   color: #fbfdf6;
-  background: linear-gradient(180deg, rgba(255,255,255,0.32), rgba(255,255,255,0.18));
-  backdrop-filter: blur(18px) saturate(1.2);
-  -webkit-backdrop-filter: blur(18px) saturate(1.2);
-  box-shadow: 0 14px 44px -10px rgba(0,0,0,0.55), inset 0 1px 1px rgba(255,255,255,0.4);
-  text-shadow: 0 1px 10px rgba(10,18,6,0.45);
+  /* smoked glass: darkens the bright floor behind so the white label pops */
+  background: linear-gradient(180deg, rgba(14,22,8,0.40), rgba(14,22,8,0.54));
+  border: 1px solid rgba(255,255,255,0.26);
+  backdrop-filter: blur(16px) saturate(1.1);
+  -webkit-backdrop-filter: blur(16px) saturate(1.1);
+  box-shadow: 0 14px 44px -10px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.18);
+  text-shadow: 0 1px 8px rgba(10,18,6,0.5);
   transition: background 0.22s ease, color 0.22s ease, text-shadow 0.22s ease,
-              transform 0.2s cubic-bezier(0.16,1,0.3,1), box-shadow 0.22s ease;
+              border-color 0.22s ease, transform 0.2s cubic-bezier(0.16,1,0.3,1), box-shadow 0.22s ease;
 }
 @media (hover: hover) {
   .hero-cta:hover {
     background: #fbfdf6;
+    border-color: #fbfdf6;
     color: #0a1d08;
     text-shadow: none;
     transform: translateY(-1px) scale(1.03);
