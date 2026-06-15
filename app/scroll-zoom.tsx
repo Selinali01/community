@@ -61,10 +61,10 @@ export function FullHeroSection() {
       </motion.video>
 
       {/* ── Warm scrims for depth + text legibility ── */}
-      {/* Overall warm darken so cream text reads everywhere */}
-      <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "rgba(10,18,6,0.42)" }} />
-      {/* Top + bottom cinematic gradient */}
-      <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "linear-gradient(to bottom, rgba(10,18,6,0.55) 0%, transparent 28%, transparent 62%, rgba(10,18,6,0.72) 100%)" }} />
+      {/* Light overall warm darken — keeps the people clearly visible */}
+      <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "rgba(10,18,6,0.30)" }} />
+      {/* Strong top gradient (text lives up here) + bottom anchor */}
+      <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "linear-gradient(to bottom, rgba(10,18,6,0.72) 0%, rgba(10,18,6,0.34) 22%, transparent 46%, transparent 64%, rgba(10,18,6,0.74) 100%)" }} />
       {/* Warm golden glow from the firelight center */}
       <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "radial-gradient(ellipse 60% 50% at 50% 62%, rgba(216,150,40,0.16) 0%, transparent 70%)" }} />
 
@@ -110,8 +110,8 @@ export function FullHeroSection() {
           y: contentY, opacity: contentOp,
           position: "relative", zIndex: 10,
           flex: 1,
-          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-          textAlign: "center", padding: "40px 24px 96px",
+          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "flex-start",
+          textAlign: "center", padding: "clamp(28px, 6vh, 72px) 24px 96px",
         }}
       >
         {/* Eyebrow */}
