@@ -13,13 +13,13 @@ import {
 
 // ── Config ────────────────────────────────────────────────────────────────────
 
-// Garden during golden hour — warm golden garden light, flowers, green (Chloe Leis)
+// Misty morning over green field with trees — soft, atmospheric, Adaline-adjacent palette
 const BG_IMAGE =
-  "https://images.unsplash.com/photo-1553368168-3957f806d986?auto=format&fit=crop&w=1920&q=85";
-
-// Fallback: misty morning over green field with trees (atmospheric, Adaline-adjacent)
-const BG_FALLBACK =
   "https://images.unsplash.com/photo-1759220948579-aa4866af0f0d?auto=format&fit=crop&w=1920&q=85";
+
+// Fallback: garden during golden hour (warmer, more vivid)
+const BG_FALLBACK =
+  "https://images.unsplash.com/photo-1553368168-3957f806d986?auto=format&fit=crop&w=1920&q=85";
 
 interface Member {
   name: string;
@@ -404,8 +404,8 @@ function BackgroundPhoto() {
       animate={{ opacity: 1 }}
       transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
     >
-      {/* Warm golden fallback — shows during image fetch */}
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, #d4960a 0%, #b87c08 40%, #6e5020 100%)" }} />
+      {/* Soft sage-green fallback — matches misty morning palette while photo loads */}
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, #c8d4a0 0%, #a4b880 40%, #7a9060 100%)" }} />
       <img
         src={src}
         alt=""
@@ -416,25 +416,26 @@ function BackgroundPhoto() {
           position: "absolute", inset: 0,
           width: "100%", height: "100%",
           objectFit: "cover", objectPosition: "center 52%",
-          // Warm sepia + mild desaturation → botanical journal feel matching Adaline
-          // Warm botanical treatment — gentle sepia warmth, slight desaturation for painterly quality
-          filter: "sepia(0.12) saturate(0.90) brightness(1.06) contrast(1.02)",
+          // Adaline-adjacent treatment: more sepia warmth, desaturated for cream/sage palette,
+          // brighter for soft morning light, reduced contrast for atmospheric misty quality
+          filter: "sepia(0.18) saturate(0.82) brightness(1.10) contrast(0.96)",
         }}
       />
       {/* Warm cream tint overlay */}
-      {/* Warm amber tint — golden hour wash */}
-      <div style={{ position: "absolute", inset: 0, background: "rgba(245,220,170,0.14)" }} />
+      {/* Warm cream tint — botanical journal warmth (more cream, less amber than sunset) */}
+      <div style={{ position: "absolute", inset: 0, background: "rgba(245,237,210,0.18)" }} />
       {/* Sun warmth pulse — slow breathing glow makes the scene feel alive */}
       <motion.div
         style={{ position: "absolute", inset: 0 }}
         animate={{ opacity: [0.55, 1.0, 0.55] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       >
-        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 50% 38% at 73% 12%, rgba(255,215,70,0.17) 0%, transparent 100%)" }} />
+        {/* Softer, more diffuse for misty morning — like light filtering through haze */}
+        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 65% 48% at 68% 8%, rgba(255,240,195,0.14) 0%, transparent 100%)" }} />
       </motion.div>
       {/* Sun warmth pulse amplified — the animated version replaces static glow */}
-      {/* Top gradient — enough for text legibility, not so much it hides the golden sky */}
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(252,245,220,0.46) 0%, rgba(252,245,220,0.08) 24%, transparent 40%)" }} />
+      {/* Top gradient — cream fade into the misty morning scene */}
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(251,248,238,0.55) 0%, rgba(251,248,238,0.10) 26%, transparent 44%)" }} />
       {/* Photo's natural bottom warmth is sufficient — no extra overlay needed */}
       {/* Edge vignette — cinematic */}
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 115% 85% at 50% 44%, transparent 32%, rgba(20,14,4,0.22) 100%)" }} />
