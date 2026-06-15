@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
 
 // Mixkit: diverse group gathered around a garden dinner table under warm string
 // lights at night. Real people connecting — the community IS the scene.
@@ -45,13 +45,17 @@ export function FullHeroSection() {
   // Window scroll in pixels — reliable (target+sticky useScroll miscalculates).
   // The hero sits at the top of the page, so scrollY 0 == hero start.
   const { scrollY } = useScroll();
+  // Respect reduced-motion: disable the large movements (zoom + parallax),
+  // keep gentle opacity fades. r=1 enables motion, r=0 disables.
+  const reduce = useReducedMotion();
+  const r = reduce ? 0 : 1;
 
   // Pinned section is 190vh, so the sticky stage unpins at ~90vh (~620–740px
   // depending on viewport). All scroll beats must COMPLETE before ~560px so the
   // zoom-out fully resolves and the reveal dwells before the section scrolls away.
   // Cinematic zoom-OUT: start tight on the people, pull back to the full scene.
-  const videoScale = useTransform(scrollY, [0, 540], [1.28, 1.0]);
-  const videoY = useTransform(scrollY, [0, 540], ["3%", "-2%"]);
+  const videoScale = useTransform(scrollY, [0, 540], r ? [1.28, 1.0] : [1.06, 1.06]);
+  const videoY = useTransform(scrollY, [0, 540], r ? ["3%", "-2%"] : ["0%", "0%"]);
 
   // Hero copy floats up and fades as the camera pulls back
   const heroY = useTransform(scrollY, [0, 360], [0, -80]);
@@ -68,8 +72,8 @@ export function FullHeroSection() {
   // Spring-smoothed; the video has bleed so the ±px shift never reveals edges.
   const rawMX = useMotionValue(0);
   const rawMY = useMotionValue(0);
-  const pX = useSpring(useTransform(rawMX, [-0.5, 0.5], [10, -10]), { stiffness: 70, damping: 20 });
-  const pY = useSpring(useTransform(rawMY, [-0.5, 0.5], [7, -7]), { stiffness: 70, damping: 20 });
+  const pX = useSpring(useTransform(rawMX, [-0.5, 0.5], r ? [10, -10] : [0, 0]), { stiffness: 70, damping: 20 });
+  const pY = useSpring(useTransform(rawMY, [-0.5, 0.5], r ? [7, -7] : [0, 0]), { stiffness: 70, damping: 20 });
 
   return (
     <section
