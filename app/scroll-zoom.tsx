@@ -1,0 +1,556 @@
+"use client";
+
+import { useRef, useState } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
+
+// ── Config ────────────────────────────────────────────────────────────────────
+
+// Richmond Park golden hour — warm sunrise over open green field, Simon Wilkes
+const BG_IMAGE =
+  "https://images.unsplash.com/photo-1567853042143-8d8480f022ad?auto=format&fit=crop&w=1920&q=85";
+
+// Fallback: misty forest with warm sunlight
+const BG_FALLBACK =
+  "https://images.unsplash.com/photo-1757137911040-c9d81879b212?auto=format&fit=crop&w=1920&q=85";
+
+interface Member {
+  name: string;
+  role: string;
+  company: string;
+  initials: string;
+  photo: string;
+  avatarBg: string; // fallback gradient if photo fails
+  x: number; // % of viewport width (card center)
+  y: number; // % of viewport height
+  range: [number, number]; // scroll range [start, end]
+  initOp: number; // opacity at scroll 0
+  maxOp: number;  // opacity at scroll range[1]
+}
+
+const MEMBERS: Member[] = [
+  // Central pair — clearly visible from load in the lower-mid viewport
+  { name: "Sarah M.",  initials: "SM", role: "Head of Growth",    company: "Figma",   photo: "https://randomuser.me/api/portraits/women/44.jpg", avatarBg: "linear-gradient(135deg,#5aac38,#2d6018)", x: 33, y: 60, range: [0.0, 0.32], initOp: 0.32, maxOp: 0.97 },
+  { name: "Alex K.",   initials: "AK", role: "VP Engineering",    company: "Linear",  photo: "https://randomuser.me/api/portraits/men/32.jpg",   avatarBg: "linear-gradient(135deg,#203b14,#4a9030)", x: 59, y: 60, range: [0.0, 0.32], initOp: 0.32, maxOp: 0.97 },
+  // Lower ring — visible from load, clearly below text
+  { name: "Chris R.",  initials: "CR", role: "Operations Lead",   company: "Vercel",  photo: "https://randomuser.me/api/portraits/men/15.jpg",   avatarBg: "linear-gradient(135deg,#4a3212,#203b14)", x: 18, y: 76, range: [0.0, 0.50], initOp: 0.26, maxOp: 0.88 },
+  { name: "Sam T.",    initials: "ST", role: "Community Builder", company: "Loom",    photo: "https://randomuser.me/api/portraits/women/58.jpg", avatarBg: "linear-gradient(135deg,#1a3d14,#4a9030)", x: 75, y: 76, range: [0.0, 0.50], initOp: 0.26, maxOp: 0.88 },
+  { name: "Dana W.",   initials: "DW", role: "Founding Engineer", company: "Arc",     photo: "https://randomuser.me/api/portraits/women/35.jpg", avatarBg: "linear-gradient(135deg,#31200b,#4a3212)", x: 9,  y: 62, range: [0.0, 0.58], initOp: 0.20, maxOp: 0.82 },
+  { name: "River O.",  initials: "RO", role: "Head of Design",    company: "Pitch",   photo: "https://randomuser.me/api/portraits/men/50.jpg",   avatarBg: "linear-gradient(135deg,#203b14,#2d6018)", x: 84, y: 62, range: [0.0, 0.58], initOp: 0.20, maxOp: 0.82 },
+  // Mid ring — very faint on load, in and near text area
+  { name: "Jordan L.", initials: "JL", role: "Chief of Staff",    company: "Stripe",  photo: "https://randomuser.me/api/portraits/women/68.jpg", avatarBg: "linear-gradient(135deg,#4a3212,#7a5820)", x: 14, y: 44, range: [0.0, 0.46], initOp: 0.10, maxOp: 0.88 },
+  { name: "Maya P.",   initials: "MP", role: "Head of Product",   company: "Notion",  photo: "https://randomuser.me/api/portraits/women/22.jpg", avatarBg: "linear-gradient(135deg,#1a3d14,#3d8a28)", x: 78, y: 38, range: [0.0, 0.46], initOp: 0.10, maxOp: 0.88 },
+  { name: "Taylor B.", initials: "TB", role: "Creative Director", company: "Spotify", photo: "https://randomuser.me/api/portraits/women/89.jpg", avatarBg: "linear-gradient(135deg,#31200b,#5a3515)", x: 44, y: 25, range: [0.0, 0.46], initOp: 0.08, maxOp: 0.84 },
+  { name: "Casey M.",  initials: "CM", role: "Startup Founder",   company: "Own Co.", photo: "https://randomuser.me/api/portraits/men/77.jpg",   avatarBg: "linear-gradient(135deg,#203b14,#5aac38)", x: 63, y: 23, range: [0.0, 0.46], initOp: 0.08, maxOp: 0.84 },
+];
+
+// New member index order: 0=Sarah, 1=Alex, 2=Chris, 3=Sam, 4=Dana, 5=River, 6=Jordan, 7=Maya, 8=Taylor, 9=Casey
+// [fromIdx, toIdx, scrollStart, scrollEnd]
+const CONNECTIONS: [number, number, number, number][] = [
+  [0, 1, 0.20, 0.42],  // Sarah ↔ Alex   (centerpiece)
+  [6, 0, 0.27, 0.49],  // Jordan → Sarah
+  [1, 7, 0.27, 0.49],  // Alex → Maya
+  [8, 9, 0.31, 0.53],  // Taylor ↔ Casey
+  [2, 0, 0.33, 0.56],  // Chris → Sarah
+  [3, 1, 0.33, 0.56],  // Sam → Alex
+  [4, 6, 0.39, 0.62],  // Dana → Jordan
+  [5, 7, 0.39, 0.62],  // River → Maya
+  [8, 6, 0.42, 0.65],  // Taylor → Jordan
+  [9, 7, 0.42, 0.65],  // Casey → Maya
+];
+
+// ── Avatar (with photo fallback) ──────────────────────────────────────────────
+
+function Avatar({ member }: { member: Member }) {
+  const [failed, setFailed] = useState(false);
+  if (failed) {
+    return (
+      <div
+        style={{
+          width: 44, height: 44, borderRadius: "50%",
+          background: member.avatarBg,
+          display: "flex", alignItems: "center", justifyContent: "center",
+          fontSize: 13, fontWeight: 700, color: "#fbfdf6",
+          letterSpacing: "-0.52px", flexShrink: 0,
+          border: "2.5px solid rgba(215,232,181,0.75)",
+        }}
+      >
+        {member.initials}
+      </div>
+    );
+  }
+  return (
+    <img
+      src={member.photo}
+      alt={member.name}
+      onError={() => setFailed(true)}
+      style={{
+        width: 44, height: 44, borderRadius: "50%",
+        objectFit: "cover", flexShrink: 0,
+        border: "2.5px solid rgba(215,232,181,0.75)",
+      }}
+    />
+  );
+}
+
+// ── Member card ───────────────────────────────────────────────────────────────
+
+function AnimatedCard({
+  member, progress, idx,
+}: { member: Member; progress: MotionValue<number>; idx: number }) {
+  const opacity = useTransform(
+    progress,
+    [member.range[0], member.range[1]],
+    [member.initOp, member.maxOp]
+  );
+  const scale = useTransform(
+    progress,
+    [member.range[0], member.range[1]],
+    [0.94, 1.0]
+  );
+
+  return (
+    <div style={{ position: "absolute", left: `${member.x}%`, top: `${member.y}%`, transform: "translate(-50%,-50%)", zIndex: 10 }}>
+      <motion.div style={{ opacity, scale }}>
+        {/* Gentle independent float on each card — makes scene feel alive */}
+        <motion.div
+          animate={{ y: [0, -6, 0] }}
+          transition={{
+            duration: 3.2 + idx * 0.42,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: idx * 0.58,
+          }}
+        >
+          <div style={{
+            background: "rgba(252,248,240,0.90)",
+            backdropFilter: "blur(22px)",
+            WebkitBackdropFilter: "blur(22px)",
+            border: "1px solid rgba(10,29,8,0.08)",
+            borderRadius: 18,
+            padding: "11px 16px 11px 11px",
+            display: "flex", alignItems: "center", gap: 12,
+            boxShadow: "0 18px 52px -8px rgba(74,50,18,0.22), 0 2px 12px rgba(74,50,18,0.10), inset 0 1px 0 rgba(255,255,255,0.70)",
+            minWidth: 190, whiteSpace: "nowrap",
+          }}>
+            <Avatar member={member} />
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: "#0a1d08", letterSpacing: "-0.52px", lineHeight: 1.2 }}>
+                {member.name}
+              </div>
+              <div style={{ fontSize: 11, color: "#31200b", letterSpacing: "-0.44px", marginTop: 2, lineHeight: 1.3 }}>
+                {member.role}
+              </div>
+              <div style={{ marginTop: 5, display: "inline-flex", alignItems: "center", gap: 4 }}>
+                <div style={{ width: 5, height: 5, borderRadius: "50%", background: "#d7e8b5", boxShadow: "0 0 0 2.5px rgba(215,232,181,0.35)" }} />
+                <span style={{ fontSize: 10, color: "#4a3212", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.02em" }}>
+                  {member.company}
+                </span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+}
+
+// ── Traveling spark — glowing particle that races along each connection ──────
+// Appears after the line finishes drawing; feels like electricity activating the link.
+
+function AnimatedSpark({
+  pathId, progress, scrollEnd,
+}: { pathId: string; progress: MotionValue<number>; scrollEnd: number }) {
+  const opacity = useTransform(progress, [scrollEnd, scrollEnd + 0.09], [0, 0.88]);
+  return (
+    <motion.circle r="0.48" fill="rgba(225,255,110,0.96)" style={{ opacity }}>
+      <animateMotion dur="2.6s" repeatCount="indefinite">
+        <mpath href={`#${pathId}`} />
+      </animateMotion>
+    </motion.circle>
+  );
+}
+
+// ── Connection line — own component so useTransform is at top level ───────────
+
+function AnimatedLine({
+  from, to, progress, scrollStart, scrollEnd, isFeatured = false, gradientId, pathId,
+}: {
+  from: Member; to: Member;
+  progress: MotionValue<number>;
+  scrollStart: number; scrollEnd: number;
+  isFeatured?: boolean;
+  gradientId?: string;
+  pathId?: string;
+}) {
+  const pathLen = useTransform(progress, [scrollStart, scrollEnd], [0, 1]);
+  const labelOp = useTransform(progress, [scrollEnd - 0.02, scrollEnd + 0.08], [0, 1]);
+  const midX = (from.x + to.x) / 2;
+  const midY = (from.y + to.y) / 2;
+  // Quadratic bezier — arc 9 units above midpoint for elegant curves
+  const cpY = midY - 9;
+  const d = `M${from.x},${from.y} Q${midX},${cpY},${to.x},${to.y}`;
+  // Actual point on bezier at t=0.5: (midX, midY - 4.5)
+  const labelY = midY - 4.5;
+
+  return (
+    <g>
+      {/* Wide glow halo */}
+      <motion.path d={d} stroke="rgba(215,232,181,0.20)" strokeWidth={isFeatured ? 1.6 : 1.2}
+        fill="none" strokeLinecap="round" style={{ pathLength: pathLen }} />
+      {/* Tight glow */}
+      <motion.path d={d} stroke="rgba(215,232,181,0.32)" strokeWidth={isFeatured ? 0.65 : 0.50}
+        fill="none" strokeLinecap="round" style={{ pathLength: pathLen }} />
+      {/* Gradient main line — ID used by spark's mpath */}
+      <motion.path
+        id={pathId}
+        d={d}
+        stroke={gradientId ? `url(#${gradientId})` : (isFeatured ? "rgba(155,210,100,0.85)" : "rgba(155,200,110,0.70)")}
+        strokeWidth={isFeatured ? 0.30 : 0.23}
+        fill="none" strokeLinecap="round" style={{ pathLength: pathLen }}
+      />
+      {/* Traveling spark — activates after line is fully drawn */}
+      {pathId && (
+        <AnimatedSpark pathId={pathId} progress={progress} scrollEnd={scrollEnd} />
+      )}
+      {/* "matched ✦" label on the featured center connection only */}
+      {isFeatured && (
+        <motion.g style={{ opacity: labelOp }}>
+          <rect
+            x={midX - 4.5} y={labelY - 1.8}
+            width={9} height={3.4} rx={1.7}
+            fill="rgba(215,232,181,0.92)"
+          />
+          <text
+            x={midX} y={labelY + 0.6}
+            textAnchor="middle"
+            fontSize="1.8"
+            fontFamily="'JetBrains Mono', 'Courier New', monospace"
+            fill="#0a1d08"
+            letterSpacing="0.05"
+          >
+            matched ✦
+          </text>
+        </motion.g>
+      )}
+    </g>
+  );
+}
+
+// ── Connection node dot — own component ───────────────────────────────────────
+
+function AnimatedNode({
+  member, progress, scrollStart,
+}: { member: Member; progress: MotionValue<number>; scrollStart: number }) {
+  const opacity = useTransform(progress, [scrollStart, scrollStart + 0.14], [0, 0.90]);
+  return (
+    <g>
+      {/* Glow ring */}
+      <motion.circle cx={member.x} cy={member.y} r="1.4"
+        fill="rgba(215,232,181,0.18)" style={{ opacity }} />
+      {/* Solid dot */}
+      <motion.circle cx={member.x} cy={member.y} r="0.7"
+        fill="rgba(215,232,181,0.95)" style={{ opacity }} />
+    </g>
+  );
+}
+
+// ── Background photo component (img with onError fallback) ───────────────────
+
+function BackgroundPhoto() {
+  const [src, setSrc] = useState(BG_IMAGE);
+  return (
+    <>
+      <img
+        src={src}
+        alt=""
+        loading="eager"
+        fetchPriority="high"
+        onError={() => setSrc(BG_FALLBACK)}
+        style={{
+          position: "absolute", inset: 0,
+          width: "100%", height: "100%",
+          objectFit: "cover", objectPosition: "center 52%",
+          // Warm sepia + mild desaturation → botanical journal feel matching Adaline
+          filter: "sepia(0.08) saturate(0.92) brightness(1.06) contrast(0.98)",
+        }}
+      />
+      {/* Warm cream tint overlay */}
+      {/* Warm amber tint — golden hour wash */}
+      <div style={{ position: "absolute", inset: 0, background: "rgba(245,220,170,0.14)" }} />
+      {/* Sun glow top-right — golden hour light source */}
+      <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 50% 38% at 78% 0%, rgba(255,205,90,0.18) 0%, transparent 100%)" }} />
+      {/* Top gradient — text legibility into warm sky */}
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(252,244,224,0.50) 0%, rgba(252,244,224,0.06) 24%, transparent 42%)" }} />
+      {/* Warm bottom glow — ground feels golden not gray */}
+      <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 100% 35% at 50% 100%, rgba(210,165,60,0.10) 0%, transparent 100%)" }} />
+      {/* Edge vignette — cinematic */}
+      <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 115% 85% at 50% 44%, transparent 32%, rgba(20,14,4,0.22) 100%)" }} />
+    </>
+  );
+}
+
+// ── Bokeh ambient particles — warm golden circles floating in background ──────
+// Deterministic positions (no Math.random) so SSR and client match.
+
+const BOKEH: { x: number; y: number; s: number; dur: number; delay: number }[] = [
+  { x: 8,  y: 16, s: 7,  dur: 5.2, delay: 0.0 },
+  { x: 88, y: 22, s: 5,  dur: 4.8, delay: 0.8 },
+  { x: 32, y: 74, s: 9,  dur: 6.1, delay: 1.6 },
+  { x: 65, y: 12, s: 5,  dur: 5.5, delay: 2.4 },
+  { x: 21, y: 48, s: 8,  dur: 4.6, delay: 3.2 },
+  { x: 79, y: 60, s: 5,  dur: 5.8, delay: 0.4 },
+  { x: 48, y: 88, s: 7,  dur: 4.9, delay: 1.2 },
+  { x: 92, y: 40, s: 6,  dur: 6.3, delay: 2.0 },
+  { x: 6,  y: 68, s: 8,  dur: 5.1, delay: 2.8 },
+  { x: 57, y: 30, s: 5,  dur: 4.7, delay: 0.6 },
+  { x: 74, y: 80, s: 7,  dur: 5.9, delay: 1.4 },
+  { x: 15, y: 92, s: 5,  dur: 4.4, delay: 2.2 },
+  { x: 42, y: 52, s: 6,  dur: 5.6, delay: 0.2 },
+  { x: 83, y: 10, s: 4,  dur: 4.5, delay: 1.8 },
+  { x: 26, y: 36, s: 7,  dur: 5.3, delay: 3.0 },
+];
+
+function BokehLayer() {
+  return (
+    <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 2 }}>
+      {BOKEH.map((p, i) => (
+        <motion.div
+          key={i}
+          style={{
+            position: "absolute",
+            left: `${p.x}%`,
+            top: `${p.y}%`,
+            width: p.s,
+            height: p.s,
+            borderRadius: "50%",
+            background: `rgba(255,200,70,${0.10 + (i % 3) * 0.04})`,
+            filter: `blur(${p.s * 1.2}px)`,
+            transform: "translate(-50%,-50%)",
+          }}
+          animate={{ y: [0, -14, 0], opacity: [0.5, 0.9, 0.5] }}
+          transition={{ duration: p.dur, delay: p.delay, repeat: Infinity, ease: "easeInOut" }}
+        />
+      ))}
+    </div>
+  );
+}
+
+// ── Product frame (shoji-style panels) ───────────────────────────────────────
+
+function ProductFrame({ opacity }: { opacity: MotionValue<number> }) {
+  const PW = 62;
+  return (
+    <motion.div style={{ opacity, position: "absolute", inset: 0, pointerEvents: "none" }}>
+      {/* Left panel */}
+      <div style={{
+        position: "absolute", top: 0, left: 0, width: PW, bottom: 0,
+        background: "rgba(251,253,246,0.86)",
+        backdropFilter: "blur(28px)", WebkitBackdropFilter: "blur(28px)",
+        borderRight: "1px solid rgba(224,229,213,0.78)",
+      }}>
+        <div style={{ position: "absolute", top: 0, bottom: 0, right: 22, width: 1, background: "rgba(197,204,182,0.28)" }} />
+      </div>
+      {/* Right panel */}
+      <div style={{
+        position: "absolute", top: 0, right: 0, width: PW, bottom: 0,
+        background: "rgba(251,253,246,0.86)",
+        backdropFilter: "blur(28px)", WebkitBackdropFilter: "blur(28px)",
+        borderLeft: "1px solid rgba(224,229,213,0.78)",
+      }}>
+        <div style={{ position: "absolute", top: 0, bottom: 0, left: 22, width: 1, background: "rgba(197,204,182,0.28)" }} />
+      </div>
+      {/* Bottom stats */}
+      <div style={{
+        position: "absolute", bottom: 0, left: PW, right: PW, height: 54,
+        background: "rgba(251,253,246,0.92)",
+        backdropFilter: "blur(28px)", WebkitBackdropFilter: "blur(28px)",
+        borderTop: "1px solid rgba(224,229,213,0.78)",
+        display: "flex", alignItems: "center", justifyContent: "center", gap: 36,
+      }}>
+        {[["847","members"],["24","matches this week"],["12","upcoming events"]].map(([v,l],i,a)=>(
+          <div key={l} style={{ display:"flex", alignItems:"baseline", gap:6 }}>
+            <span style={{ fontFamily:"var(--font-fragment-mono)", fontSize:15, fontWeight:700, color:"#0a1d08", letterSpacing:"-0.60px" }}>{v}</span>
+            <span style={{ fontFamily:"var(--font-fragment-mono)", fontSize:10, color:"#4a3212", letterSpacing:"0.04em", opacity:0.6 }}>{l}</span>
+            {i<a.length-1&&<span style={{ marginLeft:14, width:1, height:10, background:"#c5ccb6", display:"inline-block" }}/>}
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
+// ── Full hero section ─────────────────────────────────────────────────────────
+
+export function FullHeroSection() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  // 1.75→1.0: more cinematic — starts zoomed into warm amber sky, reveals oak tree + field
+  const bgScale    = useTransform(scrollYProgress, [0, 1],    [1.75, 1.0]);
+  // Parallax: background drifts down slightly as zoom pulls back — adds depth
+  const bgY        = useTransform(scrollYProgress, [0, 1],    ["0%", "7%"]);
+  const heroOp     = useTransform(scrollYProgress, [0, 0.13], [1,    0]);
+  const heroY      = useTransform(scrollYProgress, [0, 0.15], [0,   -36]);
+  const frameOp    = useTransform(scrollYProgress, [0.80, 1], [0,    1]);
+
+  // Collect the first scroll-start per member for node dot timing
+  const memberFirstStart = MEMBERS.map((_, mi) => {
+    const conn = CONNECTIONS.find(([a, b]) => a === mi || b === mi);
+    return conn ? conn[2] + 0.05 : 0.5;
+  });
+
+  return (
+    <div ref={containerRef} style={{ height: "300vh", position: "relative" }}>
+      <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden" }}>
+
+        {/* ── Background photo — scale + parallax Y ── */}
+        <motion.div
+          style={{
+            scale: bgScale,
+            y: bgY,
+            transformOrigin: "50% 55%",
+            position: "absolute", inset: 0,
+            willChange: "transform",
+          }}
+        >
+          <BackgroundPhoto />
+        </motion.div>
+
+        {/* ── Bokeh ambient particles — warm golden atmosphere ── */}
+        <BokehLayer />
+
+        {/* ── Connection lines SVG ── */}
+        <svg
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", zIndex: 5, overflow: "visible" }}
+        >
+          {/* Gradient defs — each line glows brightest at its midpoint */}
+          <defs>
+            {CONNECTIONS.map(([fi, ti], idx) => (
+              <linearGradient
+                key={idx}
+                id={`cg-${idx}`}
+                x1={MEMBERS[fi].x} y1={MEMBERS[fi].y}
+                x2={MEMBERS[ti].x} y2={MEMBERS[ti].y}
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop offset="0%"   stopColor="rgba(180,230,120,0.20)" />
+                <stop offset="48%"  stopColor={idx === 0 ? "rgba(200,250,100,0.95)" : "rgba(180,230,120,0.80)"} />
+                <stop offset="100%" stopColor="rgba(180,230,120,0.20)" />
+              </linearGradient>
+            ))}
+          </defs>
+
+          {/* Lines */}
+          {CONNECTIONS.map(([fi, ti, s, e], idx) => (
+            <AnimatedLine
+              key={idx}
+              from={MEMBERS[fi]}
+              to={MEMBERS[ti]}
+              progress={scrollYProgress}
+              scrollStart={s}
+              scrollEnd={e}
+              isFeatured={idx === 0}
+              gradientId={`cg-${idx}`}
+              pathId={`cp-${idx}`}
+            />
+          ))}
+          {/* Nodes */}
+          {MEMBERS.map((m, i) => (
+            <AnimatedNode
+              key={i}
+              member={m}
+              progress={scrollYProgress}
+              scrollStart={memberFirstStart[i]}
+            />
+          ))}
+        </svg>
+
+        {/* ── Member cards ── */}
+        <div style={{ position: "absolute", inset: 0, zIndex: 10 }}>
+          {MEMBERS.map((m, i) => (
+            <AnimatedCard key={i} member={m} progress={scrollYProgress} idx={i} />
+          ))}
+        </div>
+
+        {/* ── Hero text — entrance on load, then fades out as you scroll ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
+          style={{ position: "absolute", top: 0, left: 0, right: 0, zIndex: 20, pointerEvents: "none" }}
+        >
+        <motion.div
+          style={{
+            opacity: heroOp, y: heroY,
+            paddingTop: 72,
+            display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center",
+            pointerEvents: "none",
+          }}
+        >
+          <div style={{
+            fontFamily: "var(--font-fragment-mono)", fontSize: 11,
+            letterSpacing: "0.06em", color: "#0a1d08",
+            marginBottom: 22, textTransform: "uppercase",
+            background: "rgba(215,232,181,0.90)", borderRadius: 9999,
+            padding: "4px 14px", display: "inline-block",
+            backdropFilter: "blur(10px)",
+          }}>
+            Community Infrastructure
+          </div>
+
+          <h1 style={{
+            fontSize: "clamp(40px, 5.5vw, 62px)", fontWeight: 400,
+            lineHeight: 1.0, letterSpacing: "-2.12px", color: "#0a1d08",
+            margin: "0 0 22px", fontFamily: "var(--font-akkurat)",
+            textShadow: "0 2px 32px rgba(252,244,224,0.75), 0 4px 12px rgba(252,244,224,0.50)",
+          }}>
+            Run the community.<br />Not the ops.
+          </h1>
+
+          <p style={{
+            fontSize: 17, fontWeight: 400, lineHeight: 1.67,
+            letterSpacing: "-0.68px", color: "#1a2d0e",
+            maxWidth: 460, margin: "0 auto 34px",
+            fontFamily: "var(--font-akkurat)",
+            textShadow: "0 1px 20px rgba(252,244,224,0.80), 0 2px 8px rgba(252,244,224,0.60)",
+          }}>
+            The platform behind private professional communities.
+            We handle the ops so you can focus on your people.
+          </p>
+
+          <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", pointerEvents: "all" }}>
+            <a href="#" style={{
+              background: "#4a3212", color: "#fbfdf6", borderRadius: 20,
+              padding: "11px 26px", fontSize: 14, fontWeight: 700,
+              letterSpacing: "-0.56px", textDecoration: "none",
+              fontFamily: "var(--font-akkurat)",
+              boxShadow: "0 4px 22px rgba(74,50,18,0.42)",
+            }}>Start building →</a>
+            <a href="#features" style={{
+              background: "rgba(251,253,246,0.76)", color: "#0a1d08",
+              border: "1px solid rgba(10,29,8,0.16)", borderRadius: 20,
+              padding: "11px 26px", fontSize: 14, fontWeight: 700,
+              letterSpacing: "-0.56px", textDecoration: "none",
+              fontFamily: "var(--font-akkurat)", backdropFilter: "blur(8px)",
+            }}>See how it works</a>
+          </div>
+
+        </motion.div>
+        </motion.div>
+
+        {/* ── Product frame: materializes as the final reveal ── */}
+        <ProductFrame opacity={frameOp} />
+      </div>
+    </div>
+  );
+}
