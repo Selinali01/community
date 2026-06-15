@@ -44,19 +44,20 @@ interface Member {
 //   Dana enters at ~0.64         (farthest left)
 // At 1.5x zoom from origin (46%,60%): Sam/Taylor/Casey are at edges (faint presences)
 // Chris barely off left, Maya barely off right — many people subtly visible from load
+// At 2.0x zoom from origin (46%,60%): only Sarah & Alex are in viewport.
+// All others are fully off-screen — they enter cleanly as zoom pulls back.
+// The tiny field silhouettes + bokeh provide "lots in the background" at start.
 const MEMBERS: Member[] = [
-  // Central pair — clearly visible and large at 1.5x
-  { name: "Sarah M.",  initials: "SM", role: "Head of Growth",    company: "Figma",   photo: "https://randomuser.me/api/portraits/women/44.jpg", avatarBg: "linear-gradient(135deg,#5aac38,#2d6018)", x: 33, y: 60, range: [0.0, 0.28], initOp: 0.85, maxOp: 0.97 },
-  { name: "Alex K.",   initials: "AK", role: "VP Engineering",    company: "Linear",  photo: "https://randomuser.me/api/portraits/men/32.jpg",   avatarBg: "linear-gradient(135deg,#203b14,#4a9030)", x: 59, y: 60, range: [0.0, 0.28], initOp: 0.85, maxOp: 0.97 },
-  // Edge presences — barely at viewport edge at 1.5x, faint but intentionally there
-  { name: "Chris R.",  initials: "CR", role: "Operations Lead",   company: "Vercel",  photo: "https://randomuser.me/api/portraits/men/15.jpg",   avatarBg: "linear-gradient(135deg,#4a3212,#203b14)", x: 18, y: 76, range: [0.0, 0.46], initOp: 0.10, maxOp: 0.88 },
-  { name: "Sam T.",    initials: "ST", role: "Community Builder", company: "Loom",    photo: "https://randomuser.me/api/portraits/women/58.jpg", avatarBg: "linear-gradient(135deg,#1a3d14,#4a9030)", x: 75, y: 76, range: [0.0, 0.38], initOp: 0.12, maxOp: 0.88 },
+  { name: "Sarah M.",  initials: "SM", role: "Head of Growth",    company: "Figma",   photo: "https://randomuser.me/api/portraits/women/44.jpg", avatarBg: "linear-gradient(135deg,#5aac38,#2d6018)", x: 33, y: 60, range: [0.0, 0.26], initOp: 0.88, maxOp: 0.97 },
+  { name: "Alex K.",   initials: "AK", role: "VP Engineering",    company: "Linear",  photo: "https://randomuser.me/api/portraits/men/32.jpg",   avatarBg: "linear-gradient(135deg,#203b14,#4a9030)", x: 59, y: 60, range: [0.0, 0.26], initOp: 0.88, maxOp: 0.97 },
+  { name: "Chris R.",  initials: "CR", role: "Operations Lead",   company: "Vercel",  photo: "https://randomuser.me/api/portraits/men/15.jpg",   avatarBg: "linear-gradient(135deg,#4a3212,#203b14)", x: 18, y: 76, range: [0.28, 0.52], initOp: 0, maxOp: 0.88 },
+  { name: "Sam T.",    initials: "ST", role: "Community Builder", company: "Loom",    photo: "https://randomuser.me/api/portraits/women/58.jpg", avatarBg: "linear-gradient(135deg,#1a3d14,#4a9030)", x: 75, y: 76, range: [0.10, 0.44], initOp: 0, maxOp: 0.88 },
   { name: "Dana W.",   initials: "DW", role: "Founding Engineer", company: "Arc",     photo: "https://randomuser.me/api/portraits/women/35.jpg", avatarBg: "linear-gradient(135deg,#31200b,#4a3212)", x: 9,  y: 62, range: [0.52, 0.70], initOp: 0, maxOp: 0.82 },
   { name: "River O.",  initials: "RO", role: "Head of Design",    company: "Pitch",   photo: "https://randomuser.me/api/portraits/men/50.jpg",   avatarBg: "linear-gradient(135deg,#203b14,#2d6018)", x: 84, y: 62, range: [0.36, 0.56], initOp: 0, maxOp: 0.82 },
   { name: "Jordan L.", initials: "JL", role: "Chief of Staff",    company: "Stripe",  photo: "https://randomuser.me/api/portraits/women/68.jpg", avatarBg: "linear-gradient(135deg,#4a3212,#7a5820)", x: 14, y: 44, range: [0.36, 0.56], initOp: 0, maxOp: 0.88 },
-  { name: "Maya P.",   initials: "MP", role: "Head of Product",   company: "Notion",  photo: "https://randomuser.me/api/portraits/women/22.jpg", avatarBg: "linear-gradient(135deg,#1a3d14,#3d8a28)", x: 78, y: 38, range: [0.0, 0.40], initOp: 0.08, maxOp: 0.88 },
-  { name: "Taylor B.", initials: "TB", role: "Creative Director", company: "Spotify", photo: "https://randomuser.me/api/portraits/women/89.jpg", avatarBg: "linear-gradient(135deg,#31200b,#5a3515)", x: 44, y: 25, range: [0.0, 0.40], initOp: 0.10, maxOp: 0.84 },
-  { name: "Casey M.",  initials: "CM", role: "Startup Founder",   company: "Own Co.", photo: "https://randomuser.me/api/portraits/men/77.jpg",   avatarBg: "linear-gradient(135deg,#203b14,#5aac38)", x: 63, y: 23, range: [0.0, 0.42], initOp: 0.10, maxOp: 0.84 },
+  { name: "Maya P.",   initials: "MP", role: "Head of Product",   company: "Notion",  photo: "https://randomuser.me/api/portraits/women/22.jpg", avatarBg: "linear-gradient(135deg,#1a3d14,#3d8a28)", x: 78, y: 38, range: [0.22, 0.46], initOp: 0, maxOp: 0.88 },
+  { name: "Taylor B.", initials: "TB", role: "Creative Director", company: "Spotify", photo: "https://randomuser.me/api/portraits/women/89.jpg", avatarBg: "linear-gradient(135deg,#31200b,#5a3515)", x: 44, y: 25, range: [0.22, 0.46], initOp: 0, maxOp: 0.84 },
+  { name: "Casey M.",  initials: "CM", role: "Startup Founder",   company: "Own Co.", photo: "https://randomuser.me/api/portraits/men/77.jpg",   avatarBg: "linear-gradient(135deg,#203b14,#5aac38)", x: 63, y: 23, range: [0.28, 0.50], initOp: 0, maxOp: 0.84 },
 ];
 
 // Index order: 0=Sarah, 1=Alex, 2=Chris, 3=Sam, 4=Dana, 5=River, 6=Jordan, 7=Maya, 8=Taylor, 9=Casey
@@ -553,9 +554,9 @@ export function FullHeroSection() {
   });
 
   // Scene scale — zooms background + cards + connections together
-  // 1.5x→1.0: completes at 70% (was 85%) — full network at ~882px scroll with 240vh container
-  // 240vh = 1260px scroll range; 70% = 882px; much more immediate feel
-  const sceneScale = useTransform(scrollYProgress, [0, 0.70], [1.5, 1.0]);
+  // 2.0x→1.0: starts close-up on Sarah/Alex (just the two + field silhouettes)
+  // Full 10-person network reveals at 70% × 1260px = 882px scroll
+  const sceneScale = useTransform(scrollYProgress, [0, 0.70], [2.0, 1.0]);
   const heroOp     = useTransform(scrollYProgress, [0, 0.13], [1,   0]);
   const heroY      = useTransform(scrollYProgress, [0, 0.15], [0,  -36]);
   const frameOp    = useTransform(scrollYProgress, [0.80, 1], [0,   1]);
