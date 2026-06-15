@@ -3,6 +3,7 @@ import {
   AnimatedFeatureCard,
   AnimatedStep,
   AnimatedSectionLabel,
+  Reveal,
 } from "./animated-section";
 
 // ── Data ─────────────────────────────────────────────────────────────────────
@@ -310,6 +311,7 @@ function Testimonial() {
         }}>
           From the community
         </div>
+        <Reveal>
         <blockquote style={{
           fontSize: 22, fontWeight: 400, lineHeight: 1.55,
           letterSpacing: "-0.88px", color: "#0a1d08",
@@ -320,6 +322,7 @@ function Testimonial() {
           could make such a big impact on me, but I can&rsquo;t go without it now.
           It&rsquo;s a place where I feel zero judgement.&rdquo;
         </blockquote>
+        </Reveal>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
           <img
             src="https://randomuser.me/api/portraits/women/44.jpg"
@@ -366,6 +369,7 @@ function ProductPreview() {
         </div>
 
         {/* Product window mockup */}
+        <Reveal>
         <div style={{
           background: "#fbfdf6", border: "1px solid #0a1d08",
           borderRadius: 20, overflow: "hidden",
@@ -499,6 +503,7 @@ function ProductPreview() {
             ))}
           </div>
         </div>
+        </Reveal>
       </div>
     </section>
   );
