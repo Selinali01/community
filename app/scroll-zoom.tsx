@@ -89,6 +89,12 @@ export function FullHeroSection() {
   const revealOp = useTransform(scrollY, [330, 540], [0, 1]);
   const revealY = useTransform(scrollY, [330, 540], [40, 0]);
 
+  // Connection network — warm light-threads draw between the people and
+  // converge on a central hub ("us") as the camera pulls back. The literal
+  // "all connected through us." Draws in over the same window as the reveal.
+  const threadDraw = useTransform(scrollY, [330, 560], r ? [0, 1] : [1, 1]);
+  const threadOp = useTransform(scrollY, [330, 470], r ? [0, 0.62] : [0.62, 0.62]);
+
   // Scroll cue — visible at rest, fades the moment you start scrolling
 
   // Subtle mouse parallax on the video — dimensionality, "cool and smooth".
@@ -149,6 +155,41 @@ export function FullHeroSection() {
         <div style={{ position: "absolute", inset: 0, zIndex: 2, background: "rgba(196,118,34,0.14)", mixBlendMode: "soft-light", pointerEvents: "none" }} />
         {/* Cinematic film grain */}
         <div className="film-grain" aria-hidden="true" style={{ zIndex: 2 }} />
+
+        {/* ── Connection network — people linked through a central hub ("us") ── */}
+        <motion.div aria-hidden="true" style={{ x: pX, y: pY, position: "absolute", inset: -16, zIndex: 3, pointerEvents: "none", opacity: threadOp }}>
+          <svg viewBox="0 0 100 60" preserveAspectRatio="xMidYMid slice" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}>
+            <defs>
+              <filter id="threadGlow" x="-40%" y="-40%" width="180%" height="180%">
+                <feGaussianBlur stdDeviation="0.5" result="b" />
+                <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+              </filter>
+              <radialGradient id="hubGrad">
+                <stop offset="0%" stopColor="#fbf0d2" stopOpacity="0.95" />
+                <stop offset="60%" stopColor="#e9b563" stopOpacity="0.55" />
+                <stop offset="100%" stopColor="#e9b563" stopOpacity="0" />
+              </radialGradient>
+            </defs>
+            {/* people positions in the wide shot → curved threads to the hub (50,40) */}
+            {([[10, 24], [20, 27], [42, 22], [63, 25], [83, 24]] as const).map(([px, py], i) => {
+              const hx = 50, hy = 40;
+              const cx = (px + hx) / 2, cy = (py + hy) / 2 - 7; // bow the line upward
+              return (
+                <g key={i} filter="url(#threadGlow)">
+                  <motion.path
+                    d={`M ${px} ${py} Q ${cx} ${cy} ${hx} ${hy}`}
+                    fill="none" stroke="#f3d9a0" strokeWidth={0.16} strokeLinecap="round"
+                    style={{ pathLength: threadDraw }}
+                  />
+                  <motion.circle cx={px} cy={py} r={0.62} fill="#fbf0d2" style={{ opacity: threadDraw }} />
+                </g>
+              );
+            })}
+            {/* central hub — "us" */}
+            <circle cx={50} cy={40} r={5} fill="url(#hubGrad)" />
+            <circle cx={50} cy={40} r={1.15} fill="#fbf4df" filter="url(#threadGlow)" />
+          </svg>
+        </motion.div>
 
         {/* ── Glass nav ── */}
         <nav
