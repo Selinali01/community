@@ -6,9 +6,13 @@ import { motion, useScroll, useTransform, useMotionValue, useMotionValueEvent, u
 // Hero stat that counts 0 → `to` driven by scroll progress through the reveal.
 // Scroll-driven (not useInView) so it's reliable inside the pinned hero stage.
 function ScrollStat({ scrollY, to }: { scrollY: MotionValue<number>; to: number }) {
+  const reduce = useReducedMotion();
   const mv = useTransform(scrollY, [330, 540], [0, to]);
+  // Always start at 0 (matches SSR) to avoid hydration mismatch; an effect jumps
+  // to the final value for reduced-motion users after mount.
   const [val, setVal] = useState(0);
-  useMotionValueEvent(mv, "change", (latest) => setVal(Math.round(latest)));
+  useMotionValueEvent(mv, "change", (latest) => { if (!reduce) setVal(Math.round(latest)); });
+  useEffect(() => { if (reduce) setVal(to); }, [reduce, to]);
   return <>{val}</>;
 }
 
@@ -59,10 +63,13 @@ export function FullHeroSection() {
   // Window scroll in pixels — reliable (target+sticky useScroll miscalculates).
   // The hero sits at the top of the page, so scrollY 0 == hero start.
   const { scrollY } = useScroll();
-  // Respect reduced-motion: disable the large movements (zoom + parallax),
-  // keep gentle opacity fades. r=1 enables motion, r=0 disables.
-  const reduce = useReducedMotion();
-  const r = reduce ? 0 : 1;
+  // Respect reduced-motion: disable the large movements (zoom + parallax).
+  // Gate behind a mounted flag so SSR and the first client render match
+  // (both non-reduced) — avoids a hydration mismatch on the transform styles.
+  const prefersReduced = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const r = mounted && prefersReduced ? 0 : 1;
 
   // Pinned section is 190vh, so the sticky stage unpins at ~90vh (~620–740px
   // depending on viewport). All scroll beats must COMPLETE before ~560px so the

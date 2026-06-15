@@ -1,23 +1,26 @@
 "use client";
 
-import { motion, animate, useInView } from "framer-motion";
+import { motion, animate, useInView, useReducedMotion } from "framer-motion";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 // Count-up number — animates 0 → value when scrolled into view (once).
 // A premium "cool and smooth" micro-interaction for the live community stats.
+// Respects prefers-reduced-motion (shows the final value immediately).
 export function CountUp({ to }: { to: number }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
+  const reduce = useReducedMotion();
   const [val, setVal] = useState(0);
   useEffect(() => {
     if (!inView) return;
+    if (reduce) { setVal(to); return; }
     const controls = animate(0, to, {
       duration: 1.3,
       ease: [0.16, 1, 0.3, 1],
       onUpdate: (v) => setVal(Math.round(v)),
     });
     return () => controls.stop();
-  }, [inView, to]);
+  }, [inView, to, reduce]);
   return <span ref={ref}>{val}</span>;
 }
 
@@ -47,12 +50,15 @@ export function Reveal({
 // Draws a horizontal line left→right when scrolled into view — used for the
 // product preview's match connector ("connected through us", in the UI mockup).
 export function DrawLine() {
+  const reduce = useReducedMotion();
   return (
     <motion.div
       style={{ flex: 1, borderTop: "1.5px dashed #c5ccb6", transformOrigin: "left center" }}
+      // initial is identical server + client (SSR-safe); reduced-motion only
+      // collapses the transition so it snaps instead of drawing.
       initial={{ scaleX: 0, opacity: 0 }}
       whileInView={{ scaleX: 1, opacity: 1 }}
-      transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: reduce ? 0 : 0.7, delay: reduce ? 0 : 0.2, ease: [0.16, 1, 0.3, 1] }}
       viewport={{ once: true, margin: "-40px" }}
     />
   );
