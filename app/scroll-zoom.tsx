@@ -314,8 +314,8 @@ function BackgroundPhoto() {
       <div style={{ position: "absolute", inset: 0, background: "rgba(245,220,170,0.14)" }} />
       {/* Sun glow top-right — golden hour light source */}
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 50% 38% at 78% 0%, rgba(255,205,90,0.18) 0%, transparent 100%)" }} />
-      {/* Top gradient — text legibility into warm sky */}
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(252,244,224,0.50) 0%, rgba(252,244,224,0.06) 24%, transparent 42%)" }} />
+      {/* Top gradient — stronger for wildflower sun photo */}
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(252,245,220,0.62) 0%, rgba(252,245,220,0.18) 28%, transparent 48%)" }} />
       {/* Warm bottom glow — ground feels golden not gray */}
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 100% 35% at 50% 100%, rgba(210,165,60,0.10) 0%, transparent 100%)" }} />
       {/* Edge vignette — cinematic */}
@@ -611,7 +611,7 @@ export function FullHeroSection() {
             fontSize: "clamp(40px, 5.5vw, 62px)", fontWeight: 400,
             lineHeight: 1.0, letterSpacing: "-2.12px", color: "#0a1d08",
             margin: "0 0 22px", fontFamily: "var(--font-akkurat)",
-            textShadow: "0 2px 32px rgba(252,244,224,0.75), 0 4px 12px rgba(252,244,224,0.50)",
+            textShadow: "0 2px 44px rgba(255,248,225,0.95), 0 4px 16px rgba(255,248,225,0.75), 0 1px 4px rgba(255,248,225,0.55)",
           }}>
             Run the community.<br />Not the ops.
           </h1>
