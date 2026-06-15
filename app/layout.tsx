@@ -42,6 +42,22 @@ export const viewport = {
   themeColor: "#0a1d08",
 };
 
+// Structured data — helps search engines + social tools understand the product
+const JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "BubbleLab Community",
+  applicationCategory: "BusinessApplication",
+  description: DESCRIPTION,
+  url: "https://community.bubblelab.ai",
+  image: "https://community.bubblelab.ai/hero-poster.jpg",
+  offers: { "@type": "Offer", category: "Community infrastructure platform" },
+  featureList: [
+    "Applications & vetting", "Member directory", "1:1 matchmaking",
+    "Event calendar", "Lifecycle messaging", "Slack integration",
+  ],
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -52,6 +68,10 @@ export default function RootLayout({
       <head>
         {/* Preload the self-hosted hero poster so the first frame paints instantly */}
         <link rel="preload" as="image" href="/hero-poster.jpg" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
+        />
       </head>
       <body>{children}</body>
     </html>
