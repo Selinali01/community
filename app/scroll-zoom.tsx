@@ -191,19 +191,23 @@ export function FullHeroSection() {
             }}>Community Infrastructure</span>
           </div>
 
-          {/* Headline */}
-          <h1 className="fade-rise-1" style={{
+          {/* Headline — two lines cascade in for cinematic rhythm */}
+          <h1 style={{
             fontFamily: "var(--font-akkurat)", fontWeight: 400,
             fontSize: "clamp(46px, 8vw, 92px)", lineHeight: 0.98,
             letterSpacing: "-3px", color: "#fbfdf6", margin: 0, maxWidth: 1000,
             textShadow: "0 2px 40px rgba(10,18,6,0.6), 0 1px 8px rgba(10,18,6,0.4)",
           }}>
-            Run the <span style={{ fontStyle: "italic", color: "#e7d9a8" }}>community</span>.<br />
-            <span style={{ color: "rgba(251,253,246,0.62)" }}>Not the ops.</span>
+            <span className="fade-rise-1" style={{ display: "block" }}>
+              Run the <span style={{ fontStyle: "italic", color: "#e7d9a8" }}>community</span>.
+            </span>
+            <span className="fade-rise-2" style={{ display: "block", color: "rgba(251,253,246,0.62)" }}>
+              Not the ops.
+            </span>
           </h1>
 
           {/* Subhead — punchy, two lines */}
-          <p className="fade-rise-2" style={{
+          <p className="fade-rise-3" style={{
             fontFamily: "var(--font-akkurat)", fontWeight: 400,
             fontSize: "clamp(15px, 1.5vw, 19px)", lineHeight: 1.6,
             letterSpacing: "-0.3px", color: "rgba(251,253,246,0.82)",
@@ -215,7 +219,7 @@ export function FullHeroSection() {
           </p>
 
           {/* CTAs */}
-          <div className="fade-rise-3" style={{ display: "flex", gap: 12, marginTop: 34, flexWrap: "wrap", justifyContent: "center" }}>
+          <div className="fade-rise-4" style={{ display: "flex", gap: 12, marginTop: 34, flexWrap: "wrap", justifyContent: "center" }}>
             <a href="#" className="cta-hover cta-solid" style={{
               background: "#fbfdf6", color: "#0a1d08", borderRadius: 9999,
               padding: "14px 32px", fontSize: 15, fontWeight: 700, letterSpacing: "-0.4px",
@@ -230,7 +234,7 @@ export function FullHeroSection() {
           </div>
 
           {/* Social proof — real communities */}
-          <div className="fade-rise-3" style={{
+          <div className="fade-rise-5" style={{
             marginTop: 28, display: "flex", alignItems: "center", gap: 10,
             fontFamily: "var(--font-fragment-mono)", fontSize: 11, letterSpacing: "0.04em",
             textShadow: "0 1px 16px rgba(10,18,6,0.7)",
