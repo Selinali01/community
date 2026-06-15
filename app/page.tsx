@@ -325,7 +325,7 @@ function Testimonial() {
         </Reveal>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
           <img
-            src="https://randomuser.me/api/portraits/women/44.jpg"
+            src="/avatars/sarah.jpg"
             alt="Lindsay Rios"
             style={{ width: 32, height: 32, borderRadius: "50%", objectFit: "cover", border: "1.5px solid #d7e8b5" }}
           />
@@ -341,10 +341,10 @@ function Testimonial() {
 // ── Product UI preview — what the dashboard actually looks like ──────────────
 
 const PREVIEW_MEMBERS = [
-  { name: "Sarah M.", role: "Head of Growth", co: "Figma",  brand: "#7B61FF", photo: "https://randomuser.me/api/portraits/women/44.jpg" },
-  { name: "Alex K.",  role: "VP Engineering", co: "Linear", brand: "#5D64CF", photo: "https://randomuser.me/api/portraits/men/32.jpg" },
-  { name: "Jordan L.",role: "Chief of Staff",  co: "Stripe", brand: "#635BFF", photo: "https://randomuser.me/api/portraits/women/68.jpg" },
-  { name: "Maya P.",  role: "Head of Product", co: "Notion", brand: "#37352F", photo: "https://randomuser.me/api/portraits/women/22.jpg" },
+  { name: "Sarah M.", role: "Head of Growth", co: "Figma",  brand: "#7B61FF", photo: "/avatars/sarah.jpg" },
+  { name: "Alex K.",  role: "VP Engineering", co: "Linear", brand: "#5D64CF", photo: "/avatars/alex.jpg" },
+  { name: "Jordan L.",role: "Chief of Staff",  co: "Stripe", brand: "#635BFF", photo: "/avatars/jordan.jpg" },
+  { name: "Maya P.",  role: "Head of Product", co: "Notion", brand: "#37352F", photo: "/avatars/maya.jpg" },
 ];
 
 function ProductPreview() {
