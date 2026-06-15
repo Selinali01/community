@@ -27,4 +27,15 @@ body {
   color: #0a1d08;
   font-family: var(--font-akkurat);
   margin: 0;
+  /* Subtle paper grain — matches the Adaline 'botanical journal' aesthetic */
+  background-image:
+    repeating-linear-gradient(0deg,   rgba(10,29,8,0.009) 0, rgba(10,29,8,0.009) 1px, transparent 0, transparent 100%),
+    repeating-linear-gradient(90deg,  rgba(10,29,8,0.009) 0, rgba(10,29,8,0.009) 1px, transparent 0, transparent 100%);
+  background-size: 48px 48px;
+}
+
+/* Scroll-hint bounce animation for the hero arrow */
+@keyframes arrow-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.30; }
+  50%       { transform: translateY(5px); opacity: 0.55; }
 }

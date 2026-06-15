@@ -320,6 +320,8 @@ function BackgroundPhoto() {
   const [src, setSrc] = useState(BG_IMAGE);
   return (
     <>
+      {/* Warm golden fallback — prevents white flash while photo loads */}
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, #d4960a 0%, #b87c08 40%, #6e5020 100%)" }} />
       <img
         src={src}
         alt=""
@@ -772,6 +774,14 @@ export function FullHeroSection() {
               </div>
             </div>
           </div>
+
+          {/* Animated scroll arrow */}
+          <svg
+            width="14" height="20" viewBox="0 0 14 20" fill="none"
+            style={{ marginTop: 28, animation: "arrow-bounce 1.8s ease-in-out infinite" }}
+          >
+            <path d="M7 1L7 19M1 13L7 19L13 13" stroke="#0a1d08" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
 
         </motion.div>
         </motion.div>
