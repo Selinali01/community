@@ -250,7 +250,7 @@ function HowItWorks() {
                 }}>
                   {step.num}
                 </div>
-                {i < 2 && <div style={{ flex: 1, borderTop: "1px dashed #c5ccb6", marginRight: -48 }} />}
+                {i < 2 && <div style={{ flex: 1, borderTop: "1px dashed #c5ccb6" }} />}
               </div>
               <div
                 style={{
