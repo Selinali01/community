@@ -115,7 +115,7 @@ function Avatar({ member }: { member: Member }) {
       <div style={{ position: "relative", flexShrink: 0 }}>
         {isMatched && (
           <motion.div
-            style={{ position: "absolute", inset: -5, borderRadius: "50%", border: "2px solid rgba(215,232,181,0.70)", pointerEvents: "none" }}
+            style={{ position: "absolute", inset: -5, borderRadius: "50%", border: "2px solid rgba(218,185,68,0.70)", pointerEvents: "none" }}
             animate={{ opacity: [0.65, 0.10, 0.65], scale: [1, 1.12, 1] }}
             transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", delay: member.company === "Linear" ? 0.55 : 0 }}
           />
@@ -127,7 +127,7 @@ function Avatar({ member }: { member: Member }) {
           display: "flex", alignItems: "center", justifyContent: "center",
           fontSize: 13, fontWeight: 700, color: "#fbfdf6",
           letterSpacing: "-0.52px", flexShrink: 0,
-          border: "2.5px solid rgba(215,232,181,0.75)",
+          border: "2.5px solid rgba(218,185,68,0.75)",
         }}
       >
         {member.initials}
@@ -139,7 +139,7 @@ function Avatar({ member }: { member: Member }) {
     <div style={{ position: "relative", flexShrink: 0 }}>
       {isMatched && (
         <motion.div
-          style={{ position: "absolute", inset: -5, borderRadius: "50%", border: "2px solid rgba(215,232,181,0.70)", pointerEvents: "none" }}
+          style={{ position: "absolute", inset: -5, borderRadius: "50%", border: "2px solid rgba(218,185,68,0.70)", pointerEvents: "none" }}
           animate={{ opacity: [0.65, 0.10, 0.65], scale: [1, 1.12, 1] }}
           transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", delay: member.company === "Linear" ? 0.55 : 0 }}
         />
@@ -151,8 +151,8 @@ function Avatar({ member }: { member: Member }) {
         style={{
           width: 60, height: 60, borderRadius: "50%",
           objectFit: "cover",
-          border: "2.5px solid rgba(215,232,181,0.80)",
-          boxShadow: "0 0 0 1px rgba(215,232,181,0.25)",
+          border: "2.5px solid rgba(218,185,68,0.80)",
+          boxShadow: "0 0 0 1px rgba(218,185,68,0.25)",
         }}
       />
     </div>
@@ -211,14 +211,14 @@ function AnimatedCard({
             backdropFilter: "blur(22px)",
             WebkitBackdropFilter: "blur(22px)",
             border: idx < 2
-              ? "1px solid rgba(180,230,120,0.48)"
+              ? "1px solid rgba(212,175,52,0.48)"
               : "1px solid rgba(10,29,8,0.08)",
             borderRadius: 18,
             padding: "14px 12px 12px",
             display: "flex", flexDirection: "column", alignItems: "center", gap: 6,
             textAlign: "center",
             boxShadow: idx < 2
-              ? `0 18px 52px -8px rgba(74,50,18,0.22), 0 0 22px rgba(180,230,120,0.14), 0 2px 12px rgba(74,50,18,0.10), inset 0 1px 0 rgba(255,255,255,0.70), inset 0 0 0 1px ${BRAND_INSET[member.company] ?? "rgba(0,0,0,0.04)"}`
+              ? `0 18px 52px -8px rgba(74,50,18,0.22), 0 0 22px rgba(212,175,52,0.14), 0 2px 12px rgba(74,50,18,0.10), inset 0 1px 0 rgba(255,255,255,0.70), inset 0 0 0 1px ${BRAND_INSET[member.company] ?? "rgba(0,0,0,0.04)"}`
               : `0 18px 52px -8px rgba(74,50,18,0.22), 0 2px 12px rgba(74,50,18,0.10), inset 0 1px 0 rgba(255,255,255,0.70), inset 0 0 0 1px ${BRAND_INSET[member.company] ?? "rgba(0,0,0,0.04)"}`,
           }}>
             <Avatar member={member} />
@@ -285,7 +285,7 @@ function AnimatedSpark({
 }: { pathId: string; progress: MotionValue<number>; scrollEnd: number }) {
   const opacity = useTransform(progress, [scrollEnd, scrollEnd + 0.09], [0, 0.88]);
   return (
-    <motion.circle r="0.48" fill="rgba(225,255,110,0.96)" style={{ opacity }}>
+    <motion.circle r="0.48" fill="rgba(255,235,78,0.96)" style={{ opacity }}>
       <animateMotion dur="2.6s" repeatCount="indefinite">
         <mpath href={`#${pathId}`} />
       </animateMotion>
@@ -321,7 +321,7 @@ function AnimatedLine({
       {isFeatured && (
         <motion.path
           d={d}
-          stroke="rgba(190,240,110,0.28)"
+          stroke="rgba(218,190,58,0.28)"
           strokeWidth="3.5"
           fill="none" strokeLinecap="round"
           filter="url(#area-glow)"
@@ -330,16 +330,16 @@ function AnimatedLine({
         />
       )}
       {/* Outer halo — featured is much wider */}
-      <motion.path d={d} stroke="rgba(215,232,181,0.18)" strokeWidth={isFeatured ? 2.8 : 1.2}
+      <motion.path d={d} stroke="rgba(218,185,68,0.18)" strokeWidth={isFeatured ? 2.8 : 1.2}
         fill="none" strokeLinecap="round" style={{ pathLength: pathLen }} />
       {/* Mid glow */}
-      <motion.path d={d} stroke="rgba(215,232,181,0.30)" strokeWidth={isFeatured ? 1.0 : 0.50}
+      <motion.path d={d} stroke="rgba(218,185,68,0.30)" strokeWidth={isFeatured ? 1.0 : 0.50}
         fill="none" strokeLinecap="round" style={{ pathLength: pathLen }} />
       {/* Gradient main line — ID used by spark's mpath */}
       <motion.path
         id={pathId}
         d={d}
-        stroke={gradientId ? `url(#${gradientId})` : (isFeatured ? "rgba(155,210,100,0.85)" : "rgba(155,200,110,0.70)")}
+        stroke={gradientId ? `url(#${gradientId})` : (isFeatured ? "rgba(155,210,100,0.85)" : "rgba(202,165,48,0.70)")}
         strokeWidth={isFeatured ? 0.30 : 0.23}
         fill="none" strokeLinecap="round" style={{ pathLength: pathLen }}
       />
@@ -353,7 +353,7 @@ function AnimatedLine({
           <rect
             x={midX - 4.5} y={labelY - 1.8}
             width={9} height={3.4} rx={1.7}
-            fill="rgba(215,232,181,0.92)"
+            fill="rgba(218,185,68,0.92)"
           />
           <text
             x={midX} y={labelY + 0.6}
@@ -381,13 +381,13 @@ function AnimatedNode({
     <g>
       {/* Outer glow ring */}
       <motion.circle cx={member.x} cy={member.y} r="2.0"
-        fill="rgba(215,232,181,0.15)" style={{ opacity }} />
+        fill="rgba(218,185,68,0.15)" style={{ opacity }} />
       {/* Inner glow */}
       <motion.circle cx={member.x} cy={member.y} r="1.1"
-        fill="rgba(215,232,181,0.55)" style={{ opacity }} />
+        fill="rgba(218,185,68,0.55)" style={{ opacity }} />
       {/* Solid core */}
       <motion.circle cx={member.x} cy={member.y} r="0.70"
-        fill="rgba(215,232,181,0.96)" style={{ opacity }} />
+        fill="rgba(218,185,68,0.96)" style={{ opacity }} />
     </g>
   );
 }
@@ -587,7 +587,7 @@ function AnimatedConnectionGlow({ progress }: { progress: MotionValue<number> })
   return (
     <motion.ellipse
       cx={46} cy={60} rx={22} ry={9}
-      fill="rgba(190,240,130,0.45)"
+      fill="rgba(218,190,60,0.45)"
       filter="url(#area-glow)"
       style={{ opacity }}
     />
@@ -700,9 +700,9 @@ export function FullHeroSection() {
                 x2={MEMBERS[ti].x} y2={MEMBERS[ti].y}
                 gradientUnits="userSpaceOnUse"
               >
-                <stop offset="0%"   stopColor="rgba(180,230,120,0.20)" />
-                <stop offset="48%"  stopColor={idx === 0 ? "rgba(200,250,100,0.95)" : "rgba(180,230,120,0.80)"} />
-                <stop offset="100%" stopColor="rgba(180,230,120,0.20)" />
+                <stop offset="0%"   stopColor="rgba(212,175,52,0.20)" />
+                <stop offset="48%"  stopColor={idx === 0 ? "rgba(228,198,55,0.95)" : "rgba(212,175,52,0.80)"} />
+                <stop offset="100%" stopColor="rgba(212,175,52,0.20)" />
               </linearGradient>
             ))}
           </defs>
@@ -770,7 +770,7 @@ export function FullHeroSection() {
             fontFamily: "var(--font-fragment-mono)", fontSize: 11,
             letterSpacing: "0.06em", color: "#0a1d08",
             marginBottom: 22, textTransform: "uppercase",
-            background: "rgba(215,232,181,0.90)", borderRadius: 9999,
+            background: "rgba(218,185,68,0.90)", borderRadius: 9999,
             padding: "4px 14px",
             display: "inline-flex", alignItems: "center", gap: 7,
             backdropFilter: "blur(10px)",
@@ -793,7 +793,7 @@ export function FullHeroSection() {
             Run the <span style={{
               fontStyle: "italic",
               textDecoration: "underline",
-              textDecorationColor: "rgba(215,232,181,0.72)",
+              textDecorationColor: "rgba(218,185,68,0.72)",
               textDecorationThickness: "2px",
               textUnderlineOffset: "7px",
             }}>community</span>.<br />Not the ops.
