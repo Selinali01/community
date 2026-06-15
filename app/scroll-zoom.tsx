@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 
 // Mixkit: diverse group gathered around a garden dinner table under warm string
 // lights at night. Real people connecting — the community IS the scene.
@@ -64,11 +64,28 @@ export function FullHeroSection() {
   // Scroll cue — visible at rest, fades the moment you start scrolling
   const cueOp = useTransform(scrollY, [0, 90], [1, 0]);
 
+  // Subtle mouse parallax on the video — dimensionality, "cool and smooth".
+  // Spring-smoothed; the video has bleed so the ±px shift never reveals edges.
+  const rawMX = useMotionValue(0);
+  const rawMY = useMotionValue(0);
+  const pX = useSpring(useTransform(rawMX, [-0.5, 0.5], [10, -10]), { stiffness: 70, damping: 20 });
+  const pY = useSpring(useTransform(rawMY, [-0.5, 0.5], [7, -7]), { stiffness: 70, damping: 20 });
+
   return (
-    <section ref={ref} className="hero-focus" style={{ position: "relative", height: "190vh", background: "#0a1d08" }}>
+    <section
+      ref={ref}
+      className="hero-focus"
+      style={{ position: "relative", height: "190vh", background: "#0a1d08" }}
+      onMouseMove={(e) => {
+        const r = e.currentTarget.getBoundingClientRect();
+        rawMX.set((e.clientX - r.left) / r.width - 0.5);
+        rawMY.set((e.clientY - Math.min(0, r.top)) / window.innerHeight - 0.5);
+      }}
+    >
       {/* Pinned stage — holds the scene while the zoom-out + reveal play */}
       <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", display: "flex", flexDirection: "column" }}>
-        {/* ── Fullscreen looping video — the people, the scene ── */}
+        {/* ── Fullscreen looping video — the people, the scene (mouse-parallax) ── */}
+        <motion.div style={{ x: pX, y: pY, position: "absolute", inset: -16, zIndex: 0 }}>
         <motion.video
           ref={videoRef}
           aria-hidden="true"
@@ -87,7 +104,6 @@ export function FullHeroSection() {
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            zIndex: 0,
             willChange: "transform",
             filter: "saturate(1.05) brightness(1.02) contrast(1.02) sepia(0.10)",
           }}
@@ -95,6 +111,7 @@ export function FullHeroSection() {
           <source src={VIDEO} type="video/mp4" />
           <source src={VIDEO_FALLBACK} type="video/mp4" />
         </motion.video>
+        </motion.div>
 
         {/* ── Warm scrims ── */}
         <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "rgba(10,18,6,0.30)" }} />
