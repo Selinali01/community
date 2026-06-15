@@ -73,7 +73,7 @@ const CONNECTIONS: [number, number, number, number][] = [
   [9, 7, 0.40, 0.60],  // Casey → Maya
 ];
 
-// Company brand colors — make each profile feel like a real professional identity
+// Company brand colors — dot color in cards
 const BRAND: Record<string, string> = {
   "Figma":   "#7B61FF",
   "Linear":  "#5D64CF",
@@ -85,6 +85,21 @@ const BRAND: Record<string, string> = {
   "Notion":  "#37352F",
   "Spotify": "#1DB954",
   "Own Co.": "#4a3212",
+};
+
+// Subtle brand color as inset glow — makes each card feel uniquely theirs
+// All at low alpha so it's a whisper, not a shout
+const BRAND_INSET: Record<string, string> = {
+  "Figma":   "rgba(123,97,255,0.12)",
+  "Linear":  "rgba(93,100,207,0.12)",
+  "Vercel":  "rgba(0,0,0,0.06)",
+  "Loom":    "rgba(98,93,245,0.12)",
+  "Arc":     "rgba(255,76,0,0.10)",
+  "Pitch":   "rgba(0,0,0,0.06)",
+  "Stripe":  "rgba(99,91,255,0.12)",
+  "Notion":  "rgba(55,53,47,0.08)",
+  "Spotify": "rgba(29,185,84,0.12)",
+  "Own Co.": "rgba(74,50,18,0.08)",
 };
 
 // ── Avatar (with photo fallback) ──────────────────────────────────────────────
@@ -169,8 +184,8 @@ function AnimatedCard({
             padding: "11px 16px 11px 11px",
             display: "flex", alignItems: "center", gap: 12,
             boxShadow: idx < 2
-              ? "0 18px 52px -8px rgba(74,50,18,0.22), 0 0 22px rgba(180,230,120,0.14), 0 2px 12px rgba(74,50,18,0.10), inset 0 1px 0 rgba(255,255,255,0.70)"
-              : "0 18px 52px -8px rgba(74,50,18,0.22), 0 2px 12px rgba(74,50,18,0.10), inset 0 1px 0 rgba(255,255,255,0.70)",
+              ? `0 18px 52px -8px rgba(74,50,18,0.22), 0 0 22px rgba(180,230,120,0.14), 0 2px 12px rgba(74,50,18,0.10), inset 0 1px 0 rgba(255,255,255,0.70), inset 0 0 0 1px ${BRAND_INSET[member.company] ?? "rgba(0,0,0,0.04)"}`
+              : `0 18px 52px -8px rgba(74,50,18,0.22), 0 2px 12px rgba(74,50,18,0.10), inset 0 1px 0 rgba(255,255,255,0.70), inset 0 0 0 1px ${BRAND_INSET[member.company] ?? "rgba(0,0,0,0.04)"}`,
             minWidth: 190, whiteSpace: "nowrap",
           }}>
             <Avatar member={member} />
@@ -700,7 +715,12 @@ export function FullHeroSection() {
             margin: "0 0 22px", fontFamily: "var(--font-akkurat)",
             textShadow: "0 2px 44px rgba(255,248,225,0.95), 0 4px 16px rgba(255,248,225,0.75), 0 1px 4px rgba(255,248,225,0.55)",
           }}>
-            Run the community.<br />Not the ops.
+            Run the <span style={{
+              textDecoration: "underline",
+              textDecorationColor: "rgba(215,232,181,0.70)",
+              textDecorationThickness: "2px",
+              textUnderlineOffset: "6px",
+            }}>community</span>.<br />Not the ops.
           </h1>
 
           <p style={{
