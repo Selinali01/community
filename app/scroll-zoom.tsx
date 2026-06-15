@@ -197,16 +197,16 @@ export function FullHeroSection() {
             textAlign: "center", padding: "clamp(20px, 5vh, 60px) 24px 0",
           }}
         >
-          {/* Eyebrow */}
+          {/* Eyebrow — backed by Y Combinator */}
           <div className="fade-rise liquid-glass" style={{
-            borderRadius: 9999, padding: "5px 15px", marginBottom: 28,
-            display: "inline-flex", alignItems: "center", gap: 8,
+            borderRadius: 9999, padding: "5px 16px 5px 7px", marginBottom: 28,
+            display: "inline-flex", alignItems: "center", gap: 9,
           }}>
-            <span style={{ width: 5, height: 5, borderRadius: "50%", background: "#d7e8b5", boxShadow: "0 0 8px rgba(215,232,181,0.8)" }} />
+            <img src="/yc-logo.svg" alt="Y Combinator" width={16} height={16} style={{ borderRadius: 3, display: "block" }} />
             <span style={{
               fontFamily: "var(--font-fragment-mono)", fontSize: 11,
               letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(251,253,246,0.85)",
-            }}>Community Infrastructure</span>
+            }}>Backed by Y Combinator</span>
           </div>
 
           {/* Headline — two lines cascade in for cinematic rhythm */}
@@ -232,18 +232,6 @@ export function FullHeroSection() {
               textDecoration: "none", fontFamily: "var(--font-akkurat)",
               boxShadow: "0 8px 32px -8px rgba(0,0,0,0.5)",
             }}>Book a demo →</a>
-          </div>
-
-          {/* Social proof — real communities */}
-          <div className="fade-rise-4" style={{
-            marginTop: 28, display: "flex", alignItems: "center", gap: 10,
-            fontFamily: "var(--font-fragment-mono)", fontSize: 11, letterSpacing: "0.04em",
-            textShadow: "0 1px 16px rgba(10,18,6,0.7)",
-          }}>
-            <span style={{ color: "rgba(251,253,246,0.5)", textTransform: "uppercase", fontSize: 10 }}>Powering</span>
-            <span style={{ color: "#e7c6cf", fontWeight: 700, fontFamily: "var(--font-akkurat)", fontSize: 14 }}>OGC</span>
-            <span style={{ color: "rgba(251,253,246,0.32)" }}>·</span>
-            <span style={{ color: "#aecbe6", fontWeight: 700, fontFamily: "var(--font-akkurat)", fontSize: 14 }}>The Den</span>
           </div>
         </motion.div>
 
