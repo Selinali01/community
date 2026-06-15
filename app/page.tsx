@@ -530,6 +530,79 @@ function ProductPreview() {
   );
 }
 
+const FAQS: { q: string; a: string }[] = [
+  {
+    q: "How long until my community is live?",
+    a: "Fast. You tell us who it's for, what it values, and how you want it to run — and we configure the whole machine (applications, onboarding, directory, matchmaking, events, automations) around you. Most communities are up and running from day one.",
+  },
+  {
+    q: "Do members stay in my brand?",
+    a: "Entirely. BubbleLab is white-label — your name, your colors, your domain. Members experience your community, not ours. We're the infrastructure underneath; you're the brand on top.",
+  },
+  {
+    q: "What about my existing Slack?",
+    a: "It plugs right in. We auto-invite approved members to your workspace, post structured intros, and run DM automations — so your Slack becomes the beating heart of the community without the manual busywork.",
+  },
+  {
+    q: "Who decides which members get in?",
+    a: "You do. You set the criteria; the application form, vetting pipeline, and Stripe checkout run automatically. Every applicant is collected, organized, and ready for your one-click approval — no spreadsheets.",
+  },
+  {
+    q: "What does the 1:1 matchmaking actually do?",
+    a: "Each week it pairs members with an AI-generated reason, shared themes, and conversation starters — drafted and ready to send in one click. It's the connection layer that keeps a community alive between events.",
+  },
+];
+
+function FAQ() {
+  return (
+    <section id="faq" style={{ padding: "84px 32px", background: "#eff2e8", scrollMarginTop: 80 }}>
+      <div style={{ maxWidth: 760, margin: "0 auto" }}>
+        <Reveal>
+          <div style={{ textAlign: "center", marginBottom: 44 }}>
+            <div style={{
+              fontFamily: "var(--font-fragment-mono)", fontSize: 11, letterSpacing: "0.06em",
+              textTransform: "uppercase", color: "#0a1d08", marginBottom: 14,
+            }}>
+              Questions
+            </div>
+            <h2 style={{
+              fontSize: "clamp(28px, 4vw, 42px)", fontWeight: 400, letterSpacing: "-1.68px",
+              color: "#0a1d08", fontFamily: "var(--font-akkurat)", margin: 0, lineHeight: 1.1,
+            }}>
+              The things people ask first.
+            </h2>
+          </div>
+        </Reveal>
+        <Reveal>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {FAQS.map((f) => (
+              <details key={f.q} className="faq-item" style={{
+                background: "#fbfdf6", border: "1px solid #e0e5d5", borderRadius: 12,
+                padding: "18px 22px",
+              }}>
+                <summary style={{
+                  fontSize: 16, fontWeight: 700, letterSpacing: "-0.5px", color: "#0a1d08",
+                  fontFamily: "var(--font-akkurat)", cursor: "pointer", listStyle: "none",
+                  display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12,
+                }}>
+                  {f.q}
+                  <span className="faq-mark" style={{ color: "#4a3212", fontSize: 20, lineHeight: 1, flexShrink: 0 }}>+</span>
+                </summary>
+                <p style={{
+                  fontSize: 15, lineHeight: 1.65, letterSpacing: "-0.3px", color: "#31200b",
+                  fontFamily: "var(--font-akkurat)", margin: "12px 0 2px",
+                }}>
+                  {f.a}
+                </p>
+              </details>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 function CtaSection() {
   return (
     <section
@@ -718,6 +791,7 @@ export default function Home() {
       <Features />
       <ProductPreview />
       <HowItWorks />
+      <FAQ />
       <CtaSection />
       <Footer />
     </div>
