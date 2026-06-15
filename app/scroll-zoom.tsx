@@ -765,9 +765,16 @@ export function FullHeroSection() {
             letterSpacing: "0.06em", color: "#0a1d08",
             marginBottom: 22, textTransform: "uppercase",
             background: "rgba(215,232,181,0.90)", borderRadius: 9999,
-            padding: "4px 14px", display: "inline-block",
+            padding: "4px 14px",
+            display: "inline-flex", alignItems: "center", gap: 7,
             backdropFilter: "blur(10px)",
           }}>
+            {/* Live status dot */}
+            <motion.div
+              style={{ width: 5, height: 5, borderRadius: "50%", background: "#0a1d08", opacity: 0.7, flexShrink: 0 }}
+              animate={{ opacity: [0.7, 0.15, 0.7] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            />
             Community Infrastructure
           </div>
 
@@ -798,13 +805,27 @@ export function FullHeroSection() {
           </p>
 
           <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", pointerEvents: "all" }}>
-            <a href="#" style={{
+            {/* Shimmer CTA — light sweep signals primary action */}
+            <motion.a href="#" style={{
               background: "#4a3212", color: "#fbfdf6", borderRadius: 20,
               padding: "11px 26px", fontSize: 14, fontWeight: 700,
               letterSpacing: "-0.56px", textDecoration: "none",
               fontFamily: "var(--font-akkurat)",
               boxShadow: "0 4px 22px rgba(74,50,18,0.42)",
-            }}>Start building →</a>
+              position: "relative", overflow: "hidden", display: "inline-block",
+            }}>
+              Start building →
+              <motion.span
+                aria-hidden="true"
+                style={{
+                  position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
+                  background: "linear-gradient(90deg, transparent 0%, rgba(255,220,100,0.20) 50%, transparent 100%)",
+                  pointerEvents: "none",
+                }}
+                animate={{ x: ["-110%", "110%"] }}
+                transition={{ duration: 1.4, ease: "linear", delay: 2.5, repeat: Infinity, repeatDelay: 4.5 }}
+              />
+            </motion.a>
             <a href="#features" style={{
               background: "rgba(251,253,246,0.76)", color: "#0a1d08",
               border: "1px solid rgba(10,29,8,0.16)", borderRadius: 20,
