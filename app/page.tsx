@@ -519,6 +519,7 @@ function CtaSection() {
       }}
     >
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <Reveal>
         <div
           style={{
             fontFamily: "var(--font-fragment-mono)",
@@ -607,6 +608,7 @@ function CtaSection() {
             Talk to us
           </a>
         </div>
+        </Reveal>
       </div>
     </section>
   );
