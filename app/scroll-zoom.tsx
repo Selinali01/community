@@ -666,6 +666,26 @@ export function FullHeroSection() {
           {/* Bokeh */}
           <BokehLayer />
 
+          {/* Morning mist wisps — cream bands drifting at different speeds */}
+          <motion.div
+            style={{
+              position: "absolute", top: "12%", left: 0, right: 0, height: "22%",
+              background: "linear-gradient(to right, transparent 0%, rgba(251,248,238,0.045) 35%, rgba(251,248,238,0.065) 50%, rgba(251,248,238,0.045) 65%, transparent 100%)",
+              pointerEvents: "none", zIndex: 4,
+            }}
+            animate={{ x: ["-50%", "150%"] }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          />
+          <motion.div
+            style={{
+              position: "absolute", top: "44%", left: 0, right: 0, height: "18%",
+              background: "linear-gradient(to right, transparent 0%, rgba(251,248,238,0.035) 40%, rgba(251,248,238,0.055) 50%, rgba(251,248,238,0.035) 60%, transparent 100%)",
+              pointerEvents: "none", zIndex: 4,
+            }}
+            animate={{ x: ["-70%", "170%"] }}
+            transition={{ duration: 16, repeat: Infinity, ease: "linear", delay: 9 }}
+          />
+
           {/* Distant people in the field — tiny silhouette gatherings */}
           <PeopleBackground />
 
