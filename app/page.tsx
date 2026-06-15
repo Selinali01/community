@@ -127,6 +127,7 @@ function Features() {
       style={{
         background: "#eff2e8",
         padding: "88px 32px",
+        scrollMarginTop: 80,
       }}
     >
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
@@ -222,7 +223,7 @@ function Features() {
 
 function HowItWorks() {
   return (
-    <section style={{ padding: "88px 32px" }}>
+    <section id="how" style={{ padding: "88px 32px", scrollMarginTop: 80 }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         <div
           style={{
@@ -348,7 +349,7 @@ const PREVIEW_MEMBERS = [
 
 function ProductPreview() {
   return (
-    <section style={{ padding: "80px 32px", background: "#eff2e8" }}>
+    <section id="product" style={{ padding: "80px 32px", background: "#eff2e8", scrollMarginTop: 80 }}>
       <div style={{ maxWidth: 960, margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
           <div style={{
@@ -512,10 +513,12 @@ function ProductPreview() {
 function CtaSection() {
   return (
     <section
+      id="cta"
       style={{
         background: "#0a1d08",
         padding: "88px 32px",
         textAlign: "center",
+        scrollMarginTop: 80,
       }}
     >
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>

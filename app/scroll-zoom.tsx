@@ -10,7 +10,12 @@ const VIDEO = "/hero.mp4";
 const POSTER = "/hero-poster.jpg";
 const VIDEO_FALLBACK = "/hero-fallback.mp4";
 
-const NAV_LINKS = ["Platform", "Communities", "Pricing", "About"];
+const NAV_LINKS: { label: string; href: string }[] = [
+  { label: "Platform", href: "#features" },
+  { label: "Communities", href: "#product" },
+  { label: "How it works", href: "#how" },
+  { label: "Get started", href: "#cta" },
+];
 
 export function FullHeroSection() {
   const ref = useRef<HTMLDivElement>(null);
@@ -149,12 +154,12 @@ export function FullHeroSection() {
 
           <div className="hero-nav-links" style={{ display: "flex", alignItems: "center", gap: 30 }}>
             {NAV_LINKS.map((l, i) => (
-              <a key={l} href="#" style={{
+              <a key={l.label} href={l.href} style={{
                 fontSize: 13.5, letterSpacing: "-0.3px", textDecoration: "none",
                 fontFamily: "var(--font-akkurat)",
                 color: i === 0 ? "#fbfdf6" : "rgba(251,253,246,0.62)",
                 transition: "color 0.2s ease",
-              }}>{l}</a>
+              }}>{l.label}</a>
             ))}
           </div>
 
