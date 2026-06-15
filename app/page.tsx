@@ -656,7 +656,6 @@ export default function Home() {
         fontFamily: "var(--font-akkurat)",
       }}
     >
-      <Nav />
       <FullHeroSection />
       <Testimonial />
       <Features />
