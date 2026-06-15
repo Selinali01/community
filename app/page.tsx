@@ -452,6 +452,40 @@ function ProductPreview() {
             ))}
           </div>
 
+          {/* This week's match — demonstrates the matchmaking feature */}
+          <div style={{
+            padding: "10px 20px 14px", borderTop: "1px solid #e0e5d5",
+          }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+              <span style={{
+                fontFamily: "var(--font-fragment-mono)", fontSize: 9,
+                letterSpacing: "0.08em", textTransform: "uppercase",
+                color: "#4a3212", opacity: 0.6,
+              }}>
+                This week&apos;s match
+              </span>
+              <div style={{ height: 1, flex: 1, background: "#e0e5d5" }} />
+              <span style={{
+                fontSize: 9, background: "#d7e8b5", borderRadius: 9999,
+                padding: "2px 8px", fontFamily: "var(--font-fragment-mono)",
+                color: "#0a1d08", letterSpacing: "0.04em",
+              }}>
+                ✦ matched
+              </span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <img src={PREVIEW_MEMBERS[0].photo} alt="" style={{ width: 26, height: 26, borderRadius: "50%", objectFit: "cover", border: "1.5px solid #d7e8b5" }} />
+              <div style={{ flex: 1, borderTop: "1.5px dashed #c5ccb6" }} />
+              <img src={PREVIEW_MEMBERS[1].photo} alt="" style={{ width: 26, height: 26, borderRadius: "50%", objectFit: "cover", border: "1.5px solid #d7e8b5" }} />
+              <span style={{ fontSize: 11, color: "#0a1d08", fontFamily: "var(--font-akkurat)", letterSpacing: "-0.44px", fontWeight: 600 }}>
+                Sarah M. × Alex K.
+              </span>
+            </div>
+            <div style={{ marginTop: 4, fontSize: 10, color: "#968e83", fontFamily: "var(--font-akkurat)", letterSpacing: "-0.40px" }}>
+              &ldquo;growth strategy × engineering alignment&rdquo;
+            </div>
+          </div>
+
           {/* Bottom stats bar */}
           <div style={{
             padding: "10px 20px", borderTop: "1px solid #e0e5d5",

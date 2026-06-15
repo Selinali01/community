@@ -710,7 +710,7 @@ export function FullHeroSection() {
           </div>
 
           <h1 style={{
-            fontSize: "clamp(40px, 5.5vw, 62px)", fontWeight: 400,
+            fontSize: "clamp(44px, 6vw, 70px)", fontWeight: 400,
             lineHeight: 1.0, letterSpacing: "-2.12px", color: "#0a1d08",
             margin: "0 0 22px", fontFamily: "var(--font-akkurat)",
             textShadow: "0 2px 44px rgba(255,248,225,0.95), 0 4px 16px rgba(255,248,225,0.75), 0 1px 4px rgba(255,248,225,0.55)",
