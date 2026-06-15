@@ -13,13 +13,13 @@ import {
 
 // ── Config ────────────────────────────────────────────────────────────────────
 
-// Misty morning over green field with trees — soft, atmospheric, Adaline-adjacent palette
+// Japanese garden, Butchart Gardens — rocks, moss, lush green, Adaline-closest match
 const BG_IMAGE =
-  "https://images.unsplash.com/photo-1759220948579-aa4866af0f0d?auto=format&fit=crop&w=1920&q=85";
+  "https://images.unsplash.com/photo-1682224218044-c88914185bfa?auto=format&fit=crop&w=1920&q=85";
 
-// Fallback: garden during golden hour (warmer, more vivid)
+// Fallback: misty morning green field (atmospheric, botanical)
 const BG_FALLBACK =
-  "https://images.unsplash.com/photo-1553368168-3957f806d986?auto=format&fit=crop&w=1920&q=85";
+  "https://images.unsplash.com/photo-1759220948579-aa4866af0f0d?auto=format&fit=crop&w=1920&q=85";
 
 interface Member {
   name: string;
