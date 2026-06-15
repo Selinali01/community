@@ -241,6 +241,84 @@ function HowItWorks() {
 
 // ── Real testimonial from OGC member (from the actual bubblelab-community-platform codebase) ──
 
+const COMMUNITIES: {
+  name: string; full: string; brand: string; tint: string; desc: string; stat: string; statLabel: string;
+}[] = [
+  {
+    name: "OGC", full: "The Old Girls Club", brand: "#7a3954", tint: "rgba(122,57,84,0.07)",
+    desc: "A private network for women whose careers are a defining part of who they are — vetted, ambitious, and refreshingly real.",
+    stat: "3,000+", statLabel: "members",
+  },
+  {
+    name: "The Den", full: "The Den", brand: "#275a86", tint: "rgba(39,90,134,0.07)",
+    desc: "An intimate, application-only community built around weekly 1:1 matchmaking and genuine connection over noise.",
+    stat: "1:1", statLabel: "weekly matches",
+  },
+];
+
+function Communities() {
+  return (
+    <section id="communities" style={{ padding: "84px 32px", background: "#fbfdf6", scrollMarginTop: 80 }}>
+      <div style={{ maxWidth: 1000, margin: "0 auto" }}>
+        <Reveal>
+          <div style={{ textAlign: "center", marginBottom: 48 }}>
+            <div style={{
+              fontFamily: "var(--font-fragment-mono)", fontSize: 11, letterSpacing: "0.06em",
+              textTransform: "uppercase", color: "#0a1d08", marginBottom: 14,
+            }}>
+              The communities
+            </div>
+            <h2 style={{
+              fontSize: "clamp(28px, 4vw, 42px)", fontWeight: 400, letterSpacing: "-1.68px",
+              color: "#0a1d08", fontFamily: "var(--font-akkurat)", margin: 0, lineHeight: 1.1,
+            }}>
+              Trusted by communities that take<br />membership seriously.
+            </h2>
+          </div>
+        </Reveal>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 20 }}>
+          {COMMUNITIES.map((c, i) => (
+            <Reveal key={c.name} delay={i * 0.08}>
+              <div className="lift-card" style={{
+                background: c.tint, border: `1px solid ${c.brand}22`,
+                borderRadius: 16, padding: "32px", height: "100%",
+                display: "flex", flexDirection: "column", gap: 14,
+              }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <span style={{ width: 10, height: 10, borderRadius: "50%", background: c.brand }} />
+                  <span style={{ fontSize: 20, fontWeight: 700, letterSpacing: "-0.8px", color: c.brand, fontFamily: "var(--font-akkurat)" }}>
+                    {c.name}
+                  </span>
+                  {c.full !== c.name && (
+                    <span style={{ fontSize: 12, color: "#968e83", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.02em" }}>
+                      {c.full}
+                    </span>
+                  )}
+                </div>
+                <p style={{ fontSize: 15, lineHeight: 1.6, letterSpacing: "-0.3px", color: "#31200b", fontFamily: "var(--font-akkurat)", margin: 0, flex: 1 }}>
+                  {c.desc}
+                </p>
+                <div style={{ display: "flex", alignItems: "baseline", gap: 7, paddingTop: 6, borderTop: `1px solid ${c.brand}1a` }}>
+                  <span style={{ fontSize: 22, fontWeight: 700, letterSpacing: "-0.9px", color: c.brand, fontFamily: "var(--font-akkurat)" }}>
+                    {c.stat}
+                  </span>
+                  <span style={{ fontSize: 11, color: "#4a3212", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.02em", opacity: 0.7 }}>
+                    {c.statLabel}
+                  </span>
+                  <span style={{ marginLeft: "auto", fontSize: 10, color: "#968e83", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.04em" }}>
+                    powered by BubbleLab
+                  </span>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Testimonial() {
   return (
     // Subtle warm gradient at top — visual bridge from the golden hero to cream sections
@@ -636,6 +714,7 @@ export default function Home() {
     >
       <FullHeroSection />
       <Testimonial />
+      <Communities />
       <Features />
       <ProductPreview />
       <HowItWorks />

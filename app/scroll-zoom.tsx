@@ -12,7 +12,7 @@ const VIDEO_FALLBACK = "/hero-fallback.mp4";
 
 const NAV_LINKS: { label: string; href: string }[] = [
   { label: "Platform", href: "#features" },
-  { label: "Communities", href: "#product" },
+  { label: "Communities", href: "#communities" },
   { label: "How it works", href: "#how" },
 ];
 
