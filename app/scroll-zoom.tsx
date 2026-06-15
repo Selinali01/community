@@ -50,6 +50,7 @@ export function FullHeroSection() {
             height: "100%",
             objectFit: "cover",
             zIndex: 0,
+            willChange: "transform",
             filter: "saturate(1.05) brightness(1.02) contrast(1.02) sepia(0.10)",
           }}
         >

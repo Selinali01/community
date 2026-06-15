@@ -86,3 +86,12 @@ body {
 @media (max-width: 720px) {
   .hero-nav-links { display: none !important; }
 }
+
+/* Respect reduced-motion: disable entrance + ambient animations */
+@media (prefers-reduced-motion: reduce) {
+  .fade-rise, .fade-rise-1, .fade-rise-2, .fade-rise-3 { animation: none !important; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
