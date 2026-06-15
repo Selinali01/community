@@ -196,8 +196,8 @@ export function FullHeroSection() {
             flex: 1,
             display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
             textAlign: "center", padding: "0 24px",
-            // nudge up slightly to optically center against the top nav
-            marginTop: "-3vh",
+            // sit between top and center — ~12% above the midpoint
+            marginTop: "-13vh",
           }}
         >
           {/* Eyebrow — backed by Y Combinator (no pill, just mark + text) */}
@@ -217,12 +217,12 @@ export function FullHeroSection() {
             fontFamily: "var(--font-akkurat)", fontWeight: 400,
             fontSize: "clamp(46px, 8vw, 92px)", lineHeight: 0.98,
             letterSpacing: "-3px", color: "#fbfdf6", margin: 0, maxWidth: 1000,
-            textShadow: "0 2px 40px rgba(10,18,6,0.6), 0 1px 8px rgba(10,18,6,0.4)",
+            textShadow: "0 2px 24px rgba(10,18,6,0.85), 0 2px 8px rgba(10,18,6,0.8), 0 0 2px rgba(10,18,6,0.5)",
           }}>
             <span className="fade-rise-1" style={{ display: "block" }}>
-              Run the <span style={{ fontStyle: "italic", color: "#e7d9a8" }}>community</span>.
+              Run the <span style={{ fontStyle: "italic", color: "#f0e3b8" }}>community</span>.
             </span>
-            <span className="fade-rise-2" style={{ display: "block", color: "rgba(251,253,246,0.62)" }}>
+            <span className="fade-rise-2" style={{ display: "block", color: "rgba(251,253,246,0.82)" }}>
               Not the ops.
             </span>
           </h1>
@@ -233,9 +233,12 @@ export function FullHeroSection() {
               borderRadius: 9999, padding: "15px 34px", fontSize: 15, fontWeight: 700,
               letterSpacing: "-0.4px", color: "#fbfdf6", textDecoration: "none",
               fontFamily: "var(--font-akkurat)",
-              // stronger than the nav glass: more fill + a soft warm glow
-              background: "rgba(251,253,246,0.13)",
-              boxShadow: "0 10px 36px -10px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.06)",
+              textShadow: "0 1px 10px rgba(10,18,6,0.55)",
+              // frosted + tinted so white text always reads over the bright floor
+              background: "linear-gradient(180deg, rgba(255,255,255,0.24), rgba(255,255,255,0.12))",
+              backdropFilter: "blur(18px) saturate(1.2)",
+              WebkitBackdropFilter: "blur(18px) saturate(1.2)",
+              boxShadow: "0 14px 44px -10px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.3)",
             }}>Book a demo →</a>
           </div>
         </motion.div>
