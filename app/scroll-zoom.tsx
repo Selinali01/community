@@ -397,8 +397,14 @@ function AnimatedNode({
 function BackgroundPhoto() {
   const [src, setSrc] = useState(BG_IMAGE);
   return (
-    <>
-      {/* Warm golden fallback — prevents white flash while photo loads */}
+    // Cinematic entrance — fades in from dark over 1.6s, then cards emerge from the brightening warmth
+    <motion.div
+      style={{ position: "absolute", inset: 0 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {/* Warm golden fallback — shows during image fetch */}
       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, #d4960a 0%, #b87c08 40%, #6e5020 100%)" }} />
       <img
         src={src}
@@ -432,7 +438,7 @@ function BackgroundPhoto() {
       {/* Photo's natural bottom warmth is sufficient — no extra overlay needed */}
       {/* Edge vignette — cinematic */}
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 115% 85% at 50% 44%, transparent 32%, rgba(20,14,4,0.22) 100%)" }} />
-    </>
+    </motion.div>
   );
 }
 
