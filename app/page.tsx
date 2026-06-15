@@ -263,27 +263,38 @@ function Communities() {
         </Reveal>
 
         <Reveal delay={0.08}>
-          {/* TODO: swap in Mallory's real quote once she sends it */}
-          <blockquote style={{
-            fontSize: "clamp(20px, 2.4vw, 27px)", fontWeight: 400, lineHeight: 1.5,
-            letterSpacing: "-0.9px", color: "#0a1d08",
-            fontFamily: "var(--font-akkurat)", fontStyle: "italic",
-            margin: "46px auto 30px", maxWidth: 680,
-          }}>
-            &ldquo;Running OGC used to mean living in spreadsheets and endless DMs.
-            Now the ops just happen in the background — I get to spend my time with
-            our members, not managing them.&rdquo;
-          </blockquote>
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12 }}>
-            <img
-              src="/communities/mallory.png"
-              alt="Mallory Contois"
-              style={{ width: 46, height: 46, borderRadius: "50%", objectFit: "cover", objectPosition: "center 45%", border: "1.5px solid #d7a9b8" }}
-            />
-            <div style={{ fontSize: 13, color: "#4a3212", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.02em" }}>
-              — Mallory Contois, <span style={{ color: "#7a3954", fontWeight: 700 }}>OGC</span> Founder
-            </div>
-          </div>
+          <figure style={{ maxWidth: 600, margin: "44px auto 0", display: "flex", flexDirection: "column", alignItems: "center" }}>
+            {/* decorative quote mark */}
+            <span aria-hidden="true" style={{
+              fontFamily: "var(--font-akkurat)", fontSize: 60, lineHeight: 0.5,
+              color: "rgba(122,57,84,0.22)", marginBottom: 18, userSelect: "none",
+            }}>&ldquo;</span>
+            {/* TODO: swap in Mallory's real quote once she sends it */}
+            <blockquote style={{
+              fontSize: "clamp(16px, 1.55vw, 20px)", fontWeight: 400, lineHeight: 1.62,
+              letterSpacing: "-0.3px", color: "#31200b",
+              fontFamily: "var(--font-akkurat)", margin: 0,
+            }}>
+              Running OGC used to mean living in spreadsheets and endless DMs. Now
+              the ops just happen in the background — I get to spend my time with
+              our members, not managing them.
+            </blockquote>
+            <figcaption style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 30 }}>
+              <img
+                src="/communities/mallory.png"
+                alt="Mallory Contois"
+                style={{ width: 44, height: 44, borderRadius: "50%", objectFit: "cover", objectPosition: "center 45%", border: "1.5px solid #d7a9b8" }}
+              />
+              <div style={{ textAlign: "left" }}>
+                <div style={{ fontSize: 14, fontWeight: 700, color: "#0a1d08", fontFamily: "var(--font-akkurat)", letterSpacing: "-0.2px" }}>
+                  Mallory Contois
+                </div>
+                <div style={{ fontSize: 11, color: "#7a3954", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.04em", marginTop: 3 }}>
+                  OGC Founder
+                </div>
+              </div>
+            </figcaption>
+          </figure>
         </Reveal>
       </div>
     </section>
