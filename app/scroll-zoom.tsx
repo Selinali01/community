@@ -185,9 +185,22 @@ export function FullHeroSection() {
                 </g>
               );
             })}
-            {/* central hub — "us" */}
+            {/* central hub — "us": a living point the whole network flows into */}
             <circle cx={50} cy={40} r={5} fill="url(#hubGrad)" />
-            <circle cx={50} cy={40} r={1.15} fill="#fbf4df" filter="url(#threadGlow)" />
+            {/* slow radar-pulse rippling outward — energy moving through us */}
+            <motion.circle
+              cx={50} cy={40} fill="none" stroke="#f3d9a0" strokeWidth={0.1}
+              initial={{ r: 1.4, opacity: 0 }}
+              animate={r ? { r: [1.4, 7], opacity: [0.55, 0] } : { r: 1.4, opacity: 0 }}
+              transition={{ duration: 3.4, repeat: Infinity, ease: "easeOut" }}
+            />
+            {/* breathing core */}
+            <motion.circle
+              cx={50} cy={40} fill="#fbf4df" filter="url(#threadGlow)"
+              initial={{ r: 1.15 }}
+              animate={r ? { r: [1.1, 1.42, 1.1] } : { r: 1.15 }}
+              transition={{ duration: 2.6, repeat: Infinity, ease: "easeInOut" }}
+            />
           </svg>
         </motion.div>
 
