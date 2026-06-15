@@ -1,7 +1,16 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { motion, useScroll, useTransform, useMotionValue, useSpring, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform, useMotionValue, useMotionValueEvent, useSpring, useReducedMotion, type MotionValue } from "framer-motion";
+
+// Hero stat that counts 0 → `to` driven by scroll progress through the reveal.
+// Scroll-driven (not useInView) so it's reliable inside the pinned hero stage.
+function ScrollStat({ scrollY, to }: { scrollY: MotionValue<number>; to: number }) {
+  const mv = useTransform(scrollY, [330, 540], [0, to]);
+  const [val, setVal] = useState(0);
+  useMotionValueEvent(mv, "change", (latest) => setVal(Math.round(latest)));
+  return <>{val}</>;
+}
 
 // Self-hosted (Mixkit, free license): diverse group around a warm string-lit
 // garden dinner at night. Real people connecting — the community IS the scene.
@@ -270,7 +279,7 @@ export function FullHeroSection() {
           }}>
             {[["847", "members"], ["24", "matches / wk"], ["12", "events"]].map(([v, l], i, a) => (
               <div key={l} style={{ display: "flex", alignItems: "baseline", gap: 6 }}>
-                <span style={{ fontFamily: "var(--font-fragment-mono)", fontSize: 17, fontWeight: 700, color: "#fbfdf6", letterSpacing: "-0.6px" }}>{v}</span>
+                <span style={{ fontFamily: "var(--font-fragment-mono)", fontSize: 17, fontWeight: 700, color: "#fbfdf6", letterSpacing: "-0.6px" }}><ScrollStat scrollY={scrollY} to={Number(v)} /></span>
                 <span style={{ fontFamily: "var(--font-fragment-mono)", fontSize: 10, color: "rgba(251,253,246,0.6)", letterSpacing: "0.04em" }}>{l}</span>
                 {i < a.length - 1 && <span style={{ marginLeft: 20, width: 1, height: 13, background: "rgba(251,253,246,0.22)", display: "inline-block" }} />}
               </div>
