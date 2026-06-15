@@ -190,7 +190,7 @@ export function FullHeroSection() {
             fontFamily: "var(--font-akkurat)", fontWeight: 400,
             fontSize: "clamp(46px, 8vw, 92px)", lineHeight: 0.98,
             letterSpacing: "-3px", color: "#fbfdf6", margin: 0, maxWidth: 1000,
-            textShadow: "0 2px 40px rgba(10,18,6,0.5)",
+            textShadow: "0 2px 40px rgba(10,18,6,0.6), 0 1px 8px rgba(10,18,6,0.4)",
           }}>
             Run the <span style={{ fontStyle: "italic", color: "#e7d9a8" }}>community</span>.<br />
             <span style={{ color: "rgba(251,253,246,0.62)" }}>Not the ops.</span>
