@@ -104,6 +104,18 @@ body {
   100% { transform: translate(0, 0); }
 }
 
+/* Subtle hover-lift for content cards — premium micro-interaction (desktop) */
+.lift-card {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+}
+@media (hover: hover) {
+  .lift-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px -16px rgba(74, 50, 18, 0.28);
+    border-color: rgba(74, 50, 18, 0.22);
+  }
+}
+
 /* Cinematic fade-rise entrance */
 @keyframes fade-rise {
   from { opacity: 0; transform: translateY(26px); }

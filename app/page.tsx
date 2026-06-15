@@ -153,6 +153,7 @@ function Features() {
           {FEATURES.map((f, i) => (
             <AnimatedFeatureCard key={f.num} index={i}>
             <div
+              className="lift-card"
               style={{
                 background: "#fbfdf6",
                 border: "1px solid #e0e5d5",
