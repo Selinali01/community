@@ -106,8 +106,19 @@ const BRAND_INSET: Record<string, string> = {
 
 function Avatar({ member }: { member: Member }) {
   const [failed, setFailed] = useState(false);
+  // Featured pair (Sarah=Figma, Alex=Linear) gets a pulsing matched ring
+  const isMatched = member.company === "Figma" || member.company === "Linear";
+
   if (failed) {
     return (
+      <div style={{ position: "relative", flexShrink: 0 }}>
+        {isMatched && (
+          <motion.div
+            style={{ position: "absolute", inset: -5, borderRadius: "50%", border: "2px solid rgba(215,232,181,0.70)", pointerEvents: "none" }}
+            animate={{ opacity: [0.65, 0.10, 0.65], scale: [1, 1.12, 1] }}
+            transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", delay: member.company === "Linear" ? 0.55 : 0 }}
+          />
+        )}
       <div
         style={{
           width: 52, height: 52, borderRadius: "50%",
@@ -120,20 +131,30 @@ function Avatar({ member }: { member: Member }) {
       >
         {member.initials}
       </div>
+      </div>
     );
   }
   return (
-    <img
-      src={member.photo}
-      alt={member.name}
-      onError={() => setFailed(true)}
-      style={{
-        width: 52, height: 52, borderRadius: "50%",
-        objectFit: "cover", flexShrink: 0,
-        border: "2.5px solid rgba(215,232,181,0.80)",
-        boxShadow: "0 0 0 1px rgba(215,232,181,0.25)",
-      }}
-    />
+    <div style={{ position: "relative", flexShrink: 0 }}>
+      {isMatched && (
+        <motion.div
+          style={{ position: "absolute", inset: -5, borderRadius: "50%", border: "2px solid rgba(215,232,181,0.70)", pointerEvents: "none" }}
+          animate={{ opacity: [0.65, 0.10, 0.65], scale: [1, 1.12, 1] }}
+          transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut", delay: member.company === "Linear" ? 0.55 : 0 }}
+        />
+      )}
+      <img
+        src={member.photo}
+        alt={member.name}
+        onError={() => setFailed(true)}
+        style={{
+          width: 52, height: 52, borderRadius: "50%",
+          objectFit: "cover",
+          border: "2.5px solid rgba(215,232,181,0.80)",
+          boxShadow: "0 0 0 1px rgba(215,232,181,0.25)",
+        }}
+      />
+    </div>
   );
 }
 
@@ -319,12 +340,15 @@ function AnimatedNode({
   const opacity = useTransform(progress, [scrollStart, scrollStart + 0.14], [0, 0.90]);
   return (
     <g>
-      {/* Glow ring */}
-      <motion.circle cx={member.x} cy={member.y} r="1.4"
-        fill="rgba(215,232,181,0.18)" style={{ opacity }} />
-      {/* Solid dot */}
-      <motion.circle cx={member.x} cy={member.y} r="0.7"
-        fill="rgba(215,232,181,0.95)" style={{ opacity }} />
+      {/* Outer glow ring */}
+      <motion.circle cx={member.x} cy={member.y} r="2.0"
+        fill="rgba(215,232,181,0.15)" style={{ opacity }} />
+      {/* Inner glow */}
+      <motion.circle cx={member.x} cy={member.y} r="1.1"
+        fill="rgba(215,232,181,0.55)" style={{ opacity }} />
+      {/* Solid core */}
+      <motion.circle cx={member.x} cy={member.y} r="0.70"
+        fill="rgba(215,232,181,0.96)" style={{ opacity }} />
     </g>
   );
 }
