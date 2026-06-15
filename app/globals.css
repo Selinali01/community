@@ -116,6 +116,36 @@ body {
   .cta-hover.cta-solid:hover { box-shadow: 0 12px 36px -8px rgba(0,0,0,0.4); filter: brightness(1.02); }
 }
 
+/* Hero primary CTA — frosted glass that reads clearly, solid white on hover.
+   Most important action: prominent at rest, unmistakable on hover. */
+.hero-cta {
+  display: inline-block;
+  border-radius: 9999px;
+  padding: 15px 34px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  font-family: var(--font-akkurat);
+  text-decoration: none;
+  color: #fbfdf6;
+  background: linear-gradient(180deg, rgba(255,255,255,0.32), rgba(255,255,255,0.18));
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  box-shadow: 0 14px 44px -10px rgba(0,0,0,0.55), inset 0 1px 1px rgba(255,255,255,0.4);
+  text-shadow: 0 1px 10px rgba(10,18,6,0.45);
+  transition: background 0.22s ease, color 0.22s ease, text-shadow 0.22s ease,
+              transform 0.2s cubic-bezier(0.16,1,0.3,1), box-shadow 0.22s ease;
+}
+@media (hover: hover) {
+  .hero-cta:hover {
+    background: #fbfdf6;
+    color: #0a1d08;
+    text-shadow: none;
+    transform: translateY(-1px) scale(1.03);
+    box-shadow: 0 18px 48px -10px rgba(0,0,0,0.5);
+  }
+}
+
 /* Subtle hover-lift for content cards — premium micro-interaction (desktop) */
 .lift-card {
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;

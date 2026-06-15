@@ -217,7 +217,6 @@ export function FullHeroSection() {
             fontFamily: "var(--font-akkurat)", fontWeight: 400,
             fontSize: "clamp(46px, 8vw, 92px)", lineHeight: 0.98,
             letterSpacing: "-3px", color: "#fbfdf6", margin: 0, maxWidth: 1000,
-            textShadow: "0 2px 24px rgba(10,18,6,0.85), 0 2px 8px rgba(10,18,6,0.8), 0 0 2px rgba(10,18,6,0.5)",
           }}>
             <span className="fade-rise-1" style={{ display: "block" }}>
               Run the <span style={{ fontStyle: "italic", color: "#f0e3b8" }}>community</span>.
@@ -229,17 +228,7 @@ export function FullHeroSection() {
 
           {/* Single CTA — glass pill (matches nav), dialed up to stand out */}
           <div className="fade-rise-3" style={{ display: "flex", gap: 12, marginTop: 36, justifyContent: "center" }}>
-            <a href={BOOK_DEMO} target="_blank" rel="noopener noreferrer" className="liquid-glass cta-hover" style={{
-              borderRadius: 9999, padding: "15px 34px", fontSize: 15, fontWeight: 700,
-              letterSpacing: "-0.4px", color: "#fbfdf6", textDecoration: "none",
-              fontFamily: "var(--font-akkurat)",
-              textShadow: "0 1px 10px rgba(10,18,6,0.55)",
-              // frosted + tinted so white text always reads over the bright floor
-              background: "linear-gradient(180deg, rgba(255,255,255,0.24), rgba(255,255,255,0.12))",
-              backdropFilter: "blur(18px) saturate(1.2)",
-              WebkitBackdropFilter: "blur(18px) saturate(1.2)",
-              boxShadow: "0 14px 44px -10px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.3)",
-            }}>Book a demo →</a>
+            <a href={BOOK_DEMO} target="_blank" rel="noopener noreferrer" className="hero-cta">Book a demo →</a>
           </div>
         </motion.div>
 
