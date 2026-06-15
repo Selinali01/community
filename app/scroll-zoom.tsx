@@ -14,7 +14,6 @@ const NAV_LINKS: { label: string; href: string }[] = [
   { label: "Platform", href: "#features" },
   { label: "Communities", href: "#product" },
   { label: "How it works", href: "#how" },
-  { label: "Get started", href: "#cta" },
 ];
 
 export function FullHeroSection() {
