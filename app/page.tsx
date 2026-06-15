@@ -130,24 +130,32 @@ function Features() {
       }}
     >
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-        <div
-          style={{
-            fontFamily: "var(--font-fragment-mono)",
-            fontSize: 11,
-            letterSpacing: "0.06em",
-            color: "#0a1d08",
-            textTransform: "uppercase",
-            marginBottom: 52,
-            textAlign: "center",
-          }}
-        >
-          What we handle
+        <div style={{ textAlign: "center", marginBottom: 52 }}>
+          <div
+            style={{
+              fontFamily: "var(--font-fragment-mono)",
+              fontSize: 11,
+              letterSpacing: "0.06em",
+              color: "#0a1d08",
+              textTransform: "uppercase",
+              marginBottom: 14,
+            }}
+          >
+            What we handle
+          </div>
+          <h2 style={{
+            fontSize: "clamp(28px, 4vw, 42px)", fontWeight: 400,
+            letterSpacing: "-1.68px", color: "#0a1d08",
+            fontFamily: "var(--font-akkurat)", margin: 0, lineHeight: 1.1,
+          }}>
+            Everything it takes to run a community.
+          </h2>
         </div>
 
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
             gap: 16,
           }}
         >
@@ -233,7 +241,7 @@ function HowItWorks() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
             gap: 48,
           }}
         >
