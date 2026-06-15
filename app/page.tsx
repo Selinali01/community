@@ -65,10 +65,13 @@ function Nav() {
     <div
       style={{
         position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
+        top: 0, left: 0, right: 0,
         zIndex: 50,
+        // Frosted glass — always readable against the animated hero background
+        background: "rgba(251,253,246,0.72)",
+        backdropFilter: "blur(14px)",
+        WebkitBackdropFilter: "blur(14px)",
+        borderBottom: "1px solid rgba(224,229,213,0.35)",
       }}
     >
       <nav

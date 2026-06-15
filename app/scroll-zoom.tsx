@@ -331,6 +331,12 @@ const BOKEH: { x: number; y: number; s: number; dur: number; delay: number }[] =
   { x: 42, y: 52, s: 6,  dur: 5.6, delay: 0.2 },
   { x: 83, y: 10, s: 4,  dur: 4.5, delay: 1.8 },
   { x: 26, y: 36, s: 7,  dur: 5.3, delay: 3.0 },
+  // Near-origin particles — visible at 2x zoom (close-up state)
+  { x: 38, y: 55, s: 5,  dur: 4.8, delay: 0.3 },
+  { x: 52, y: 64, s: 4,  dur: 5.1, delay: 1.8 },
+  { x: 44, y: 57, s: 6,  dur: 4.3, delay: 3.6 },
+  { x: 49, y: 53, s: 3,  dur: 5.7, delay: 2.1 },
+  { x: 40, y: 66, s: 5,  dur: 4.6, delay: 0.9 },
 ];
 
 function BokehLayer() {
@@ -486,6 +492,14 @@ export function FullHeroSection() {
 
           {/* Bokeh */}
           <BokehLayer />
+
+          {/* Bottom garden tint — reinforces green grass / garden feel */}
+          <div style={{
+            position: "absolute", inset: 0,
+            background: "linear-gradient(to top, rgba(80,130,40,0.09) 0%, transparent 35%)",
+            zIndex: 1,
+            pointerEvents: "none",
+          }} />
 
           {/* ── Connection lines SVG ── */}
           <svg
