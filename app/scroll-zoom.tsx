@@ -121,7 +121,7 @@ function Avatar({ member }: { member: Member }) {
         )}
       <div
         style={{
-          width: 52, height: 52, borderRadius: "50%",
+          width: 60, height: 60, borderRadius: "50%",
           background: member.avatarBg,
           display: "flex", alignItems: "center", justifyContent: "center",
           fontSize: 13, fontWeight: 700, color: "#fbfdf6",
@@ -148,7 +148,7 @@ function Avatar({ member }: { member: Member }) {
         alt={member.name}
         onError={() => setFailed(true)}
         style={{
-          width: 52, height: 52, borderRadius: "50%",
+          width: 60, height: 60, borderRadius: "50%",
           objectFit: "cover",
           border: "2.5px solid rgba(215,232,181,0.80)",
           boxShadow: "0 0 0 1px rgba(215,232,181,0.25)",
@@ -191,41 +191,36 @@ function AnimatedCard({
             whileHover={{ scale: 1.06, transition: { duration: 0.18, ease: "easeOut" } }}
             style={{ cursor: "default" }}
           >
+          {/* Portrait card — face first, text below — more human, more profile-like */}
           <div style={{
-            // Featured pair gets a warm gradient hint — signals their special connection
+            width: 116,
             background: idx < 2
-              ? "linear-gradient(135deg, rgba(254,250,238,0.92) 0%, rgba(252,247,233,0.90) 100%)"
-              : "rgba(252,248,240,0.90)",
+              ? "linear-gradient(180deg, rgba(254,250,238,0.93) 0%, rgba(252,247,233,0.91) 100%)"
+              : "rgba(252,248,240,0.91)",
             backdropFilter: "blur(22px)",
             WebkitBackdropFilter: "blur(22px)",
             border: idx < 2
               ? "1px solid rgba(180,230,120,0.48)"
               : "1px solid rgba(10,29,8,0.08)",
             borderRadius: 18,
-            padding: "11px 16px 11px 11px",
-            display: "flex", alignItems: "center", gap: 12,
+            padding: "14px 12px 12px",
+            display: "flex", flexDirection: "column", alignItems: "center", gap: 6,
+            textAlign: "center",
             boxShadow: idx < 2
               ? `0 18px 52px -8px rgba(74,50,18,0.22), 0 0 22px rgba(180,230,120,0.14), 0 2px 12px rgba(74,50,18,0.10), inset 0 1px 0 rgba(255,255,255,0.70), inset 0 0 0 1px ${BRAND_INSET[member.company] ?? "rgba(0,0,0,0.04)"}`
               : `0 18px 52px -8px rgba(74,50,18,0.22), 0 2px 12px rgba(74,50,18,0.10), inset 0 1px 0 rgba(255,255,255,0.70), inset 0 0 0 1px ${BRAND_INSET[member.company] ?? "rgba(0,0,0,0.04)"}`,
-            minWidth: 190, whiteSpace: "nowrap",
           }}>
             <Avatar member={member} />
-            <div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: "#0a1d08", letterSpacing: "-0.52px", lineHeight: 1.2 }}>
+            <div style={{ width: "100%" }}>
+              <div style={{ fontSize: 12, fontWeight: 700, color: "#0a1d08", letterSpacing: "-0.48px", lineHeight: 1.2 }}>
                 {member.name}
               </div>
-              <div style={{ fontSize: 11, color: "#31200b", letterSpacing: "-0.44px", marginTop: 2, lineHeight: 1.3 }}>
+              <div style={{ fontSize: 10, color: "#31200b", letterSpacing: "-0.40px", marginTop: 2, lineHeight: 1.3 }}>
                 {member.role}
               </div>
-              <div style={{ marginTop: 5, display: "inline-flex", alignItems: "center", gap: 4 }}>
-                {/* Brand color dot — makes each card feel like a real professional profile */}
-                <div style={{
-                  width: 6, height: 6, borderRadius: "50%",
-                  background: BRAND[member.company] ?? "#d7e8b5",
-                  opacity: 0.85,
-                  flexShrink: 0,
-                }} />
-                <span style={{ fontSize: 11, color: "#4a3212", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.02em" }}>
+              <div style={{ marginTop: 5, display: "inline-flex", alignItems: "center", gap: 3 }}>
+                <div style={{ width: 5, height: 5, borderRadius: "50%", background: BRAND[member.company] ?? "#d7e8b5", opacity: 0.85, flexShrink: 0 }} />
+                <span style={{ fontSize: 10, color: "#4a3212", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.02em" }}>
                   {member.company}
                 </span>
               </div>
