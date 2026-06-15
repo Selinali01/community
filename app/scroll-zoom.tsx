@@ -538,37 +538,40 @@ function ProductFrame({ opacity }: { opacity: MotionValue<number> }) {
   const PW = 62;
   return (
     <motion.div style={{ opacity, position: "absolute", inset: 0, pointerEvents: "none" }}>
-      {/* Left panel */}
+      {/* Left panel — slight warm tint + inner shadow for architectural depth */}
       <div style={{
         position: "absolute", top: 0, left: 0, width: PW, bottom: 0,
-        background: "rgba(251,253,246,0.86)",
+        background: "linear-gradient(160deg, rgba(252,249,242,0.88) 0%, rgba(248,244,234,0.86) 50%, rgba(252,249,242,0.88) 100%)",
         backdropFilter: "blur(28px)", WebkitBackdropFilter: "blur(28px)",
         borderRight: "1px solid rgba(224,229,213,0.78)",
+        boxShadow: "inset -3px 0 12px rgba(0,0,0,0.04)",
       }}>
-        <div style={{ position: "absolute", top: 0, bottom: 0, right: 22, width: 1, background: "rgba(197,204,182,0.28)" }} />
+        <div style={{ position: "absolute", top: 0, bottom: 0, right: 22, width: 1, background: "rgba(197,204,182,0.30)" }} />
       </div>
       {/* Right panel */}
       <div style={{
         position: "absolute", top: 0, right: 0, width: PW, bottom: 0,
-        background: "rgba(251,253,246,0.86)",
+        background: "linear-gradient(200deg, rgba(252,249,242,0.88) 0%, rgba(248,244,234,0.86) 50%, rgba(252,249,242,0.88) 100%)",
         backdropFilter: "blur(28px)", WebkitBackdropFilter: "blur(28px)",
         borderLeft: "1px solid rgba(224,229,213,0.78)",
+        boxShadow: "inset 3px 0 12px rgba(0,0,0,0.04)",
       }}>
-        <div style={{ position: "absolute", top: 0, bottom: 0, left: 22, width: 1, background: "rgba(197,204,182,0.28)" }} />
+        <div style={{ position: "absolute", top: 0, bottom: 0, left: 22, width: 1, background: "rgba(197,204,182,0.30)" }} />
       </div>
-      {/* Bottom stats */}
+      {/* Bottom stats — larger numbers, more impact */}
       <div style={{
-        position: "absolute", bottom: 0, left: PW, right: PW, height: 54,
-        background: "rgba(251,253,246,0.92)",
+        position: "absolute", bottom: 0, left: PW, right: PW, height: 60,
+        background: "rgba(251,253,246,0.93)",
         backdropFilter: "blur(28px)", WebkitBackdropFilter: "blur(28px)",
         borderTop: "1px solid rgba(224,229,213,0.78)",
-        display: "flex", alignItems: "center", justifyContent: "center", gap: 36,
+        boxShadow: "inset 0 3px 10px rgba(0,0,0,0.03)",
+        display: "flex", alignItems: "center", justifyContent: "center", gap: 40,
       }}>
         {[["847","members"],["24","matches this week"],["12","upcoming events"]].map(([v,l],i,a)=>(
-          <div key={l} style={{ display:"flex", alignItems:"baseline", gap:6 }}>
-            <span style={{ fontFamily:"var(--font-fragment-mono)", fontSize:15, fontWeight:700, color:"#0a1d08", letterSpacing:"-0.60px" }}>{v}</span>
-            <span style={{ fontFamily:"var(--font-fragment-mono)", fontSize:10, color:"#4a3212", letterSpacing:"0.04em", opacity:0.6 }}>{l}</span>
-            {i<a.length-1&&<span style={{ marginLeft:14, width:1, height:10, background:"#c5ccb6", display:"inline-block" }}/>}
+          <div key={l} style={{ display:"flex", alignItems:"baseline", gap:7 }}>
+            <span style={{ fontFamily:"var(--font-fragment-mono)", fontSize:20, fontWeight:700, color:"#0a1d08", letterSpacing:"-0.80px" }}>{v}</span>
+            <span style={{ fontFamily:"var(--font-fragment-mono)", fontSize:11, color:"#4a3212", letterSpacing:"0.04em", opacity:0.65 }}>{l}</span>
+            {i<a.length-1&&<span style={{ marginLeft:16, width:1, height:14, background:"#c5ccb6", display:"inline-block" }}/>}
           </div>
         ))}
       </div>
