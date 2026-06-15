@@ -22,6 +22,19 @@
   box-sizing: border-box;
 }
 
+/* Keyboard focus — visible ring for accessibility (mouse clicks stay clean).
+   !important to win over Tailwind v4's layered preflight + UA defaults. */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #4a3212 !important;
+  outline-offset: 3px !important;
+  border-radius: 6px;
+}
+/* On the dark hero, use a light ring so it's visible over the video */
+.hero-focus a:focus-visible {
+  outline-color: #fbfdf6 !important;
+}
+
 html {
   scroll-behavior: smooth;
 }

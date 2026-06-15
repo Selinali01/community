@@ -46,12 +46,14 @@ export function FullHeroSection() {
   const revealY = useTransform(scrollY, [330, 540], [40, 0]);
 
   return (
-    <section ref={ref} style={{ position: "relative", height: "190vh", background: "#0a1d08" }}>
+    <section ref={ref} className="hero-focus" style={{ position: "relative", height: "190vh", background: "#0a1d08" }}>
       {/* Pinned stage — holds the scene while the zoom-out + reveal play */}
       <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", display: "flex", flexDirection: "column" }}>
         {/* ── Fullscreen looping video — the people, the scene ── */}
         <motion.video
           ref={videoRef}
+          aria-hidden="true"
+          tabIndex={-1}
           autoPlay
           loop
           muted
@@ -82,7 +84,7 @@ export function FullHeroSection() {
         {/* Amber color-wash — unifies + lifts the warmth across the whole scene */}
         <div style={{ position: "absolute", inset: 0, zIndex: 2, background: "rgba(196,118,34,0.14)", mixBlendMode: "soft-light", pointerEvents: "none" }} />
         {/* Cinematic film grain */}
-        <div className="film-grain" style={{ zIndex: 2 }} />
+        <div className="film-grain" aria-hidden="true" style={{ zIndex: 2 }} />
 
         {/* ── Glass nav ── */}
         <nav
