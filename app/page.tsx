@@ -7,36 +7,36 @@ import {
 
 // ── Data ─────────────────────────────────────────────────────────────────────
 
-const FEATURES = [
+const FEATURES: { num: string; title: string; body: string; icon: string }[] = [
   {
-    num: "01",
-    title: "Applications & Vetting",
+    num: "01", title: "Applications & Vetting",
     body: "A configurable form, approval pipeline, and Stripe checkout. Every new member is vetted, welcomed, and activated automatically — zero manual work.",
+    icon: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4",
   },
   {
-    num: "02",
-    title: "Member Directory",
+    num: "02", title: "Member Directory",
     body: "Searchable, filterable, with list and map view. Members find each other by role, industry, company, and location.",
+    icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z",
   },
   {
-    num: "03",
-    title: "1:1 Matchmaking",
+    num: "03", title: "1:1 Matchmaking",
     body: "AI-powered weekly pairings with a why, shared themes, and conversation starters. Drafted and ready to send in one click.",
+    icon: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z",
   },
   {
-    num: "04",
-    title: "Event Calendar",
+    num: "04", title: "Event Calendar",
     body: "Native Luma integration for IRL and virtual events. Members see everything in one place, inside the dashboard they already use.",
+    icon: "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z",
   },
   {
-    num: "05",
-    title: "Lifecycle Messaging",
+    num: "05", title: "Lifecycle Messaging",
     body: "Automated emails and Slack DMs triggered by member events. A simple rules engine: on event → delay → send template.",
+    icon: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z",
   },
   {
-    num: "06",
-    title: "Slack Integration",
+    num: "06", title: "Slack Integration",
     body: "Auto-invite to your workspace, structured intro posts, and DM automation. Your Slack becomes the community's beating heart.",
+    icon: "M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z",
   },
 ];
 
@@ -160,17 +160,20 @@ function Features() {
                 height: "100%",
               }}
             >
-              <div
-                style={{
-                  fontFamily: "var(--font-fragment-mono)",
-                  fontSize: 10,
-                  letterSpacing: "0.06em",
-                  color: "#4a3212",
-                  marginBottom: 14,
-                  opacity: 0.7,
-                }}
-              >
-                {f.num}
+              {/* Feature icon + number row */}
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="#203b14" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"
+                  style={{ opacity: 0.75 }}
+                >
+                  <path d={f.icon} />
+                </svg>
+                <div style={{
+                  fontFamily: "var(--font-fragment-mono)", fontSize: 10,
+                  letterSpacing: "0.06em", color: "#4a3212", opacity: 0.6,
+                }}>
+                  {f.num}
+                </div>
               </div>
               <div
                 style={{

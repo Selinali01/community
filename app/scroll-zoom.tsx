@@ -742,6 +742,37 @@ export function FullHeroSection() {
             2 communities · 847 members · 24 matches / week
           </div>
 
+          {/* Communities using BubbleLab — real social proof */}
+          <div style={{ marginTop: 20, display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+            <div style={{
+              fontFamily: "var(--font-fragment-mono)", fontSize: 9,
+              letterSpacing: "0.08em", color: "rgba(10,29,8,0.40)",
+              textTransform: "uppercase",
+              textShadow: "0 1px 8px rgba(255,244,210,0.85)",
+            }}>
+              Powering communities like
+            </div>
+            <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
+              <div style={{
+                fontSize: 13, fontWeight: 700, letterSpacing: "-0.52px",
+                color: "#7a3954", fontFamily: "var(--font-akkurat)",
+                textShadow: "0 1px 12px rgba(255,244,210,0.80)",
+                opacity: 0.85,
+              }}>
+                OGC
+              </div>
+              <div style={{ width: 3, height: 3, borderRadius: "50%", background: "rgba(10,29,8,0.30)" }} />
+              <div style={{
+                fontSize: 13, fontWeight: 700, letterSpacing: "-0.52px",
+                color: "#275a86", fontFamily: "var(--font-akkurat)",
+                textShadow: "0 1px 12px rgba(255,244,210,0.80)",
+                opacity: 0.85,
+              }}>
+                The Den
+              </div>
+            </div>
+          </div>
+
         </motion.div>
         </motion.div>
 
