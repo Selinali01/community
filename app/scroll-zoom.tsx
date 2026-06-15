@@ -365,8 +365,8 @@ function BackgroundPhoto() {
       </motion.div>
       {/* Sun glow top-right — golden hour light source */}
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 50% 38% at 78% 0%, rgba(255,205,90,0.18) 0%, transparent 100%)" }} />
-      {/* Top gradient — stronger for wildflower sun photo */}
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(252,245,220,0.62) 0%, rgba(252,245,220,0.18) 28%, transparent 48%)" }} />
+      {/* Top gradient — enough for text legibility, not so much it hides the golden sky */}
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(252,245,220,0.46) 0%, rgba(252,245,220,0.08) 24%, transparent 40%)" }} />
       {/* Warm bottom glow — ground feels golden not gray */}
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 100% 35% at 50% 100%, rgba(210,165,60,0.10) 0%, transparent 100%)" }} />
       {/* Edge vignette — cinematic */}
@@ -716,10 +716,11 @@ export function FullHeroSection() {
             textShadow: "0 2px 44px rgba(255,248,225,0.95), 0 4px 16px rgba(255,248,225,0.75), 0 1px 4px rgba(255,248,225,0.55)",
           }}>
             Run the <span style={{
+              fontStyle: "italic",
               textDecoration: "underline",
-              textDecorationColor: "rgba(215,232,181,0.70)",
+              textDecorationColor: "rgba(215,232,181,0.72)",
               textDecorationThickness: "2px",
-              textUnderlineOffset: "6px",
+              textUnderlineOffset: "7px",
             }}>community</span>.<br />Not the ops.
           </h1>
 
