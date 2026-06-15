@@ -340,6 +340,11 @@ export function FullHeroSection() {
             pointerEvents: "none", padding: "0 24px", textAlign: "center",
           }}
         >
+          {/* Soft localized scrim — keeps the copy crisp over the busy lit table */}
+          <div aria-hidden="true" style={{
+            position: "absolute", inset: "-48px -12vw", zIndex: -1, pointerEvents: "none",
+            background: "radial-gradient(ellipse 58% 82% at 50% 68%, rgba(8,14,5,0.52) 0%, rgba(8,14,5,0.28) 45%, transparent 72%)",
+          }} />
           <p style={{
             fontFamily: "var(--font-akkurat)", fontWeight: 400,
             fontSize: "clamp(18px, 2.4vw, 26px)", letterSpacing: "-0.6px",
