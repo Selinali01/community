@@ -238,18 +238,19 @@ function HowItWorks() {
           {STEPS.map((step, i) => (
             <AnimatedStep key={step.num} index={i}>
             <div style={{ position: "relative" }}>
-              <div
-                style={{
-                  fontFamily: "var(--font-fragment-mono)",
-                  fontSize: 44,
-                  fontWeight: 400,
-                  color: "#c5ccb6",
-                  letterSpacing: "-1.76px",
-                  lineHeight: 1,
-                  marginBottom: 20,
-                }}
-              >
-                {step.num}
+              {/* Numbered badge — warm loam circle, cream numeral */}
+              <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+                <div style={{
+                  width: 42, height: 42, borderRadius: "50%",
+                  background: "#4a3212", color: "#fbfdf6",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  fontFamily: "var(--font-fragment-mono)", fontSize: 15, fontWeight: 700,
+                  letterSpacing: "-0.4px", flexShrink: 0,
+                  boxShadow: "0 6px 18px -6px rgba(74,50,18,0.5)",
+                }}>
+                  {step.num}
+                </div>
+                {i < 2 && <div style={{ flex: 1, borderTop: "1px dashed #c5ccb6", marginRight: -48 }} />}
               </div>
               <div
                 style={{
@@ -276,18 +277,6 @@ function HowItWorks() {
               >
                 {step.body}
               </div>
-
-              {i < 2 && (
-                <div
-                  style={{
-                    position: "absolute",
-                    top: 22,
-                    right: -24,
-                    width: 48,
-                    borderTop: "1px dashed #c5ccb6",
-                  }}
-                />
-              )}
             </div>
             </AnimatedStep>
           ))}
