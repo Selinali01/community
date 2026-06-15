@@ -30,18 +30,20 @@ export function FullHeroSection() {
   // The hero sits at the top of the page, so scrollY 0 == hero start.
   const { scrollY } = useScroll();
 
-  // Cinematic zoom-OUT: start tight on the people, pull back to reveal the
-  // whole warm community scene as you scroll. "render cool humans, then zoom out."
-  const videoScale = useTransform(scrollY, [0, 860], [1.28, 1.0]);
-  const videoY = useTransform(scrollY, [0, 860], ["3%", "-2%"]);
+  // Pinned section is 190vh, so the sticky stage unpins at ~90vh (~620–740px
+  // depending on viewport). All scroll beats must COMPLETE before ~560px so the
+  // zoom-out fully resolves and the reveal dwells before the section scrolls away.
+  // Cinematic zoom-OUT: start tight on the people, pull back to the full scene.
+  const videoScale = useTransform(scrollY, [0, 540], [1.28, 1.0]);
+  const videoY = useTransform(scrollY, [0, 540], ["3%", "-2%"]);
 
   // Hero copy floats up and fades as the camera pulls back
-  const heroY = useTransform(scrollY, [0, 460], [0, -80]);
-  const heroOp = useTransform(scrollY, [0, 400], [1, 0]);
+  const heroY = useTransform(scrollY, [0, 360], [0, -80]);
+  const heroOp = useTransform(scrollY, [0, 300], [1, 0]);
 
-  // "Connected through us" — product layer fades in as the scene settles
-  const revealOp = useTransform(scrollY, [430, 720], [0, 1]);
-  const revealY = useTransform(scrollY, [430, 720], [40, 0]);
+  // "Connected through us" — settles by ~540px, then holds until the unpin
+  const revealOp = useTransform(scrollY, [330, 540], [0, 1]);
+  const revealY = useTransform(scrollY, [330, 540], [40, 0]);
 
   return (
     <section ref={ref} style={{ position: "relative", height: "190vh", background: "#0a1d08" }}>
