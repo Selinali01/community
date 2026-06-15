@@ -404,8 +404,8 @@ function BackgroundPhoto() {
       animate={{ opacity: 1 }}
       transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1] }}
     >
-      {/* Soft sage-green fallback — matches misty morning palette while photo loads */}
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, #c8d4a0 0%, #a4b880 40%, #7a9060 100%)" }} />
+      {/* Earthy mossy-garden fallback — matches Japanese garden palette while photo loads */}
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, #8a9e7a 0%, #6a8260 40%, #4c6448 100%)" }} />
       <img
         src={src}
         alt=""
@@ -415,7 +415,7 @@ function BackgroundPhoto() {
         style={{
           position: "absolute", inset: 0,
           width: "100%", height: "100%",
-          objectFit: "cover", objectPosition: "center 52%",
+          objectFit: "cover", objectPosition: "center 38%",
           // Adaline-adjacent treatment: more sepia warmth, desaturated for cream/sage palette,
           // brighter for soft morning light, reduced contrast for atmospheric misty quality
           filter: "sepia(0.18) saturate(0.82) brightness(1.10) contrast(0.96)",
@@ -434,8 +434,8 @@ function BackgroundPhoto() {
         <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 65% 48% at 68% 8%, rgba(255,240,195,0.14) 0%, transparent 100%)" }} />
       </motion.div>
       {/* Sun warmth pulse amplified — the animated version replaces static glow */}
-      {/* Top gradient — cream fade into the misty morning scene */}
-      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(251,248,238,0.55) 0%, rgba(251,248,238,0.10) 26%, transparent 44%)" }} />
+      {/* Top gradient — stronger for textured garden background */}
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(251,248,238,0.70) 0%, rgba(251,248,238,0.16) 28%, transparent 48%)" }} />
       {/* Photo's natural bottom warmth is sufficient — no extra overlay needed */}
       {/* Edge vignette — cinematic */}
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 115% 85% at 50% 44%, transparent 32%, rgba(20,14,4,0.22) 100%)" }} />
