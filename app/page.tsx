@@ -600,43 +600,67 @@ function CtaSection() {
   );
 }
 
+const FOOTER_COLS: { heading: string; links: string[] }[] = [
+  { heading: "Platform", links: ["Directory", "Matchmaking", "Events", "Applications", "Automations"] },
+  { heading: "Communities", links: ["OGC", "The Den", "Start your own"] },
+  { heading: "Company", links: ["About", "Pricing", "Journal", "Contact"] },
+];
+
 function Footer() {
   return (
-    <div style={{ borderTop: "1px solid #e0e5d5" }}>
-      <div
-        style={{
-          maxWidth: 1200,
-          margin: "0 auto",
-          padding: "28px 32px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <div
-          style={{
-            fontWeight: 700,
-            fontSize: 14,
-            letterSpacing: "-0.56px",
-            color: "#0a1d08",
-            fontFamily: "var(--font-akkurat)",
-          }}
-        >
-          BubbleLab
+    // Dark — continues the CTA section for a cohesive dark base to the page
+    <footer style={{ background: "#0a1d08", borderTop: "1px solid rgba(251,253,246,0.08)" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "64px 32px 0" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 48, justifyContent: "space-between" }}>
+          {/* Brand block */}
+          <div style={{ maxWidth: 300 }}>
+            <div style={{ display: "flex", alignItems: "baseline", gap: 1, fontWeight: 700, fontSize: 19, letterSpacing: "-0.7px", color: "#fbfdf6", fontFamily: "var(--font-akkurat)" }}>
+              BubbleLab
+              <sup style={{ fontSize: 9, fontWeight: 400, opacity: 0.7, fontFamily: "var(--font-fragment-mono)" }}>®</sup>
+            </div>
+            <p style={{ marginTop: 14, fontSize: 14, lineHeight: 1.6, letterSpacing: "-0.3px", color: "rgba(251,253,246,0.55)", fontFamily: "var(--font-akkurat)" }}>
+              The infrastructure behind private professional communities. Run the community — we run the ops.
+            </p>
+            <div style={{ marginTop: 18, display: "flex", alignItems: "center", gap: 10, fontFamily: "var(--font-fragment-mono)", fontSize: 11, letterSpacing: "0.04em" }}>
+              <span style={{ color: "rgba(251,253,246,0.4)", textTransform: "uppercase", fontSize: 9 }}>Powering</span>
+              <span style={{ color: "#e7c6cf", fontWeight: 700, fontFamily: "var(--font-akkurat)", fontSize: 13 }}>OGC</span>
+              <span style={{ color: "rgba(251,253,246,0.3)" }}>·</span>
+              <span style={{ color: "#aecbe6", fontWeight: 700, fontFamily: "var(--font-akkurat)", fontSize: 13 }}>The Den</span>
+            </div>
+          </div>
+
+          {/* Link columns */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 56 }}>
+            {FOOTER_COLS.map((col) => (
+              <div key={col.heading}>
+                <div style={{ fontFamily: "var(--font-fragment-mono)", fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(251,253,246,0.45)", marginBottom: 16 }}>
+                  {col.heading}
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: 11 }}>
+                  {col.links.map((l) => (
+                    <a key={l} href="#" style={{ fontSize: 14, letterSpacing: "-0.3px", color: "rgba(251,253,246,0.72)", textDecoration: "none", fontFamily: "var(--font-akkurat)" }}>
+                      {l}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-        <div
-          style={{
-            fontFamily: "var(--font-fragment-mono)",
-            fontSize: 10,
-            letterSpacing: "0.04em",
-            color: "#4a3212",
-            opacity: 0.5,
-          }}
-        >
-          © 2026 BubbleLab
+
+        {/* Bottom bar */}
+        <div style={{ marginTop: 56, padding: "22px 0 28px", borderTop: "1px solid rgba(251,253,246,0.08)", display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center", justifyContent: "space-between" }}>
+          <span style={{ fontFamily: "var(--font-fragment-mono)", fontSize: 10, letterSpacing: "0.04em", color: "rgba(251,253,246,0.4)" }}>
+            © 2026 BubbleLab · Run the community. Not the ops.
+          </span>
+          <div style={{ display: "flex", gap: 20 }}>
+            {["Privacy", "Terms", "Status"].map((l) => (
+              <a key={l} href="#" style={{ fontFamily: "var(--font-fragment-mono)", fontSize: 10, letterSpacing: "0.04em", color: "rgba(251,253,246,0.4)", textDecoration: "none" }}>{l}</a>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </footer>
   );
 }
 
