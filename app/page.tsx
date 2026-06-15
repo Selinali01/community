@@ -4,6 +4,7 @@ import {
   AnimatedStep,
   AnimatedSectionLabel,
   Reveal,
+  CountUp,
 } from "./animated-section";
 
 // ── Data ─────────────────────────────────────────────────────────────────────
@@ -488,7 +489,7 @@ function ProductPreview() {
           }}>
             {[["847", "members"], ["24", "matches / week"], ["12", "events"]].map(([v, l]) => (
               <div key={l} style={{ display: "flex", alignItems: "baseline", gap: 5 }}>
-                <span style={{ fontSize: 13, fontWeight: 700, color: "#0a1d08", letterSpacing: "-0.52px", fontFamily: "var(--font-fragment-mono)" }}>{v}</span>
+                <span style={{ fontSize: 13, fontWeight: 700, color: "#0a1d08", letterSpacing: "-0.52px", fontFamily: "var(--font-fragment-mono)" }}><CountUp to={Number(v)} /></span>
                 <span style={{ fontSize: 10, color: "#4a3212", letterSpacing: "0.02em", fontFamily: "var(--font-fragment-mono)", opacity: 0.65 }}>{l}</span>
               </div>
             ))}
