@@ -48,8 +48,8 @@ interface Member {
 // All others are fully off-screen — they enter cleanly as zoom pulls back.
 // The tiny field silhouettes + bokeh provide "lots in the background" at start.
 const MEMBERS: Member[] = [
-  { name: "Sarah M.",  initials: "SM", role: "Head of Growth",    company: "Figma",   photo: "https://randomuser.me/api/portraits/women/44.jpg", avatarBg: "linear-gradient(135deg,#5aac38,#2d6018)", x: 33, y: 60, range: [0.0, 0.26], initOp: 0.88, maxOp: 0.97 },
-  { name: "Alex K.",   initials: "AK", role: "VP Engineering",    company: "Linear",  photo: "https://randomuser.me/api/portraits/men/32.jpg",   avatarBg: "linear-gradient(135deg,#203b14,#4a9030)", x: 59, y: 60, range: [0.0, 0.26], initOp: 0.88, maxOp: 0.97 },
+  { name: "Sarah M.",  initials: "SM", role: "Head of Growth",    company: "Figma",   photo: "https://randomuser.me/api/portraits/women/44.jpg", avatarBg: "linear-gradient(135deg,#5aac38,#2d6018)", x: 31, y: 66, range: [0.0, 0.26], initOp: 0.88, maxOp: 0.97 },
+  { name: "Alex K.",   initials: "AK", role: "VP Engineering",    company: "Linear",  photo: "https://randomuser.me/api/portraits/men/32.jpg",   avatarBg: "linear-gradient(135deg,#203b14,#4a9030)", x: 61, y: 66, range: [0.0, 0.26], initOp: 0.88, maxOp: 0.97 },
   { name: "Chris R.",  initials: "CR", role: "Operations Lead",   company: "Vercel",  photo: "https://randomuser.me/api/portraits/men/15.jpg",   avatarBg: "linear-gradient(135deg,#4a3212,#203b14)", x: 18, y: 76, range: [0.28, 0.52], initOp: 0, maxOp: 0.88 },
   { name: "Sam T.",    initials: "ST", role: "Community Builder", company: "Loom",    photo: "https://randomuser.me/api/portraits/women/58.jpg", avatarBg: "linear-gradient(135deg,#1a3d14,#4a9030)", x: 75, y: 76, range: [0.10, 0.44], initOp: 0, maxOp: 0.88 },
   { name: "Dana W.",   initials: "DW", role: "Founding Engineer", company: "Arc",     photo: "https://randomuser.me/api/portraits/women/35.jpg", avatarBg: "linear-gradient(135deg,#31200b,#4a3212)", x: 9,  y: 62, range: [0.52, 0.70], initOp: 0, maxOp: 0.82 },
@@ -262,7 +262,7 @@ function AnimatedCard({
                 <Avatar member={member} />
                 <div style={{ width: "100%" }}>
                   <div style={{ fontSize: 13, fontWeight: 700, color: "#0a1d08", letterSpacing: "-0.52px", lineHeight: 1.2 }}>{member.name}</div>
-                  <div style={{ fontSize: 11, color: "#31200b", letterSpacing: "-0.44px", marginTop: 2, lineHeight: 1.3 }}>{member.role}</div>
+                  <div style={{ fontSize: 11, color: "#31200b", letterSpacing: "-0.44px", marginTop: 2, lineHeight: 1.3, fontStyle: "italic" }}>{member.role}</div>
                   <div style={{ marginTop: 5, display: "inline-flex", alignItems: "center", gap: 3 }}>
                     <div style={{ width: 5, height: 5, borderRadius: "50%", background: BRAND[member.company] ?? "#d7e8b5", opacity: 0.85, flexShrink: 0 }} />
                     <span style={{ fontSize: 11, color: "#4a3212", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.02em" }}>{member.company}</span>
@@ -418,7 +418,7 @@ function BackgroundPhoto() {
           objectFit: "cover", objectPosition: "center 38%",
           // Adaline-adjacent treatment: more sepia warmth, desaturated for cream/sage palette,
           // brighter for soft morning light, reduced contrast for atmospheric misty quality
-          filter: "sepia(0.18) saturate(0.82) brightness(1.10) contrast(0.96)",
+          filter: "sepia(0.16) saturate(0.84) brightness(1.16) contrast(0.97)",
         }}
       />
       {/* Warm cream tint overlay */}
@@ -605,9 +605,8 @@ export function FullHeroSection() {
   });
 
   // Scene scale — zooms background + cards + connections together
-  // 2.0x→1.0: starts close-up on Sarah/Alex (just the two + field silhouettes)
-  // Full 10-person network reveals at 70% × 1260px = 882px scroll
-  const sceneScale = useTransform(scrollYProgress, [0, 0.70], [2.0, 1.0]);
+  // 1.42x→1.0: Sarah/Alex flank the hero text (not flung to edges), then network reveals
+  const sceneScale = useTransform(scrollYProgress, [0, 0.70], [1.35, 1.0]);
   const heroOp     = useTransform(scrollYProgress, [0, 0.13], [1,   0]);
   const heroY      = useTransform(scrollYProgress, [0, 0.15], [0,  -36]);
   const frameOp    = useTransform(scrollYProgress, [0.80, 1], [0,   1]);
@@ -650,7 +649,7 @@ export function FullHeroSection() {
         <motion.div
           style={{
             scale: sceneScale,
-            transformOrigin: "46% 60%",
+            transformOrigin: "46% 64%",
             position: "absolute", inset: 0,
             willChange: "transform",
           }}
@@ -784,7 +783,7 @@ export function FullHeroSection() {
         <motion.div
           style={{
             opacity: heroOp, y: heroY,
-            paddingTop: 72,
+            paddingTop: 60,
             display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center",
             pointerEvents: "none",
           }}
@@ -864,60 +863,21 @@ export function FullHeroSection() {
             }}>See how it works</a>
           </div>
 
-          {/* Social proof micro-line */}
+          {/* One clean social-proof line */}
           <div style={{
-            marginTop: 16,
-            fontFamily: "var(--font-fragment-mono)",
-            fontSize: 10,
-            letterSpacing: "0.06em",
-            color: "rgba(10,29,8,0.52)",
-            textTransform: "uppercase",
-            textShadow: "0 1px 10px rgba(255,244,210,0.90)",
+            marginTop: 20,
+            display: "flex", alignItems: "center", gap: 9,
+            fontFamily: "var(--font-fragment-mono)", fontSize: 11,
+            letterSpacing: "0.04em",
+            textShadow: "0 1px 12px rgba(255,244,210,0.92)",
           }}>
-            2 communities · 847 members · 24 matches / week
+            <span style={{ color: "rgba(10,29,8,0.50)", textTransform: "uppercase", fontSize: 10 }}>
+              Powering
+            </span>
+            <span style={{ color: "#7a3954", fontWeight: 700 }}>OGC</span>
+            <span style={{ color: "rgba(10,29,8,0.30)" }}>·</span>
+            <span style={{ color: "#275a86", fontWeight: 700 }}>The Den</span>
           </div>
-
-          {/* Communities using BubbleLab — real social proof */}
-          {/* Social proof — real communities using BubbleLab */}
-          <div style={{ marginTop: 22, display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
-            {/* Thin separator — visual break from CTAs to social proof */}
-            <div style={{ width: 36, height: 1, background: "rgba(10,29,8,0.18)", marginBottom: 2 }} />
-            <div style={{
-              fontFamily: "var(--font-fragment-mono)", fontSize: 9,
-              letterSpacing: "0.10em", color: "rgba(10,29,8,0.45)",
-              textTransform: "uppercase",
-              textShadow: "0 1px 8px rgba(255,244,210,0.90)",
-            }}>
-              Powering communities like
-            </div>
-            <div style={{ display: "flex", gap: 18, alignItems: "center" }}>
-              <div style={{
-                fontSize: 15, fontWeight: 700, letterSpacing: "-0.60px",
-                color: "#7a3954", fontFamily: "var(--font-akkurat)",
-                textShadow: "0 1px 14px rgba(255,244,210,0.88)",
-                opacity: 0.92,
-              }}>
-                OGC
-              </div>
-              <div style={{ width: 4, height: 4, borderRadius: "50%", background: "rgba(10,29,8,0.28)" }} />
-              <div style={{
-                fontSize: 15, fontWeight: 700, letterSpacing: "-0.60px",
-                color: "#275a86", fontFamily: "var(--font-akkurat)",
-                textShadow: "0 1px 14px rgba(255,244,210,0.88)",
-                opacity: 0.92,
-              }}>
-                The Den
-              </div>
-            </div>
-          </div>
-
-          {/* Animated scroll arrow */}
-          <svg
-            width="14" height="20" viewBox="0 0 14 20" fill="none"
-            style={{ marginTop: 28, animation: "arrow-bounce 1.8s ease-in-out infinite" }}
-          >
-            <path d="M7 1L7 19M1 13L7 19L13 13" stroke="#0a1d08" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
 
         </motion.div>
         </motion.div>
