@@ -61,6 +61,9 @@ export function FullHeroSection() {
   const revealOp = useTransform(scrollY, [330, 540], [0, 1]);
   const revealY = useTransform(scrollY, [330, 540], [40, 0]);
 
+  // Scroll cue — visible at rest, fades the moment you start scrolling
+  const cueOp = useTransform(scrollY, [0, 90], [1, 0]);
+
   return (
     <section ref={ref} className="hero-focus" style={{ position: "relative", height: "190vh", background: "#0a1d08" }}>
       {/* Pinned stage — holds the scene while the zoom-out + reveal play */}
@@ -241,6 +244,29 @@ export function FullHeroSection() {
               </div>
             ))}
           </div>
+        </motion.div>
+
+        {/* ── Scroll cue — invites the zoom-out, fades on first scroll ── */}
+        <motion.div
+          aria-hidden="true"
+          style={{
+            opacity: cueOp,
+            position: "absolute", left: 0, right: 0, bottom: "3.5vh", zIndex: 11,
+            display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
+            pointerEvents: "none",
+          }}
+        >
+          <span style={{
+            fontFamily: "var(--font-fragment-mono)", fontSize: 10,
+            letterSpacing: "0.14em", textTransform: "uppercase",
+            color: "rgba(251,253,246,0.6)", textShadow: "0 1px 10px rgba(10,18,6,0.7)",
+          }}>
+            Scroll to zoom out
+          </span>
+          <svg width="16" height="22" viewBox="0 0 16 22" fill="none"
+            style={{ animation: "arrow-bounce 1.8s ease-in-out infinite" }}>
+            <path d="M8 1V20M1 13L8 20L15 13" stroke="rgba(251,253,246,0.7)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </motion.div>
       </div>
     </section>
