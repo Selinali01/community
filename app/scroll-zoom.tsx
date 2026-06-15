@@ -3,11 +3,11 @@
 import { useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-// Mixkit: diverse group in genuine conversation around warm light in a garden at night.
-// Real people, warm, cinematic — the community IS the scene.
-const VIDEO = "https://assets.mixkit.co/videos/42754/42754-720.mp4";
-const POSTER = "https://assets.mixkit.co/videos/42754/42754-thumb-1080-0.jpg";
-const VIDEO_FALLBACK = "https://assets.mixkit.co/videos/42716/42716-720.mp4";
+// Mixkit: diverse group gathered around a garden dinner table under warm string
+// lights at night. Real people connecting — the community IS the scene.
+const VIDEO = "https://assets.mixkit.co/videos/23131/23131-720.mp4";
+const POSTER = "https://assets.mixkit.co/videos/23131/23131-thumb-1080-0.jpg";
+const VIDEO_FALLBACK = "https://assets.mixkit.co/videos/42754/42754-720.mp4";
 
 const NAV_LINKS = ["Platform", "Communities", "Pricing", "About"];
 
