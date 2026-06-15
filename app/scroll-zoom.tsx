@@ -142,11 +142,14 @@ function AnimatedCard({
             style={{ cursor: "default" }}
           >
           <div style={{
-            background: "rgba(252,248,240,0.90)",
+            // Featured pair gets a warm gradient hint — signals their special connection
+            background: idx < 2
+              ? "linear-gradient(135deg, rgba(254,250,238,0.92) 0%, rgba(252,247,233,0.90) 100%)"
+              : "rgba(252,248,240,0.90)",
             backdropFilter: "blur(22px)",
             WebkitBackdropFilter: "blur(22px)",
             border: idx < 2
-              ? "1px solid rgba(180,230,120,0.45)"  // featured pair: subtle green border
+              ? "1px solid rgba(180,230,120,0.48)"
               : "1px solid rgba(10,29,8,0.08)",
             borderRadius: 18,
             padding: "11px 16px 11px 11px",
@@ -315,6 +318,14 @@ function BackgroundPhoto() {
       {/* Warm cream tint overlay */}
       {/* Warm amber tint — golden hour wash */}
       <div style={{ position: "absolute", inset: 0, background: "rgba(245,220,170,0.14)" }} />
+      {/* Sun warmth pulse — slow breathing glow makes the scene feel alive */}
+      <motion.div
+        style={{ position: "absolute", inset: 0 }}
+        animate={{ opacity: [0.55, 1.0, 0.55] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 42% 32% at 73% 14%, rgba(255,215,70,0.12) 0%, transparent 100%)" }} />
+      </motion.div>
       {/* Sun glow top-right — golden hour light source */}
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 50% 38% at 78% 0%, rgba(255,205,90,0.18) 0%, transparent 100%)" }} />
       {/* Top gradient — stronger for wildflower sun photo */}
@@ -332,19 +343,19 @@ function BackgroundPhoto() {
 // even before the community cards materialize.
 
 const FIELD_PEOPLE = [
-  // [cx, cy, scale, opacity] in SVG 0-100 coordinate space
+  // [cx, cy, scale, opacity] — increased opacity to be visible over bright golden field
   // Left cluster
-  [14, 71, 0.34, 0.13], [17, 70, 0.30, 0.11], [20, 72, 0.28, 0.12],
+  [14, 71, 0.34, 0.22], [17, 70, 0.30, 0.18], [20, 72, 0.28, 0.20],
   // Center-left cluster
-  [37, 73, 0.31, 0.12], [40, 72, 0.29, 0.11],
+  [37, 73, 0.31, 0.20], [40, 72, 0.29, 0.18],
   // Center single
-  [49, 75, 0.27, 0.09],
+  [49, 75, 0.27, 0.16],
   // Center-right cluster
-  [57, 72, 0.32, 0.12], [60, 71, 0.29, 0.10],
+  [57, 72, 0.32, 0.20], [60, 71, 0.29, 0.17],
   // Right cluster
-  [78, 71, 0.33, 0.13], [82, 70, 0.30, 0.11], [85, 72, 0.28, 0.12],
+  [78, 71, 0.33, 0.22], [82, 70, 0.30, 0.18], [85, 72, 0.28, 0.20],
   // Scattered individuals
-  [27, 73, 0.28, 0.09], [68, 73, 0.30, 0.09], [45, 74, 0.26, 0.08],
+  [27, 73, 0.28, 0.16], [68, 73, 0.30, 0.16], [45, 74, 0.26, 0.14],
 ] as const;
 
 function PeopleBackground() {
