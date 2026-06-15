@@ -850,30 +850,33 @@ export function FullHeroSection() {
           </div>
 
           {/* Communities using BubbleLab — real social proof */}
-          <div style={{ marginTop: 20, display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+          {/* Social proof — real communities using BubbleLab */}
+          <div style={{ marginTop: 22, display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+            {/* Thin separator — visual break from CTAs to social proof */}
+            <div style={{ width: 36, height: 1, background: "rgba(10,29,8,0.18)", marginBottom: 2 }} />
             <div style={{
               fontFamily: "var(--font-fragment-mono)", fontSize: 9,
-              letterSpacing: "0.08em", color: "rgba(10,29,8,0.40)",
+              letterSpacing: "0.10em", color: "rgba(10,29,8,0.45)",
               textTransform: "uppercase",
-              textShadow: "0 1px 8px rgba(255,244,210,0.85)",
+              textShadow: "0 1px 8px rgba(255,244,210,0.90)",
             }}>
               Powering communities like
             </div>
-            <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
+            <div style={{ display: "flex", gap: 18, alignItems: "center" }}>
               <div style={{
-                fontSize: 13, fontWeight: 700, letterSpacing: "-0.52px",
+                fontSize: 15, fontWeight: 700, letterSpacing: "-0.60px",
                 color: "#7a3954", fontFamily: "var(--font-akkurat)",
-                textShadow: "0 1px 12px rgba(255,244,210,0.80)",
-                opacity: 0.85,
+                textShadow: "0 1px 14px rgba(255,244,210,0.88)",
+                opacity: 0.92,
               }}>
                 OGC
               </div>
-              <div style={{ width: 3, height: 3, borderRadius: "50%", background: "rgba(10,29,8,0.30)" }} />
+              <div style={{ width: 4, height: 4, borderRadius: "50%", background: "rgba(10,29,8,0.28)" }} />
               <div style={{
-                fontSize: 13, fontWeight: 700, letterSpacing: "-0.52px",
+                fontSize: 15, fontWeight: 700, letterSpacing: "-0.60px",
                 color: "#275a86", fontFamily: "var(--font-akkurat)",
-                textShadow: "0 1px 12px rgba(255,244,210,0.80)",
-                opacity: 0.85,
+                textShadow: "0 1px 14px rgba(255,244,210,0.88)",
+                opacity: 0.92,
               }}>
                 The Den
               </div>
