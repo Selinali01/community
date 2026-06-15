@@ -565,6 +565,7 @@ function CtaSection() {
         >
           <a
             href="#"
+            className="cta-hover cta-solid"
             style={{
               background: "#d7e8b5",
               color: "#0a1d08",
@@ -581,6 +582,7 @@ function CtaSection() {
           </a>
           <a
             href="#"
+            className="cta-hover"
             style={{
               background: "transparent",
               color: "#fbfdf6",

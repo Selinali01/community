@@ -156,7 +156,7 @@ export function FullHeroSection() {
             ))}
           </div>
 
-          <a href="#" className="liquid-glass" style={{
+          <a href="#" className="liquid-glass cta-hover" style={{
             borderRadius: 9999, padding: "9px 20px", fontSize: 13.5, fontWeight: 600,
             letterSpacing: "-0.3px", color: "#fbfdf6", textDecoration: "none",
             fontFamily: "var(--font-akkurat)",
@@ -210,13 +210,13 @@ export function FullHeroSection() {
 
           {/* CTAs */}
           <div className="fade-rise-3" style={{ display: "flex", gap: 12, marginTop: 34, flexWrap: "wrap", justifyContent: "center" }}>
-            <a href="#" style={{
+            <a href="#" className="cta-hover cta-solid" style={{
               background: "#fbfdf6", color: "#0a1d08", borderRadius: 9999,
               padding: "14px 32px", fontSize: 15, fontWeight: 700, letterSpacing: "-0.4px",
               textDecoration: "none", fontFamily: "var(--font-akkurat)",
               boxShadow: "0 8px 32px -8px rgba(0,0,0,0.5)",
             }}>Start building →</a>
-            <a href="#features" className="liquid-glass" style={{
+            <a href="#features" className="liquid-glass cta-hover" style={{
               borderRadius: 9999, padding: "14px 30px", fontSize: 15, fontWeight: 600,
               letterSpacing: "-0.4px", color: "#fbfdf6", textDecoration: "none",
               fontFamily: "var(--font-akkurat)",

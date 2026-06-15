@@ -104,6 +104,13 @@ body {
   100% { transform: translate(0, 0); }
 }
 
+/* CTA hover — subtle lift + scale, matching the reference's hover:scale */
+.cta-hover { transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s ease, filter 0.2s ease; }
+@media (hover: hover) {
+  .cta-hover:hover { transform: translateY(-1px) scale(1.025); }
+  .cta-hover.cta-solid:hover { box-shadow: 0 12px 36px -8px rgba(0,0,0,0.4); filter: brightness(1.02); }
+}
+
 /* Subtle hover-lift for content cards — premium micro-interaction (desktop) */
 .lift-card {
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
