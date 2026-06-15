@@ -23,6 +23,9 @@ const VIDEO = "/hero.mp4";
 const POSTER = "/hero-poster.jpg";
 const VIDEO_FALLBACK = "/hero-fallback.mp4";
 
+// Single CTA destination used everywhere
+export const BOOK_DEMO = "https://calendar.app.google/YqLHSCCMvtUQAkma9";
+
 const NAV_LINKS: { label: string; href: string }[] = [
   { label: "Platform", href: "#features" },
   { label: "Communities", href: "#communities" },
@@ -87,7 +90,6 @@ export function FullHeroSection() {
   const revealY = useTransform(scrollY, [330, 540], [40, 0]);
 
   // Scroll cue — visible at rest, fades the moment you start scrolling
-  const cueOp = useTransform(scrollY, [0, 90], [1, 0]);
 
   // Subtle mouse parallax on the video — dimensionality, "cool and smooth".
   // Spring-smoothed; the video has bleed so the ±px shift never reveals edges.
@@ -178,11 +180,11 @@ export function FullHeroSection() {
             ))}
           </div>
 
-          <a href="#" className="liquid-glass cta-hover" style={{
+          <a href={BOOK_DEMO} target="_blank" rel="noopener noreferrer" className="liquid-glass cta-hover" style={{
             borderRadius: 9999, padding: "9px 20px", fontSize: 13.5, fontWeight: 600,
             letterSpacing: "-0.3px", color: "#fbfdf6", textDecoration: "none",
             fontFamily: "var(--font-akkurat)",
-          }}>Get started</a>
+          }}>Book a demo</a>
         </nav>
 
         {/* ── Hero copy (upper third) — fades as camera pulls back ── */}
@@ -222,35 +224,18 @@ export function FullHeroSection() {
             </span>
           </h1>
 
-          {/* Subhead — punchy, two lines */}
-          <p className="fade-rise-3" style={{
-            fontFamily: "var(--font-akkurat)", fontWeight: 400,
-            fontSize: "clamp(15px, 1.5vw, 19px)", lineHeight: 1.6,
-            letterSpacing: "-0.3px", color: "rgba(251,253,246,0.82)",
-            maxWidth: 500, margin: "24px auto 0",
-            textShadow: "0 1px 22px rgba(10,18,6,0.75), 0 1px 4px rgba(10,18,6,0.5)",
-          }}>
-            Applications, directories, matchmaking, events, automations —
-            we run the ops so you can focus on your people.
-          </p>
-
-          {/* CTAs */}
-          <div className="fade-rise-4" style={{ display: "flex", gap: 12, marginTop: 34, flexWrap: "wrap", justifyContent: "center" }}>
-            <a href="#" className="cta-hover cta-solid" style={{
+          {/* Single CTA — Book Demo */}
+          <div className="fade-rise-3" style={{ display: "flex", gap: 12, marginTop: 34, justifyContent: "center" }}>
+            <a href={BOOK_DEMO} target="_blank" rel="noopener noreferrer" className="cta-hover cta-solid" style={{
               background: "#fbfdf6", color: "#0a1d08", borderRadius: 9999,
-              padding: "14px 32px", fontSize: 15, fontWeight: 700, letterSpacing: "-0.4px",
+              padding: "15px 36px", fontSize: 15, fontWeight: 700, letterSpacing: "-0.4px",
               textDecoration: "none", fontFamily: "var(--font-akkurat)",
               boxShadow: "0 8px 32px -8px rgba(0,0,0,0.5)",
-            }}>Start building →</a>
-            <a href="#features" className="liquid-glass cta-hover" style={{
-              borderRadius: 9999, padding: "14px 30px", fontSize: 15, fontWeight: 600,
-              letterSpacing: "-0.4px", color: "#fbfdf6", textDecoration: "none",
-              fontFamily: "var(--font-akkurat)",
-            }}>See how it works</a>
+            }}>Book a demo →</a>
           </div>
 
           {/* Social proof — real communities */}
-          <div className="fade-rise-5" style={{
+          <div className="fade-rise-4" style={{
             marginTop: 28, display: "flex", alignItems: "center", gap: 10,
             fontFamily: "var(--font-fragment-mono)", fontSize: 11, letterSpacing: "0.04em",
             textShadow: "0 1px 16px rgba(10,18,6,0.7)",
@@ -272,12 +257,13 @@ export function FullHeroSection() {
           }}
         >
           <p style={{
-            fontFamily: "var(--font-akkurat)", fontWeight: 400, fontStyle: "italic",
+            fontFamily: "var(--font-akkurat)", fontWeight: 400,
             fontSize: "clamp(18px, 2.4vw, 26px)", letterSpacing: "-0.6px",
-            color: "#fbfdf6", margin: 0, maxWidth: 560, lineHeight: 1.35,
+            color: "#fbfdf6", margin: 0, maxWidth: 620, lineHeight: 1.4,
             textShadow: "0 2px 30px rgba(10,18,6,0.7)",
           }}>
-            Every member, every intro, every event — held together by one platform.
+            Applications, directories, matchmaking, events, automations —{" "}
+            <span style={{ color: "rgba(251,253,246,0.66)" }}>we run the ops so you can focus on your people.</span>
           </p>
           {/* Live community stats — the "through us" proof */}
           <div className="liquid-glass" style={{
@@ -294,28 +280,6 @@ export function FullHeroSection() {
           </div>
         </motion.div>
 
-        {/* ── Scroll cue — invites the zoom-out, fades on first scroll ── */}
-        <motion.div
-          aria-hidden="true"
-          style={{
-            opacity: cueOp,
-            position: "absolute", left: 0, right: 0, bottom: "3.5vh", zIndex: 11,
-            display: "flex", flexDirection: "column", alignItems: "center", gap: 8,
-            pointerEvents: "none",
-          }}
-        >
-          <span style={{
-            fontFamily: "var(--font-fragment-mono)", fontSize: 10,
-            letterSpacing: "0.14em", textTransform: "uppercase",
-            color: "rgba(251,253,246,0.6)", textShadow: "0 1px 10px rgba(10,18,6,0.7)",
-          }}>
-            Scroll to zoom out
-          </span>
-          <svg width="16" height="22" viewBox="0 0 16 22" fill="none"
-            style={{ animation: "arrow-bounce 1.8s ease-in-out infinite" }}>
-            <path d="M8 1V20M1 13L8 20L15 13" stroke="rgba(251,253,246,0.7)" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </motion.div>
       </div>
     </section>
   );

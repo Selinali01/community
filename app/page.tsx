@@ -1,4 +1,4 @@
-import { FullHeroSection } from "./scroll-zoom";
+import { FullHeroSection, BOOK_DEMO } from "./scroll-zoom";
 import {
   AnimatedFeatureCard,
   AnimatedStep,
@@ -244,16 +244,19 @@ function HowItWorks() {
 
 const COMMUNITIES: {
   name: string; full: string; brand: string; tint: string; desc: string; stat: string; statLabel: string;
+  logo: string; logoDark: boolean;
 }[] = [
   {
     name: "OGC", full: "The Old Girls Club", brand: "#7a3954", tint: "rgba(122,57,84,0.07)",
     desc: "A private network for women whose careers are a defining part of who they are — vetted, ambitious, and refreshingly real.",
     stat: "3,000+", statLabel: "members",
+    logo: "/communities/ogc.webp", logoDark: false,
   },
   {
     name: "The Den", full: "The Den", brand: "#275a86", tint: "rgba(39,90,134,0.07)",
     desc: "An intimate, application-only community built around weekly 1:1 matchmaking and genuine connection over noise.",
     stat: "1:1", statLabel: "weekly matches",
+    logo: "/communities/the-den.jpg", logoDark: true,
   },
 ];
 
@@ -286,13 +289,21 @@ function Communities() {
                 borderRadius: 16, padding: "32px", height: "100%",
                 display: "flex", flexDirection: "column", gap: 14,
               }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                  <span style={{ width: 10, height: 10, borderRadius: "50%", background: c.brand }} />
-                  <span style={{ fontSize: 20, fontWeight: 700, letterSpacing: "-0.8px", color: c.brand, fontFamily: "var(--font-akkurat)" }}>
-                    {c.name}
-                  </span>
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  {/* Real community logo */}
+                  {c.logoDark ? (
+                    <span style={{
+                      width: 44, height: 44, borderRadius: 12, background: "#000",
+                      display: "inline-flex", alignItems: "center", justifyContent: "center",
+                      overflow: "hidden", flexShrink: 0,
+                    }}>
+                      <img src={c.logo} alt={c.full} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    </span>
+                  ) : (
+                    <img src={c.logo} alt={c.full} style={{ height: 30, width: "auto", objectFit: "contain", flexShrink: 0 }} />
+                  )}
                   {c.full !== c.name && (
-                    <span style={{ fontSize: 12, color: "#968e83", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.02em" }}>
+                    <span style={{ fontSize: 13, color: "#968e83", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.02em" }}>
                       {c.full}
                     </span>
                   )}
@@ -702,39 +713,23 @@ function CtaSection() {
           }}
         >
           <a
-            href="#"
+            href={BOOK_DEMO}
+            target="_blank"
+            rel="noopener noreferrer"
             className="cta-hover cta-solid"
             style={{
               background: "#d7e8b5",
               color: "#0a1d08",
               borderRadius: 20,
-              padding: "12px 28px",
-              fontSize: 14,
+              padding: "14px 34px",
+              fontSize: 15,
               fontWeight: 700,
               letterSpacing: "-0.56px",
               textDecoration: "none",
               fontFamily: "var(--font-akkurat)",
             }}
           >
-            Get started →
-          </a>
-          <a
-            href="#"
-            className="cta-hover"
-            style={{
-              background: "transparent",
-              color: "#fbfdf6",
-              border: "1px solid rgba(251,253,246,0.25)",
-              borderRadius: 20,
-              padding: "12px 28px",
-              fontSize: 14,
-              fontWeight: 700,
-              letterSpacing: "-0.56px",
-              textDecoration: "none",
-              fontFamily: "var(--font-akkurat)",
-            }}
-          >
-            Talk to us
+            Book a demo →
           </a>
         </div>
         </Reveal>
