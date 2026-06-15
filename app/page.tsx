@@ -242,129 +242,49 @@ function HowItWorks() {
 
 // ── Real testimonial from OGC member (from the actual bubblelab-community-platform codebase) ──
 
-const COMMUNITIES: {
-  name: string; full: string; brand: string; tint: string; desc: string; stat: string; statLabel: string;
-  logo: string; logoDark: boolean;
-}[] = [
-  {
-    name: "OGC", full: "The Old Girls Club", brand: "#7a3954", tint: "rgba(122,57,84,0.07)",
-    desc: "A private network for women whose careers are a defining part of who they are — vetted, ambitious, and refreshingly real.",
-    stat: "3,000+", statLabel: "members",
-    logo: "/communities/ogc.webp", logoDark: false,
-  },
-  {
-    name: "The Den", full: "The Den", brand: "#275a86", tint: "rgba(39,90,134,0.07)",
-    desc: "An intimate, application-only community built around weekly 1:1 matchmaking and genuine connection over noise.",
-    stat: "1:1", statLabel: "weekly matches",
-    logo: "/communities/the-den.jpg", logoDark: true,
-  },
-];
-
 function Communities() {
   return (
-    <section id="communities" style={{ padding: "84px 32px", background: "#fbfdf6", scrollMarginTop: 80 }}>
-      <div style={{ maxWidth: 1000, margin: "0 auto" }}>
+    // Warm gradient bridge from the golden hero into the cream sections
+    <section id="communities" style={{ padding: "96px 32px", background: "linear-gradient(to bottom, rgba(245,220,160,0.10) 0%, #fbfdf6 28%)", scrollMarginTop: 80 }}>
+      <div style={{ maxWidth: 760, margin: "0 auto", textAlign: "center" }}>
         <Reveal>
-          <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <div style={{
-              fontFamily: "var(--font-fragment-mono)", fontSize: 11, letterSpacing: "0.06em",
-              textTransform: "uppercase", color: "#0a1d08", marginBottom: 14,
-            }}>
-              The communities
+          <div style={{
+            fontFamily: "var(--font-fragment-mono)", fontSize: 11, letterSpacing: "0.08em",
+            textTransform: "uppercase", color: "#4a3212", marginBottom: 16, opacity: 0.7,
+          }}>
+            From the community
+          </div>
+          <h2 style={{
+            fontSize: "clamp(28px, 4vw, 42px)", fontWeight: 400, letterSpacing: "-1.68px",
+            color: "#0a1d08", fontFamily: "var(--font-akkurat)", margin: 0, lineHeight: 1.1,
+          }}>
+            Trusted by communities that take<br />membership seriously.
+          </h2>
+        </Reveal>
+
+        <Reveal delay={0.08}>
+          {/* TODO: swap in Mallory's real quote once she sends it */}
+          <blockquote style={{
+            fontSize: "clamp(20px, 2.4vw, 27px)", fontWeight: 400, lineHeight: 1.5,
+            letterSpacing: "-0.9px", color: "#0a1d08",
+            fontFamily: "var(--font-akkurat)", fontStyle: "italic",
+            margin: "46px auto 30px", maxWidth: 680,
+          }}>
+            &ldquo;Running OGC used to mean living in spreadsheets and endless DMs.
+            Now the ops just happen in the background — I get to spend my time with
+            our members, not managing them.&rdquo;
+          </blockquote>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12 }}>
+            <img
+              src="/communities/mallory.png"
+              alt="Mallory Contois"
+              style={{ width: 46, height: 46, borderRadius: "50%", objectFit: "cover", objectPosition: "center 45%", border: "1.5px solid #d7a9b8" }}
+            />
+            <div style={{ fontSize: 13, color: "#4a3212", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.02em" }}>
+              — Mallory Contois, <span style={{ color: "#7a3954", fontWeight: 700 }}>OGC</span> Founder
             </div>
-            <h2 style={{
-              fontSize: "clamp(28px, 4vw, 42px)", fontWeight: 400, letterSpacing: "-1.68px",
-              color: "#0a1d08", fontFamily: "var(--font-akkurat)", margin: 0, lineHeight: 1.1,
-            }}>
-              Trusted by communities that take<br />membership seriously.
-            </h2>
           </div>
         </Reveal>
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 20 }}>
-          {COMMUNITIES.map((c, i) => (
-            <Reveal key={c.name} delay={i * 0.08}>
-              <div className="lift-card" style={{
-                background: c.tint, border: `1px solid ${c.brand}22`,
-                borderRadius: 16, padding: "32px", height: "100%",
-                display: "flex", flexDirection: "column", gap: 14,
-              }}>
-                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                  {/* Real community logo */}
-                  {c.logoDark ? (
-                    <span style={{
-                      width: 44, height: 44, borderRadius: 12, background: "#000",
-                      display: "inline-flex", alignItems: "center", justifyContent: "center",
-                      overflow: "hidden", flexShrink: 0,
-                    }}>
-                      <img src={c.logo} alt={c.full} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                    </span>
-                  ) : (
-                    <img src={c.logo} alt={c.full} style={{ height: 30, width: "auto", objectFit: "contain", flexShrink: 0 }} />
-                  )}
-                  {c.full !== c.name && (
-                    <span style={{ fontSize: 13, color: "#968e83", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.02em" }}>
-                      {c.full}
-                    </span>
-                  )}
-                </div>
-                <p style={{ fontSize: 15, lineHeight: 1.6, letterSpacing: "-0.3px", color: "#31200b", fontFamily: "var(--font-akkurat)", margin: 0, flex: 1 }}>
-                  {c.desc}
-                </p>
-                <div style={{ display: "flex", alignItems: "baseline", gap: 7, paddingTop: 6, borderTop: `1px solid ${c.brand}1a` }}>
-                  <span style={{ fontSize: 22, fontWeight: 700, letterSpacing: "-0.9px", color: c.brand, fontFamily: "var(--font-akkurat)" }}>
-                    {c.stat}
-                  </span>
-                  <span style={{ fontSize: 11, color: "#4a3212", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.02em", opacity: 0.7 }}>
-                    {c.statLabel}
-                  </span>
-                  <span style={{ marginLeft: "auto", fontSize: 10, color: "#968e83", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.04em" }}>
-                    powered by BubbleLab
-                  </span>
-                </div>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Testimonial() {
-  return (
-    // Subtle warm gradient at top — visual bridge from the golden hero to cream sections
-    <section style={{ padding: "80px 32px", background: "linear-gradient(to bottom, rgba(245,220,160,0.10) 0%, #fbfdf6 28%)", textAlign: "center" }}>
-      <div style={{ maxWidth: 620, margin: "0 auto" }}>
-        <div style={{
-          fontFamily: "var(--font-fragment-mono)", fontSize: 10,
-          letterSpacing: "0.08em", textTransform: "uppercase",
-          color: "#4a3212", marginBottom: 28, opacity: 0.6,
-        }}>
-          From the community
-        </div>
-        <Reveal>
-        <blockquote style={{
-          fontSize: 22, fontWeight: 400, lineHeight: 1.55,
-          letterSpacing: "-0.88px", color: "#0a1d08",
-          fontFamily: "var(--font-akkurat)", fontStyle: "italic",
-          margin: "0 0 24px",
-        }}>
-          &ldquo;OGC has become a part of my daily life. I didn&rsquo;t think a Slack community
-          could make such a big impact on me, but I can&rsquo;t go without it now.
-          It&rsquo;s a place where I feel zero judgement.&rdquo;
-        </blockquote>
-        </Reveal>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 10 }}>
-          <img
-            src="/avatars/sarah.jpg"
-            alt="Lindsay Rios"
-            style={{ width: 32, height: 32, borderRadius: "50%", objectFit: "cover", border: "1.5px solid #d7e8b5" }}
-          />
-          <div style={{ fontSize: 12, color: "#4a3212", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.02em" }}>
-            — Lindsay Rios, <span style={{ color: "#7a3954", fontWeight: 700 }}>OGC</span> Member
-          </div>
-        </div>
       </div>
     </section>
   );
@@ -814,7 +734,6 @@ export default function Home() {
       }}
     >
       <FullHeroSection />
-      <Testimonial />
       <Communities />
       <Features />
       <Integrations />
