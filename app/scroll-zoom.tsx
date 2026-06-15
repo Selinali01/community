@@ -12,13 +12,13 @@ import {
 
 // ── Config ────────────────────────────────────────────────────────────────────
 
-// Richmond Park golden hour — warm sunrise over open green field, Simon Wilkes
+// Garden during golden hour — warm golden garden light, flowers, green (Chloe Leis)
 const BG_IMAGE =
-  "https://images.unsplash.com/photo-1567853042143-8d8480f022ad?auto=format&fit=crop&w=1920&q=85";
+  "https://images.unsplash.com/photo-1553368168-3957f806d986?auto=format&fit=crop&w=1920&q=85";
 
-// Fallback: misty forest with warm sunlight
+// Fallback: misty morning over green field with trees (atmospheric, Adaline-adjacent)
 const BG_FALLBACK =
-  "https://images.unsplash.com/photo-1757137911040-c9d81879b212?auto=format&fit=crop&w=1920&q=85";
+  "https://images.unsplash.com/photo-1759220948579-aa4866af0f0d?auto=format&fit=crop&w=1920&q=85";
 
 interface Member {
   name: string;
@@ -305,8 +305,8 @@ function BackgroundPhoto() {
           width: "100%", height: "100%",
           objectFit: "cover", objectPosition: "center 52%",
           // Warm sepia + mild desaturation → botanical journal feel matching Adaline
-          // Richer golden hour — increase saturation & warm hue shift, not desaturate
-          filter: "sepia(0.12) saturate(1.10) brightness(1.00) contrast(1.04) hue-rotate(-8deg)",
+          // Warm botanical treatment — gentle sepia warmth, slight desaturation for painterly quality
+          filter: "sepia(0.12) saturate(0.90) brightness(1.06) contrast(1.02)",
         }}
       />
       {/* Warm cream tint overlay */}
