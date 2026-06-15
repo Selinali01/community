@@ -14,10 +14,26 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const OG_IMAGE = "https://assets.mixkit.co/videos/23131/23131-thumb-1080-0.jpg";
+const DESCRIPTION =
+  "The infrastructure platform for private professional communities. Applications, directories, matchmaking, events, and automations — all handled, so you can focus on your people.";
+
 export const metadata: Metadata = {
   title: "BubbleLab Community — Run the community. Not the ops.",
-  description:
-    "The infrastructure platform for private professional communities. Applications, directories, matchmaking, events, and automations — all handled.",
+  description: DESCRIPTION,
+  openGraph: {
+    title: "Run the community. Not the ops.",
+    description: DESCRIPTION,
+    siteName: "BubbleLab Community",
+    type: "website",
+    images: [{ url: OG_IMAGE, width: 1920, height: 1080, alt: "A community gathered around a warm garden dinner" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Run the community. Not the ops.",
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
+  },
 };
 
 export default function RootLayout({
@@ -28,11 +44,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <head>
-        {/* Preload hero background so it's ready before first paint */}
+        {/* Preconnect to the video CDN so the hero clip starts fast */}
+        <link rel="preconnect" href="https://assets.mixkit.co" crossOrigin="" />
+        {/* Preload the hero poster so the first frame paints instantly */}
         <link
           rel="preload"
           as="image"
-          href="https://images.unsplash.com/photo-1567853042143-8d8480f022ad?auto=format&fit=crop&w=1920&q=85"
+          href="https://assets.mixkit.co/videos/23131/23131-thumb-1080-0.jpg"
         />
       </head>
       <body>{children}</body>
