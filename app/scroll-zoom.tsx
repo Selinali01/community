@@ -149,17 +149,16 @@ export function FullHeroSection() {
             <span style={{ color: "rgba(251,253,246,0.62)" }}>Not the ops.</span>
           </h1>
 
-          {/* Subhead */}
+          {/* Subhead — punchy, two lines */}
           <p className="fade-rise-2" style={{
             fontFamily: "var(--font-akkurat)", fontWeight: 400,
-            fontSize: "clamp(15px, 1.5vw, 18px)", lineHeight: 1.6,
-            letterSpacing: "-0.3px", color: "rgba(251,253,246,0.74)",
-            maxWidth: 540, margin: "24px auto 0",
+            fontSize: "clamp(15px, 1.5vw, 19px)", lineHeight: 1.6,
+            letterSpacing: "-0.3px", color: "rgba(251,253,246,0.78)",
+            maxWidth: 500, margin: "24px auto 0",
             textShadow: "0 1px 20px rgba(10,18,6,0.6)",
           }}>
-            The platform behind private professional communities — applications,
-            directories, matchmaking, events, and automations. We handle the ops
-            so you can focus on your people.
+            Applications, directories, matchmaking, events, automations —
+            we run the ops so you can focus on your people.
           </p>
 
           {/* CTAs */}
@@ -175,6 +174,18 @@ export function FullHeroSection() {
               letterSpacing: "-0.4px", color: "#fbfdf6", textDecoration: "none",
               fontFamily: "var(--font-akkurat)",
             }}>See how it works</a>
+          </div>
+
+          {/* Social proof — real communities */}
+          <div className="fade-rise-3" style={{
+            marginTop: 28, display: "flex", alignItems: "center", gap: 10,
+            fontFamily: "var(--font-fragment-mono)", fontSize: 11, letterSpacing: "0.04em",
+            textShadow: "0 1px 16px rgba(10,18,6,0.7)",
+          }}>
+            <span style={{ color: "rgba(251,253,246,0.5)", textTransform: "uppercase", fontSize: 10 }}>Powering</span>
+            <span style={{ color: "#e7c6cf", fontWeight: 700, fontFamily: "var(--font-akkurat)", fontSize: 14 }}>OGC</span>
+            <span style={{ color: "rgba(251,253,246,0.32)" }}>·</span>
+            <span style={{ color: "#aecbe6", fontWeight: 700, fontFamily: "var(--font-akkurat)", fontSize: 14 }}>The Den</span>
           </div>
         </motion.div>
 
