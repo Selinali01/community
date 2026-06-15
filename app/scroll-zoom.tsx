@@ -175,18 +175,28 @@ function AnimatedCard({
     [0.94, 1.0]
   );
 
+  // Featured pair: cinematic entrance — emerge from the warm golden field
+  const entranceDelay = idx === 0 ? 0.75 : 0.95;
+
   return (
     <div style={{ position: "absolute", left: `${member.x}%`, top: `${member.y}%`, transform: "translate(-50%,-50%)", zIndex: 10 }}>
-      <motion.div style={{ opacity, scale }}>
-        {/* Float + hover — float is time-driven, hover is interaction-driven */}
+      {/* One-time entrance — outer wrapper, separate from scroll-driven inner */}
+      {idx < 2 ? (
         <motion.div
-          animate={{ y: [0, -6, 0] }}
-          transition={{
-            duration: 3.2 + idx * 0.42,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: idx * 0.58,
-          }}
+          initial={{ opacity: 0, y: 22, scale: 0.90 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.85, delay: entranceDelay, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <motion.div style={{ opacity, scale }}>
+            {/* Float + hover */}
+            <motion.div
+              animate={{ y: [0, -6, 0] }}
+              transition={{
+                duration: 3.2 + idx * 0.42,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: idx * 0.58,
+              }}
         >
           <motion.div
             whileHover={{ scale: 1.06, transition: { duration: 0.18, ease: "easeOut" } }}
@@ -229,7 +239,39 @@ function AnimatedCard({
           </div>
           </motion.div>
         </motion.div>
-      </motion.div>
+          </motion.div>
+        </motion.div>
+      ) : (
+        // Non-featured: just scroll-driven, no entrance animation
+        <motion.div style={{ opacity, scale }}>
+          <motion.div
+            animate={{ y: [0, -6, 0] }}
+            transition={{ duration: 3.2 + idx * 0.42, repeat: Infinity, ease: "easeInOut", delay: idx * 0.58 }}
+          >
+            <motion.div whileHover={{ scale: 1.06, transition: { duration: 0.18, ease: "easeOut" } }} style={{ cursor: "default" }}>
+              <div style={{
+                width: 116,
+                background: "rgba(252,248,240,0.91)",
+                backdropFilter: "blur(22px)", WebkitBackdropFilter: "blur(22px)",
+                border: "1px solid rgba(10,29,8,0.08)",
+                borderRadius: 18, padding: "14px 12px 12px",
+                display: "flex", flexDirection: "column", alignItems: "center", gap: 6, textAlign: "center",
+                boxShadow: `0 18px 52px -8px rgba(74,50,18,0.22), 0 2px 12px rgba(74,50,18,0.10), inset 0 1px 0 rgba(255,255,255,0.70), inset 0 0 0 1px ${BRAND_INSET[member.company] ?? "rgba(0,0,0,0.04)"}`,
+              }}>
+                <Avatar member={member} />
+                <div style={{ width: "100%" }}>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: "#0a1d08", letterSpacing: "-0.48px", lineHeight: 1.2 }}>{member.name}</div>
+                  <div style={{ fontSize: 10, color: "#31200b", letterSpacing: "-0.40px", marginTop: 2, lineHeight: 1.3 }}>{member.role}</div>
+                  <div style={{ marginTop: 5, display: "inline-flex", alignItems: "center", gap: 3 }}>
+                    <div style={{ width: 5, height: 5, borderRadius: "50%", background: BRAND[member.company] ?? "#d7e8b5", opacity: 0.85, flexShrink: 0 }} />
+                    <span style={{ fontSize: 10, color: "#4a3212", fontFamily: "var(--font-fragment-mono)", letterSpacing: "0.02em" }}>{member.company}</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      )}
     </div>
   );
 }
