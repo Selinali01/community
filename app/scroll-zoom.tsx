@@ -249,11 +249,11 @@ export function FullHeroSection() {
           <p style={{
             fontFamily: "var(--font-akkurat)", fontWeight: 400,
             fontSize: "clamp(18px, 2.4vw, 26px)", letterSpacing: "-0.6px",
-            color: "#fbfdf6", margin: 0, maxWidth: 620, lineHeight: 1.4,
+            color: "#fbfdf6", margin: 0, maxWidth: 820, lineHeight: 1.4,
             textShadow: "0 2px 30px rgba(10,18,6,0.7)",
           }}>
-            Applications, directories, matchmaking, events, automations —{" "}
-            <span style={{ color: "rgba(251,253,246,0.66)" }}>we run the ops so you can focus on your people.</span>
+            <span style={{ display: "block" }}>Applications, directories, matchmaking, events, automations</span>
+            <span style={{ display: "block", color: "rgba(251,253,246,0.66)" }}>We run the ops so you can focus on your people.</span>
           </p>
           {/* Live community stats — the "through us" proof */}
           <div className="liquid-glass" style={{
