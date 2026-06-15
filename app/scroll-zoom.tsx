@@ -424,14 +424,12 @@ function BackgroundPhoto() {
         animate={{ opacity: [0.55, 1.0, 0.55] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       >
-        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 42% 32% at 73% 14%, rgba(255,215,70,0.12) 0%, transparent 100%)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 50% 38% at 73% 12%, rgba(255,215,70,0.17) 0%, transparent 100%)" }} />
       </motion.div>
-      {/* Sun glow top-right — golden hour light source */}
-      <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 50% 38% at 78% 0%, rgba(255,205,90,0.18) 0%, transparent 100%)" }} />
+      {/* Sun warmth pulse amplified — the animated version replaces static glow */}
       {/* Top gradient — enough for text legibility, not so much it hides the golden sky */}
       <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(252,245,220,0.46) 0%, rgba(252,245,220,0.08) 24%, transparent 40%)" }} />
-      {/* Warm bottom glow — ground feels golden not gray */}
-      <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 100% 35% at 50% 100%, rgba(210,165,60,0.10) 0%, transparent 100%)" }} />
+      {/* Photo's natural bottom warmth is sufficient — no extra overlay needed */}
       {/* Edge vignette — cinematic */}
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 115% 85% at 50% 44%, transparent 32%, rgba(20,14,4,0.22) 100%)" }} />
     </>
