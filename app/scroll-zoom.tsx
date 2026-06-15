@@ -5,6 +5,8 @@ import {
   motion,
   useScroll,
   useTransform,
+  useMotionValue,
+  useSpring,
   type MotionValue,
 } from "framer-motion";
 
@@ -208,11 +210,11 @@ function AnimatedLine({
 
   return (
     <g>
-      {/* Wide glow halo */}
-      <motion.path d={d} stroke="rgba(215,232,181,0.20)" strokeWidth={isFeatured ? 1.6 : 1.2}
+      {/* Outer halo — featured is much wider */}
+      <motion.path d={d} stroke="rgba(215,232,181,0.18)" strokeWidth={isFeatured ? 2.8 : 1.2}
         fill="none" strokeLinecap="round" style={{ pathLength: pathLen }} />
-      {/* Tight glow */}
-      <motion.path d={d} stroke="rgba(215,232,181,0.32)" strokeWidth={isFeatured ? 0.65 : 0.50}
+      {/* Mid glow */}
+      <motion.path d={d} stroke="rgba(215,232,181,0.30)" strokeWidth={isFeatured ? 1.0 : 0.50}
         fill="none" strokeLinecap="round" style={{ pathLength: pathLen }} />
       {/* Gradient main line — ID used by spark's mpath */}
       <motion.path
@@ -419,13 +421,21 @@ export function FullHeroSection() {
     offset: ["start start", "end end"],
   });
 
-  // 1.75→1.0: more cinematic — starts zoomed into warm amber sky, reveals oak tree + field
-  const bgScale    = useTransform(scrollYProgress, [0, 1],    [1.75, 1.0]);
-  // Parallax: background drifts down slightly as zoom pulls back — adds depth
-  const bgY        = useTransform(scrollYProgress, [0, 1],    ["0%", "7%"]);
-  const heroOp     = useTransform(scrollYProgress, [0, 0.13], [1,    0]);
-  const heroY      = useTransform(scrollYProgress, [0, 0.15], [0,   -36]);
-  const frameOp    = useTransform(scrollYProgress, [0.80, 1], [0,    1]);
+  // Scroll-driven transforms
+  const bgScale = useTransform(scrollYProgress, [0, 1],    [1.75, 1.0]);
+  const bgY     = useTransform(scrollYProgress, [0, 1],    ["0%", "7%"]);
+  const heroOp  = useTransform(scrollYProgress, [0, 0.13], [1,    0]);
+  const heroY   = useTransform(scrollYProgress, [0, 0.15], [0,   -36]);
+  const frameOp = useTransform(scrollYProgress, [0.80, 1], [0,    1]);
+
+  // Mouse-driven 3D parallax — background subtly shifts opposite to cursor
+  // No React state re-renders — all through MotionValues
+  const rawMX = useMotionValue(0);
+  const rawMY = useMotionValue(0);
+  const smoothMX = useSpring(rawMX, { stiffness: 80, damping: 22 });
+  const smoothMY = useSpring(rawMY, { stiffness: 80, damping: 22 });
+  const bgParallaxX = useTransform(smoothMX, [-0.5, 0.5], [14, -14]);
+  const bgParallaxY = useTransform(smoothMY, [-0.5, 0.5], [8,  -8]);
 
   // Collect the first scroll-start per member for node dot timing
   const memberFirstStart = MEMBERS.map((_, mi) => {
@@ -435,15 +445,24 @@ export function FullHeroSection() {
 
   return (
     <div ref={containerRef} style={{ height: "300vh", position: "relative" }}>
-      <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden" }}>
+      <div
+        style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden" }}
+        onMouseMove={(e) => {
+          const r = e.currentTarget.getBoundingClientRect();
+          rawMX.set((e.clientX - r.left) / r.width - 0.5);
+          rawMY.set((e.clientY - r.top) / r.height - 0.5);
+        }}
+      >
 
-        {/* ── Background photo — scale + parallax Y ── */}
+        {/* ── Background photo — scale + scroll parallax + mouse parallax ── */}
         <motion.div
           style={{
             scale: bgScale,
             y: bgY,
+            x: bgParallaxX,     // mouse: shifts left/right
+            translateY: bgParallaxY,  // mouse: shifts up/down
             transformOrigin: "50% 55%",
-            position: "absolute", inset: 0,
+            position: "absolute", inset: "-8%",  // extra bleed so parallax doesn't show edges
             willChange: "transform",
           }}
         >
@@ -558,7 +577,7 @@ export function FullHeroSection() {
             letterSpacing: "-0.68px", color: "#1a2d0e",
             maxWidth: 460, margin: "0 auto 34px",
             fontFamily: "var(--font-akkurat)",
-            textShadow: "0 1px 20px rgba(252,244,224,0.80), 0 2px 8px rgba(252,244,224,0.60)",
+            textShadow: "0 0 30px rgba(255,244,210,0.95), 0 1px 12px rgba(255,244,210,0.80), 0 2px 4px rgba(255,244,210,0.60)",
           }}>
             The platform behind private professional communities.
             We handle the ops so you can focus on your people.
