@@ -104,26 +104,6 @@ body {
   100% { transform: translate(0, 0); }
 }
 
-/* Warm light-motes — soft bokeh/embers drifting up from the string-lit scene.
-   Atmosphere + life behind the hero; sparse and slow so it reads as glow, not snow. */
-.embers { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
-.ember {
-  position: absolute;
-  bottom: -3vh;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,228,168,0.95) 0%, rgba(241,181,99,0.55) 42%, rgba(241,181,99,0) 72%);
-  filter: blur(0.4px);
-  will-change: transform, opacity;
-  animation: ember-rise var(--ember-dur, 20s) linear infinite;
-  animation-delay: var(--ember-delay, 0s);
-}
-@keyframes ember-rise {
-  0%   { transform: translateY(6vh) translateX(0) scale(0.85); opacity: 0; }
-  12%  { opacity: var(--ember-max, 0.55); }
-  82%  { opacity: var(--ember-max, 0.55); }
-  100% { transform: translateY(-94vh) translateX(var(--ember-sway, 12px)) scale(1.12); opacity: 0; }
-}
-
 /* FAQ accordion — hide default marker, swap +/− on open */
 .faq-item summary::-webkit-details-marker { display: none; }
 .faq-item[open] .faq-mark { transform: rotate(45deg); }
@@ -176,7 +156,6 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .fade-rise, .fade-rise-1, .fade-rise-2, .fade-rise-3 { animation: none !important; }
   .film-grain { animation: none !important; }
-  .embers { display: none !important; }
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;

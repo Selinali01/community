@@ -16,37 +16,15 @@ function ScrollStat({ scrollY, to }: { scrollY: MotionValue<number>; to: number 
   return <>{val}</>;
 }
 
-// Self-hosted (Mixkit, free license): diverse group around a warm string-lit
-// garden dinner at night. Real people connecting — the community IS the scene.
-// Local files in /public so the hero never depends on a third-party CDN hotlink.
+// Self-hosted (Mixkit 42754, free license): diverse group in genuine
+// conversation around a warm firepit at night. Crisp 1080p source. Real people
+// connecting — the community IS the scene. Local in /public, no CDN hotlink.
 const VIDEO = "/hero.mp4";
 const POSTER = "/hero-poster.jpg";
 const VIDEO_FALLBACK = "/hero-fallback.mp4";
 
 // Single CTA destination used everywhere
 export const BOOK_DEMO = "https://calendar.app.google/YqLHSCCMvtUQAkma9";
-
-// Hand-authored (deterministic → SSR-safe) drifting light-motes. Negative
-// delays mean several are already mid-flight on first paint — atmosphere is
-// present "immediately in the background," then keeps breathing as you scroll.
-const EMBERS = [
-  { left: 7, size: 4, dur: 21, delay: -3, sway: 16, max: 0.5 },
-  { left: 15, size: 2.5, dur: 26, delay: -11, sway: -12, max: 0.38 },
-  { left: 23, size: 5, dur: 19, delay: -7, sway: 10, max: 0.55 },
-  { left: 31, size: 3, dur: 24, delay: -16, sway: -16, max: 0.42 },
-  { left: 39, size: 3.5, dur: 22, delay: -1, sway: 14, max: 0.5 },
-  { left: 46, size: 6, dur: 18, delay: -9, sway: -8, max: 0.6 },
-  { left: 53, size: 2.5, dur: 27, delay: -19, sway: 18, max: 0.36 },
-  { left: 60, size: 4.5, dur: 20, delay: -5, sway: -14, max: 0.52 },
-  { left: 67, size: 3, dur: 25, delay: -13, sway: 12, max: 0.44 },
-  { left: 74, size: 5, dur: 19, delay: -2, sway: -10, max: 0.55 },
-  { left: 81, size: 2.5, dur: 28, delay: -22, sway: 16, max: 0.35 },
-  { left: 88, size: 4, dur: 23, delay: -8, sway: -16, max: 0.48 },
-  { left: 94, size: 3, dur: 21, delay: -15, sway: 10, max: 0.42 },
-  { left: 35, size: 2, dur: 30, delay: -6, sway: 20, max: 0.3 },
-  { left: 58, size: 2, dur: 29, delay: -17, sway: -18, max: 0.32 },
-  { left: 11, size: 3.5, dur: 22, delay: -12, sway: 12, max: 0.46 },
-];
 
 const NAV_LINKS: { label: string; href: string }[] = [
   { label: "Platform", href: "#features" },
@@ -100,8 +78,8 @@ export function FullHeroSection() {
   // depending on viewport). All scroll beats must COMPLETE before ~560px so the
   // zoom-out fully resolves and the reveal dwells before the section scrolls away.
   // Cinematic zoom-OUT: start tight on the people, pull back to the full scene.
-  const videoScale = useTransform(scrollY, [0, 540], r ? [1.28, 1.0] : [1.06, 1.06]);
-  const videoY = useTransform(scrollY, [0, 540], r ? ["3%", "-2%"] : ["0%", "0%"]);
+  const videoScale = useTransform(scrollY, [0, 540], r ? [1.22, 1.0] : [1.06, 1.06]);
+  const videoY = useTransform(scrollY, [0, 540], r ? ["1.5%", "-1%"] : ["0%", "0%"]);
 
   // Hero copy floats up and fades as the camera pulls back
   const heroY = useTransform(scrollY, [0, 360], [0, -80]);
@@ -148,6 +126,7 @@ export function FullHeroSection() {
           style={{
             scale: videoScale,
             y: videoY,
+            transformOrigin: "50% 34%",
             position: "absolute",
             inset: 0,
             width: "100%",
@@ -169,26 +148,6 @@ export function FullHeroSection() {
         <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "radial-gradient(ellipse 60% 50% at 50% 60%, rgba(216,150,40,0.18) 0%, transparent 70%)" }} />
         {/* Amber color-wash — unifies + lifts the warmth across the whole scene */}
         <div style={{ position: "absolute", inset: 0, zIndex: 2, background: "rgba(196,118,34,0.14)", mixBlendMode: "soft-light", pointerEvents: "none" }} />
-        {/* Drifting warm light-motes — bokeh/embers from the string-lit scene */}
-        <motion.div className="embers" aria-hidden="true" style={{ x: pX, y: pY, zIndex: 2 }}>
-          {EMBERS.map((e, i) => (
-            <span
-              key={i}
-              className="ember"
-              style={{
-                left: `${e.left}%`,
-                width: e.size,
-                height: e.size,
-                // CSS custom props drive the per-mote drift/timing
-                ["--ember-dur" as string]: `${e.dur}s`,
-                ["--ember-delay" as string]: `${e.delay}s`,
-                ["--ember-sway" as string]: `${e.sway}px`,
-                ["--ember-max" as string]: e.max,
-              }}
-            />
-          ))}
-        </motion.div>
-
         {/* Cinematic film grain */}
         <div className="film-grain" aria-hidden="true" style={{ zIndex: 2 }} />
 

@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
     siteName: "BubbleLab Community",
     type: "website",
-    images: [{ url: OG_IMAGE, width: 1280, height: 720, alt: "A community gathered around a warm garden dinner" }],
+    images: [{ url: OG_IMAGE, width: 1600, height: 900, alt: "A community gathered around a warm fire at night" }],
   },
   twitter: {
     card: "summary_large_image",
