@@ -1,9 +1,9 @@
 "use client";
 
 import { motion, animate, useInView, useReducedMotion } from "framer-motion";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
-// Count-up number — animates 0 → value when scrolled into view (once).
+// Count-up number, animates 0 → value when scrolled into view (once).
 // A premium "cool and smooth" micro-interaction for the live community stats.
 // Respects prefers-reduced-motion (shows the final value immediately).
 export function CountUp({ to }: { to: number }) {
@@ -24,7 +24,7 @@ export function CountUp({ to }: { to: number }) {
   return <span ref={ref}>{val}</span>;
 }
 
-// Generic scroll-into-view reveal — fade + rise. For hero-quality moments
+// Generic scroll-into-view reveal, fade + rise. For hero-quality moments
 // below the fold (testimonial, product preview) so the whole page feels smooth.
 export function Reveal({
   children,
@@ -47,7 +47,7 @@ export function Reveal({
   );
 }
 
-// Draws a horizontal line left→right when scrolled into view — used for the
+// Draws a horizontal line left→right when scrolled into view, used for the
 // product preview's match connector ("connected through us", in the UI mockup).
 export function DrawLine() {
   const reduce = useReducedMotion();
@@ -64,16 +64,21 @@ export function DrawLine() {
   );
 }
 
-// Staggered fade-up for the features grid cards
+// Staggered fade-up for the features grid cards.
+// Accepts `style` so the motion wrapper can itself be the bento grid cell
+// (carrying gridColumn / gridRow) while still animating in on scroll.
 export function AnimatedFeatureCard({
   children,
   index,
+  style,
 }: {
   children: ReactNode;
   index: number;
+  style?: CSSProperties;
 }) {
   return (
     <motion.div
+      style={{ minWidth: 0, ...style }}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{

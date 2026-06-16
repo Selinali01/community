@@ -18,19 +18,13 @@ function ScrollStat({ scrollY, to }: { scrollY: MotionValue<number>; to: number 
 
 // Self-hosted (Mixkit 42754, free license): diverse group in genuine
 // conversation around a warm firepit at night. Crisp 1080p source. Real people
-// connecting — the community IS the scene. Local in /public, no CDN hotlink.
+// connecting, the community IS the scene. Local in /public, no CDN hotlink.
 const VIDEO = "/hero.mp4";
 const POSTER = "/hero-poster.jpg";
 const VIDEO_FALLBACK = "/hero-fallback.mp4";
 
 // Single CTA destination used everywhere
 export const BOOK_DEMO = "https://calendar.app.google/YqLHSCCMvtUQAkma9";
-
-const NAV_LINKS: { label: string; href: string }[] = [
-  { label: "Platform", href: "#features" },
-  { label: "Communities", href: "#communities" },
-  { label: "How it works", href: "#how" },
-];
 
 export function FullHeroSection() {
   const ref = useRef<HTMLDivElement>(null);
@@ -63,12 +57,12 @@ export function FullHeroSection() {
     };
   }, []);
 
-  // Window scroll in pixels — reliable (target+sticky useScroll miscalculates).
+  // Window scroll in pixels, reliable (target+sticky useScroll miscalculates).
   // The hero sits at the top of the page, so scrollY 0 == hero start.
   const { scrollY } = useScroll();
   // Respect reduced-motion: disable the large movements (zoom + parallax).
   // Gate behind a mounted flag so SSR and the first client render match
-  // (both non-reduced) — avoids a hydration mismatch on the transform styles.
+  // (both non-reduced), avoids a hydration mismatch on the transform styles.
   const prefersReduced = useReducedMotion();
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
@@ -85,13 +79,13 @@ export function FullHeroSection() {
   const heroY = useTransform(scrollY, [0, 360], [0, -80]);
   const heroOp = useTransform(scrollY, [0, 300], [1, 0]);
 
-  // Reveal copy + stats — settle by ~540px, then hold until the unpin
+  // Reveal copy + stats, settle by ~540px, then hold until the unpin
   const revealOp = useTransform(scrollY, [330, 540], [0, 1]);
   const revealY = useTransform(scrollY, [330, 540], [40, 0]);
 
-  // Scroll cue — visible at rest, fades the moment you start scrolling
+  // Scroll cue, visible at rest, fades the moment you start scrolling
 
-  // Subtle mouse parallax on the video — dimensionality, "cool and smooth".
+  // Subtle mouse parallax on the video, dimensionality, "cool and smooth".
   // Spring-smoothed; the video has bleed so the ±px shift never reveals edges.
   const rawMX = useMotionValue(0);
   const rawMY = useMotionValue(0);
@@ -109,9 +103,9 @@ export function FullHeroSection() {
         rawMY.set((e.clientY - Math.min(0, r.top)) / window.innerHeight - 0.5);
       }}
     >
-      {/* Pinned stage — holds the scene while the zoom-out + reveal play */}
+      {/* Pinned stage, holds the scene while the zoom-out + reveal play */}
       <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", display: "flex", flexDirection: "column" }}>
-        {/* ── Fullscreen looping video — the people, the scene (mouse-parallax) ── */}
+        {/* ── Fullscreen looping video, the people, the scene (mouse-parallax) ── */}
         <motion.div style={{ x: pX, y: pY, position: "absolute", inset: -16, zIndex: 0 }}>
         <motion.video
           ref={videoRef}
@@ -142,53 +136,19 @@ export function FullHeroSection() {
         </motion.video>
         </motion.div>
 
-        {/* ── Warm scrims (lighter overall darken — let the dinner glow) ── */}
+        {/* ── Warm scrims (lighter overall darken, let the dinner glow) ── */}
         <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "rgba(10,18,6,0.18)" }} />
         <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "linear-gradient(to bottom, rgba(10,18,6,0.72) 0%, rgba(10,18,6,0.34) 22%, transparent 46%, transparent 60%, rgba(10,18,6,0.78) 100%)" }} />
         <div style={{ position: "absolute", inset: 0, zIndex: 1, background: "radial-gradient(ellipse 60% 50% at 50% 60%, rgba(216,150,40,0.18) 0%, transparent 70%)" }} />
-        {/* Amber color-wash — unifies + lifts the warmth across the whole scene */}
+        {/* Amber color-wash, unifies + lifts the warmth across the whole scene */}
         <div style={{ position: "absolute", inset: 0, zIndex: 2, background: "rgba(196,118,34,0.14)", mixBlendMode: "soft-light", pointerEvents: "none" }} />
         {/* Cinematic film grain */}
         <div className="film-grain" aria-hidden="true" style={{ zIndex: 2 }} />
 
-        {/* ── Glass nav ── */}
-        <nav
-          className="fade-rise"
-          style={{
-            position: "relative", zIndex: 10,
-            maxWidth: 1240, margin: "0 auto", width: "100%",
-            display: "flex", alignItems: "center", justifyContent: "space-between",
-            padding: "26px 32px",
-          }}
-        >
-          <div style={{
-            fontFamily: "var(--font-akkurat)", fontWeight: 700, fontSize: 19,
-            letterSpacing: "-0.7px", color: "#fbfdf6",
-            display: "flex", alignItems: "baseline", gap: 7,
-          }}>
-            Bubble Lab
-            <span style={{ fontWeight: 400, color: "rgba(251,253,246,0.6)" }}>Communities</span>
-          </div>
+        {/* Nav lives in the persistent <SiteHeader/> (fixed, page-level), so the
+            wordmark + Book a demo stay put and seamlessly recolor on scroll. */}
 
-          <div className="hero-nav-links" style={{ display: "flex", alignItems: "center", gap: 30 }}>
-            {NAV_LINKS.map((l, i) => (
-              <a key={l.label} href={l.href} style={{
-                fontSize: 13.5, letterSpacing: "-0.3px", textDecoration: "none",
-                fontFamily: "var(--font-akkurat)",
-                color: i === 0 ? "#fbfdf6" : "rgba(251,253,246,0.62)",
-                transition: "color 0.2s ease",
-              }}>{l.label}</a>
-            ))}
-          </div>
-
-          <a href={BOOK_DEMO} target="_blank" rel="noopener noreferrer" className="liquid-glass cta-hover" style={{
-            borderRadius: 9999, padding: "9px 20px", fontSize: 13.5, fontWeight: 600,
-            letterSpacing: "-0.3px", color: "#fbfdf6", textDecoration: "none",
-            fontFamily: "var(--font-akkurat)",
-          }}>Book a demo</a>
-        </nav>
-
-        {/* ── Hero copy (upper third) — fades as camera pulls back ── */}
+        {/* ── Hero copy (upper third), fades as camera pulls back ── */}
         <motion.div
           style={{
             y: heroY, opacity: heroOp,
@@ -196,11 +156,11 @@ export function FullHeroSection() {
             flex: 1,
             display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
             textAlign: "center", padding: "0 24px",
-            // sit between top and center — ~12% above the midpoint
+            // sit between top and center, ~12% above the midpoint
             marginTop: "-13vh",
           }}
         >
-          {/* Eyebrow — backed by Y Combinator (no pill, just mark + text) */}
+          {/* Eyebrow, backed by Y Combinator (no pill, just mark + text) */}
           <div className="fade-rise" style={{
             marginBottom: 26, display: "inline-flex", alignItems: "center", gap: 9,
           }}>
@@ -212,7 +172,7 @@ export function FullHeroSection() {
             }}>Backed by Y Combinator</span>
           </div>
 
-          {/* Headline — two lines cascade in for cinematic rhythm */}
+          {/* Headline, two lines cascade in for cinematic rhythm */}
           <h1 style={{
             fontFamily: "var(--font-akkurat)", fontWeight: 400,
             fontSize: "clamp(46px, 8vw, 92px)", lineHeight: 0.98,
@@ -226,13 +186,13 @@ export function FullHeroSection() {
             </span>
           </h1>
 
-          {/* Single CTA — glass pill (matches nav), dialed up to stand out */}
+          {/* Single CTA, glass pill (matches nav), dialed up to stand out */}
           <div className="fade-rise-3" style={{ display: "flex", gap: 12, marginTop: 36, justifyContent: "center" }}>
             <a href={BOOK_DEMO} target="_blank" rel="noopener noreferrer" className="hero-cta">Book a demo →</a>
           </div>
         </motion.div>
 
-        {/* ── "Connected through us" reveal — fades in as the scene settles ── */}
+        {/* ── "Connected through us" reveal, fades in as the scene settles ── */}
         <motion.div
           style={{
             y: revealY, opacity: revealOp,
@@ -241,7 +201,7 @@ export function FullHeroSection() {
             pointerEvents: "none", padding: "0 24px", textAlign: "center",
           }}
         >
-          {/* Soft localized scrim — keeps the copy crisp over the busy lit table */}
+          {/* Soft localized scrim, keeps the copy crisp over the busy lit table */}
           <div aria-hidden="true" style={{
             position: "absolute", inset: "-48px -12vw", zIndex: -1, pointerEvents: "none",
             background: "radial-gradient(ellipse 58% 82% at 50% 68%, rgba(8,14,5,0.52) 0%, rgba(8,14,5,0.28) 45%, transparent 72%)",
@@ -255,7 +215,7 @@ export function FullHeroSection() {
             <span style={{ display: "block" }}>Applications, directories, matchmaking, events, automations</span>
             <span style={{ display: "block", color: "rgba(251,253,246,0.66)" }}>We run the ops so you can focus on your people.</span>
           </p>
-          {/* Live community proof — single scroll-driven count-up */}
+          {/* Live community proof, single scroll-driven count-up */}
           <div className="liquid-glass" style={{
             borderRadius: 9999, padding: "11px 26px",
             display: "flex", alignItems: "baseline", gap: 8,
@@ -268,5 +228,90 @@ export function FullHeroSection() {
 
       </div>
     </section>
+  );
+}
+
+type Band = { start: number; end: number };
+
+const rgbaLerp = (a: number[], b: number[], p: number) =>
+  `rgba(${Math.round(a[0] + (b[0] - a[0]) * p)},${Math.round(a[1] + (b[1] - a[1]) * p)},${Math.round(a[2] + (b[2] - a[2]) * p)},${(a[3] + (b[3] - a[3]) * p).toFixed(3)})`;
+
+// Maps scroll position to a color that crossfades from `dark` (over the hero)
+// to `light` (over the cream sections) across the measured boundary band.
+function useBandColor(
+  scrollY: MotionValue<number>,
+  band: React.RefObject<Band>,
+  dark: number[],
+  light: number[],
+) {
+  return useTransform(scrollY, (y) => {
+    const { start, end } = band.current;
+    const p = Math.min(1, Math.max(0, (y - start) / (end - start)));
+    return rgbaLerp(dark, light, p);
+  });
+}
+
+// Persistent, page-level header. No background and no border, it simply sits
+// over the content and seamlessly recolors (cream over the dark hero, ink over
+// the light sections) as you scroll across the hero→content boundary. The CTA
+// stays a frosted glass pill, its frost + border tone shift so it reads on both.
+export function SiteHeader() {
+  const { scrollY } = useScroll();
+  // The dark→light boundary, measured from the first light section so it's
+  // exact regardless of hero height. Flip happens as cream crosses the header.
+  const band = useRef<Band>({ start: 900, end: 1100 });
+  useEffect(() => {
+    const measure = () => {
+      const el = document.getElementById("communities");
+      const top = el ? el.offsetTop : window.innerHeight * 1.9;
+      band.current = { start: top - 78, end: top - 8 };
+    };
+    measure();
+    window.addEventListener("resize", measure, { passive: true });
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+
+  // [r,g,b,a] over-hero (cream) → over-content (ink)
+  const brand = useBandColor(scrollY, band, [251, 253, 246, 1], [10, 29, 8, 1]);
+  const brandSoft = useBandColor(scrollY, band, [251, 253, 246, 0.6], [10, 29, 8, 0.5]);
+  const pillText = useBandColor(scrollY, band, [251, 253, 246, 0.95], [10, 29, 8, 0.92]);
+  const pillBg = useBandColor(scrollY, band, [255, 255, 255, 0.05], [10, 29, 8, 0.045]);
+  const pillBorder = useBandColor(scrollY, band, [255, 255, 255, 0.3], [10, 29, 8, 0.16]);
+
+  return (
+    <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 50, pointerEvents: "none" }}>
+      <div className="fade-rise" style={{
+        width: "100%",
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+        padding: "22px 40px",
+      }}>
+        <a href="#top" style={{ pointerEvents: "auto", textDecoration: "none", display: "flex", alignItems: "baseline", gap: 8 }}>
+          <motion.span style={{
+            fontFamily: "var(--font-brand)", fontWeight: 600, fontSize: 20,
+            letterSpacing: "-0.4px", color: brand,
+          }}>
+            Bubble Lab
+          </motion.span>
+          <motion.span style={{
+            fontFamily: "var(--font-brand)", fontWeight: 400,
+            fontSize: 20, letterSpacing: "-0.4px", color: brandSoft,
+          }}>
+            Communities
+          </motion.span>
+        </a>
+
+        <motion.a href={BOOK_DEMO} target="_blank" rel="noopener noreferrer" className="cta-hover" style={{
+          pointerEvents: "auto", borderRadius: 9999, padding: "9px 20px",
+          fontSize: 13.5, fontWeight: 600, letterSpacing: "-0.3px", textDecoration: "none",
+          fontFamily: "var(--font-akkurat)",
+          color: pillText, background: pillBg,
+          borderWidth: 1, borderStyle: "solid", borderColor: pillBorder,
+          backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)",
+          boxShadow: "inset 0 1px 1px rgba(255,255,255,0.12)",
+        }}>
+          Book a demo
+        </motion.a>
+      </div>
+    </header>
   );
 }

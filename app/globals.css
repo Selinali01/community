@@ -14,6 +14,7 @@
 
   --font-akkurat: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-fragment-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-brand: var(--font-space-grotesk), "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
 }
 
 * {
@@ -22,7 +23,7 @@
   box-sizing: border-box;
 }
 
-/* Keyboard focus — visible ring for accessibility (mouse clicks stay clean).
+/* Keyboard focus, visible ring for accessibility (mouse clicks stay clean).
    !important to win over Tailwind v4's layered preflight + UA defaults. */
 a:focus-visible,
 button:focus-visible {
@@ -44,7 +45,7 @@ body {
   color: #0a1d08;
   font-family: var(--font-akkurat);
   margin: 0;
-  /* Subtle paper grain — matches the Adaline 'botanical journal' aesthetic */
+  /* Subtle paper grain, matches the Adaline 'botanical journal' aesthetic */
   background-image:
     repeating-linear-gradient(0deg,   rgba(10,29,8,0.009) 0, rgba(10,29,8,0.009) 1px, transparent 0, transparent 100%),
     repeating-linear-gradient(90deg,  rgba(10,29,8,0.009) 0, rgba(10,29,8,0.009) 1px, transparent 0, transparent 100%);
@@ -57,7 +58,7 @@ body {
   50%       { transform: translateY(5px); opacity: 0.55; }
 }
 
-/* Liquid-glass — for nav + CTAs over the cinematic video hero */
+/* Liquid-glass, for nav + CTAs over the cinematic video hero */
 .liquid-glass {
   background: rgba(251, 253, 246, 0.04);
   backdrop-filter: blur(6px);
@@ -85,7 +86,7 @@ body {
 }
 .liquid-glass:hover { background: rgba(251, 253, 246, 0.09); }
 
-/* Subtle film grain — cinematic texture over the hero video */
+/* Subtle film grain, cinematic texture over the hero video */
 .film-grain {
   position: absolute;
   inset: -50%;
@@ -104,19 +105,19 @@ body {
   100% { transform: translate(0, 0); }
 }
 
-/* FAQ accordion — hide default marker, swap +/− on open */
+/* FAQ accordion, hide default marker, swap +/− on open */
 .faq-item summary::-webkit-details-marker { display: none; }
 .faq-item[open] .faq-mark { transform: rotate(45deg); }
 .faq-mark { transition: transform 0.2s ease; display: inline-block; }
 
-/* CTA hover — subtle lift + scale, matching the reference's hover:scale */
+/* CTA hover, subtle lift + scale, matching the reference's hover:scale */
 .cta-hover { transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), box-shadow 0.2s ease, filter 0.2s ease; }
 @media (hover: hover) {
   .cta-hover:hover { transform: translateY(-1px) scale(1.025); }
   .cta-hover.cta-solid:hover { box-shadow: 0 12px 36px -8px rgba(0,0,0,0.4); filter: brightness(1.02); }
 }
 
-/* Hero primary CTA — frosted glass that reads clearly, solid white on hover.
+/* Hero primary CTA, frosted glass that reads clearly, solid white on hover.
    Most important action: prominent at rest, unmistakable on hover. */
 .hero-cta {
   display: inline-block;
@@ -149,7 +150,7 @@ body {
   }
 }
 
-/* Subtle hover-lift for content cards — premium micro-interaction (desktop) */
+/* Subtle hover-lift for content cards, premium micro-interaction (desktop) */
 .lift-card {
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease, border-color 0.25s ease;
 }
@@ -178,11 +179,15 @@ body {
   .hero-nav-links { display: none !important; }
 }
 
-/* Product-preview mockup — keep it clean on mobile instead of clipping:
-   member grid 4→2 cols, hide the chrome tabs (logo + count remain). */
-@media (max-width: 600px) {
-  .preview-grid { grid-template-columns: repeat(2, 1fr) !important; }
-  .preview-tabs { display: none !important; }
+/* Responsive bento grid for the operational-layer section. */
+/* Bento ("operational layer"), desktop is a 6-col masonry with spanning cards.
+   Below 980px collapse the spans to a clean 2-col grid; below 640px, single column. */
+@media (max-width: 980px) {
+  .bento { grid-template-columns: repeat(2, 1fr) !important; }
+  .bento > * { grid-column: span 1 !important; grid-row: auto !important; }
+}
+@media (max-width: 640px) {
+  .bento { grid-template-columns: 1fr !important; }
 }
 
 /* Respect reduced-motion: disable entrance + ambient animations */
